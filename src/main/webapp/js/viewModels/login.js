@@ -1,12 +1,43 @@
 define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
-		'jquery' ], function(ko, app, moduleUtils, accUtils, $) {
+		'jquery', "ojs/ojbootstrap", "ojs/ojknockout", "ojs/ojinputtext", "ojs/ojformlayout", "ojs/ojlabel", "ojs/ojbutton"], function(ko, app, moduleUtils, accUtils, $) {
 
 	class LoginViewModel {
 		constructor() {
+			
+			// Recipe 
+
+			this.formState = ko.observable("enabled");
+			this.valueEnabled = ko.observable("yes");
+			this.disableControls = ko.computed(() => {
+				if (this.formState() === "disabled") {
+					return true;
+				}
+				return false;
+			});
+			this.showValue = ko.computed(() => {
+				if (this.valueEnabled() === "no") {
+					return false;
+				}
+				return true;
+			});
+			this.readonlyControls = ko.computed(() => {
+				if (this.formState() === "readonly") {
+					return true;
+				}
+				return false;
+			});
+			this.hideButton = ko.computed(() => {
+				if (this.formState() === "readonly") {
+					return "oj-sm-hide";
+				}
+				return "";
+			});
+			this.labelEdge = ko.observable("inside");
+			
 			var self = this;
 			
-			self.email = ko.observable("macario.polo@uclm.es");
-			self.pwd = ko.observable("pepep");
+			self.email = ko.observable("");
+			self.pwd = ko.observable("");
 			self.message = ko.observable();
 			self.error = ko.observable();
 			
