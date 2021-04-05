@@ -9,11 +9,27 @@
  * Your dashboard ViewModel code goes here
  */
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
-	'jquery', "ojs/ojbootstrap", "ojs/ojknockout", "ojs/ojinputtext", "ojs/ojformlayout", "require", "exports"],
+	'jquery', "ojs/ojbootstrap", "ojs/ojknockout", "ojs/ojinputtext", "ojs/ojformlayout", "ojs/ojbutton", "require", "exports"],
 	function(ko, app, moduleUtils, accUtils, $, Bootstrap, require, exports) {
 
 		function RegisterViewModel() {
 			var self = this;
+
+			// Recipe for file picker
+
+			this.fileNames = ko.observable();
+			this.selectListener = (files) => {
+				this.fileNames(Array.prototype.map.call(files, (file) => {
+					return file.name;
+				}));
+			};
+			this.selectFiles = (event) => {
+				FilePickerUtils.pickFiles(this.selectListener, {
+					accept: [],
+					capture: "none",
+					selectionMode: "single",
+				});
+			};
 
 			// Recipe 
 

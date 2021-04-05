@@ -6,6 +6,10 @@
     padding: 100px;
 }
 
+.titulo-contenedor{
+	text-align: center;
+}
+
 .demo-panel-customization {
 	width: 600x;
 	height: 400px;

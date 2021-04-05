@@ -1,3 +1,6 @@
+<head>
+<link rel="stylesheet" href="../css/register.css">
+</head>
 <div class="oj-hybrid-applayout-page">
 	<div class="oj-applayout-fixed-top">
 		<header role="banner" class="oj-hybrid-applayout-header">
@@ -8,16 +11,33 @@
 	<div class="oj-applayout-content">
 		<div role="main" class="oj-hybrid-applayout-content">
 			<div class="oj-hybrid-padding">
-				<h1>Creación de cuenta</h1>
-				<div id = "div1">
-					<oj-form-layout label-edge="[[labelEdge]]" readonly="[[readonlyControls]]">
-		              <oj-input-text id="start-icon"
-		                             value='{{(!showValue())? null : ""}}'
+				<div id="contenedor">
+					<div class="oj-panel oj-panel-shadow-lg oj-bg-margin-4x demo-panel-customization">
+						<h1 class="titulo-contenedor">Creación de cuenta</h1>
+						<oj-form-layout label-edge="[[labelEdge]]" readonly="[[readonlyControls]]">
+							<oj-input-text id="start-icon"
+		                             value='{{userName}}'
+		                             label-hint="Nombre de usuario"
+		                             disabled="[[disableControls]]">
+		                	<div slot="start" class="oj-text-field-start-end-icon oj-ux-ico-avatar" role="img"></div>
+		                	</oj-input-text>
+		              		<oj-input-text id="start-icon"
+		                             value='{{email}}'
 		                             label-hint="Correo electrónico"
 		                             disabled="[[disableControls]]">
-		                <div slot="start" class="oj-text-field-start-end-icon oj-ux-ico-email" role="img"></div>
-		                </oj-input-text>
-					</oj-form-layout>
+		                	<div slot="start" class="oj-text-field-start-end-icon oj-ux-ico-email" role="img"></div>
+		                	</oj-input-text>
+				              <oj-input-password label-hint="Contraseña" id="password1" value="{{pwd1}}" mask-icon="visible">
+				              </oj-input-password>
+              				<oj-input-password id="password2" value="{{pwd2}}" 
+              					label-hint="Confirmar contraseña" mask-icon="visible">
+            				</oj-input-password>
+            				<oj-button on-oj-action='[[selectFiles]]'>
+				                 <span slot='startIcon' class='oj-ux-ico-plus'></span>
+				                 Añadir imagen...    
+				            </oj-button>
+						</oj-form-layout>
+					</div>
 				</div>
 				<div>
 					<input type="text" placeholder="Nombre de usuario"
