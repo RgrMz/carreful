@@ -40,7 +40,9 @@ public class UserController extends CookiesController {
 	UserDao userDao;
 	
 	@Autowired
-	TokenDao tokenDao;	
+	TokenDao tokenDao;
+	
+	Email smtp = new Email();
 	
 	@GetMapping("usarToken/{tokenId}")
 	public void usarToken(HttpServletResponse response, @PathVariable String tokenId) throws IOException {
@@ -50,7 +52,7 @@ public class UserController extends CookiesController {
 			if (token.isUsed())
 				response.sendError(409, "El token ya se utilizó");
 			else {
-				response.sendRedirect("http://localhost?ojr=setNewPassword&token="+tokenId+"&email="+token.getEmail());
+				response.sendRedirect("http://localhost:8080?ojr=setNewPassword&token="+tokenId+"&email="+token.getEmail());
 			}
 		} else {
 			response.sendError(404, "El token no existe");
@@ -64,9 +66,9 @@ public class UserController extends CookiesController {
 			if (user!=null) {
 				Token token = new Token(email);
 				tokenDao.save(token);
-				Email smtp = new Email();
+				
 				String texto = "Para recuperar tu contraseña, pulsa aquí: " + 
-					"<a href='http://localhost/user/usarToken/" + token.getId() + "'>aquí</a>";
+					"<a href='http://localhost:8080/user/usarToken/" + token.getId() + "'>aquí</a>";
 				smtp.send(email, "Carreful: recuperación de contraseña", texto);
 			}
 		} catch (Exception e) {
@@ -101,7 +103,7 @@ public class UserController extends CookiesController {
 			String email = jso.optString("email");
 			if (email.length()==0)
 				throw new Exception("Debes indicar un email válido");
-			String pwd1 = jso.optString("pwd1");
+			String pwd1 = jso.optString("pwd");
 			String pwd2 = jso.optString("pwd2");
 			if (!pwd1.equals(pwd2))
 				throw new Exception("La contraseña no coincide con su confirmación");
@@ -111,7 +113,11 @@ public class UserController extends CookiesController {
 			user.setEmail(email);
 			user.setPwd(pwd1);
 			user.setPicture(jso.optString("picture"));
-			userDao.save(user);
+			String correoConfirmacion = "<p>Para confirmar tu cuenta de correo y finalizar la"
+					+ " creación de tu cuenta, clicka aqui: </p><br>"
+					+ "<a href=\"http://localhost:8080\"> Activación de la cuenta</a>";
+			smtp.send(email, "Carreful: confirmación de cuenta", correoConfirmacion);
+			//userDao.save(user);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}

@@ -42,7 +42,7 @@ public class Email {
 		        MimeMessage msg = new MimeMessage(session);
 		        try {
 			        msg.setSubject(subject);
-			        msg.setText(body);
+			        msg.setContent(body, "text/html");
 			        msg.setFrom(new InternetAddress(sender));
 			        msg.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
 			        Transport.send(msg);
@@ -68,9 +68,9 @@ public class Email {
         }
     }
 	
-	public static void main(String[] args) throws Exception {
-		Email sender=new Email();
-		sender.send("carreful2021@gmail.com", "Hola", "Caracola");
-		System.out.println("Enviado");
-	}
+//	public static void main(String[] args) throws Exception {
+//		Email sender=new Email();
+//		sender.send("carreful2021@gmail.com", "Hola", "Caracola");
+//		System.out.println("Enviado");
+//	}
 }

@@ -8,28 +8,11 @@
 /*
  * Your dashboard ViewModel code goes here
  */
-define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
-	'jquery', "ojs/ojbootstrap", "ojs/ojknockout", "ojs/ojinputtext", "ojs/ojformlayout", "ojs/ojbutton", "require", "exports"],
-	function(ko, app, moduleUtils, accUtils, $, Bootstrap, require, exports) {
+define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils', 'jquery', "ojs/ojasyncvalidator-regexp", "ojs/ojlabelvalue", "ojs/ojlabel", "ojs/ojbootstrap", "ojs/ojknockout", "ojs/ojfilepicker", "ojs/ojinputtext", "ojs/ojformlayout", "ojs/ojbutton", "ojs/ojavatar", "require", "exports"],
+	function(ko, app, moduleUtils, accUtils, $, AsyncRegExpValidator, Bootstrap, require, exports) {
 
 		function RegisterViewModel() {
 			var self = this;
-
-			// Recipe for file picker
-
-			this.fileNames = ko.observable();
-			this.selectListener = (files) => {
-				this.fileNames(Array.prototype.map.call(files, (file) => {
-					return file.name;
-				}));
-			};
-			this.selectFiles = (event) => {
-				FilePickerUtils.pickFiles(this.selectListener, {
-					accept: [],
-					capture: "none",
-					selectionMode: "single",
-				});
-			};
 
 			// Recipe 
 
@@ -59,6 +42,15 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				}
 				return "";
 			});
+
+			this.emailPatternValidator = ko.observableArray([
+				new AsyncRegExpValidator({
+					pattern: "[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*",
+					hint: "Introduce un email válido",
+					messageDetail: "No has introducido un formato de email válido",
+				}),
+			]);
+
 			this.labelEdge = ko.observable("inside");
 
 			self.userName = ko.observable("");

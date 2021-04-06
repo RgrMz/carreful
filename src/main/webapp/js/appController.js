@@ -25,8 +25,8 @@ define(['knockout', 'ojs/ojcorerouter', 'ojs/ojmodulerouter-adapter', 'ojs/ojkno
       var platform = ThemeUtils.getThemeTargetPlatform();
 
       var navData = [
-        { path: '', redirect: 'login' },
-        { path: 'product', detail : { label : 'Producto'} },      
+        { path: '', redirect: 'product' },
+        { path: 'product', detail : { label : 'Productos'} },      
         { path: 'login', detail: { label: 'Login', iconClass: 'oj-ux-ico-bar-chart' } },
         { path: 'register', detail: { label: 'Crear cuenta', iconClass: 'oj-ux-ico-fire' } },
         { path: 'setNewPassword', detail: { label: 'Cambiar contraseña', iconClass: 'oj-ux-ico-fire' } },

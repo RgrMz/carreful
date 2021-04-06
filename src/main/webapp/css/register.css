@@ -1,3 +1,32 @@
 .titulo-contenedor {
 	text-align: center;
 }
+
+.contenedor {
+	margin-top: auto;
+	margin-bottom: auto;
+	text-align: center;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    padding: 100px;
+}
+
+#input-picture {
+ display: none;
+ }
+ 
+label[for="input-picture"] {
+ font-size: 14px;
+ font-weight: 600;
+ color: #fff;
+ background-color: #106BA0;
+ display: inline-block;
+ transition: all .5s;
+ cursor: pointer;
+ padding: 15px 40px !important;
+ text-transform: uppercase;
+ width: fit-content;
+ text-align: center;
+ }
