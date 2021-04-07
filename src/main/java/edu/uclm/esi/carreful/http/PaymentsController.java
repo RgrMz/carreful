@@ -16,6 +16,8 @@ import com.stripe.Stripe;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 
+import edu.uclm.esi.carreful.model.Carrito;
+
 @RestController
 @RequestMapping("payments")
 public class PaymentsController extends CookiesController {
@@ -28,8 +30,14 @@ public class PaymentsController extends CookiesController {
 	@PostMapping("/solicitarPreautorizacion")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		try {
+			/*
+			 * long importe = (long) info.get("importe");
+			 * Con eso los clientes podrian cambiar el importe
+			 * Mejro usar la sesion del cliente para tener su carrito y usarr getImporte()
+			 */
+			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder().setCurrency("eur")
-					.setAmount(5000L).build();
+					.setAmount(null).build();
 			// Create a PaymentIntent with the order amount and currency
 			PaymentIntent intent = PaymentIntent.create(createParams);
 			JSONObject jso = new JSONObject(intent.toJson());

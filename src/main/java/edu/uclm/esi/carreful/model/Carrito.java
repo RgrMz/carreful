@@ -23,4 +23,9 @@ public class Carrito {
 	public Collection<OrderedProduct> getProducts() {
 		return products.values();
 	}
+
+	public Long getImporte() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
