@@ -78,6 +78,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		}
 		
 		recoverPwd() {
+			document.getElementById("alerta-pwd").style.display = "block";
 			var self = this;
 			var data = {
 				url : "user/recoverPwd?email=" + self.email(),
