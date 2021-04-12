@@ -3,21 +3,35 @@ package edu.uclm.esi.carreful.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Product {
-	@Id
-	private String nombre;
-	private String precio;
-	@GeneratedValue
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigo;
-	@Column(columnDefinition = "integer default 0")
+	private String nombre;
+	@Column(length = 10)
+	private String precio;
+	@Column(columnDefinition = "integer default 4")
 	private int stock;
 	@Lob
 	private String picture;
+	@ManyToOne
+	@JoinColumn(name = "idCategoria", referencedColumnName = "id")
+	private Categoria idCategoria;
 	
+	public Categoria getIdCategoria() {
+		return idCategoria;
+	}
+
+	public void setIdCategoria(Categoria idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

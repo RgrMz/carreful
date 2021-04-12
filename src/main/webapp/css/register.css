@@ -30,3 +30,9 @@ label[for="input-picture"] {
  width: fit-content;
  text-align: center;
  }
+ 
+#padre-contenedor{
+	width: 100%;
+	text-align: center;
+	background-image: linear-gradient(to right, rgba(139, 88, 199,0), rgba(139, 88, 199,1));
+}
