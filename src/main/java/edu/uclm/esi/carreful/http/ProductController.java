@@ -64,7 +64,7 @@ public class ProductController extends CookiesController {
 			carrito = new Carrito();
 			request.getSession().setAttribute("carrito", carrito);
 		}
-		Product producto = productDao.findById(nombre).get();
+		Product producto = productDao.findByNombre(nombre).get();
 		carrito.add(producto, 1);
 		return carrito;
 	}
