@@ -7,7 +7,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 				self.nombre = ko.observable("Detergente");
 				self.precio = ko.observable("8,50 €");
-
+				self.picture = ko.observable("");
+				
 				self.productos = ko.observableArray([]);
 				self.carrito = ko.observableArray([]);
 
@@ -27,28 +28,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						'viewModel': app.getHeaderModel()
 					})
 				})
-			}
-
-			add() {
-				var self = this;
-				let info = {
-					nombre: this.nombre(),
-					precio: this.precio()
-				};
-				let data = {
-					data: JSON.stringify(info),
-					url: "product/add",
-					typ: "post",
-					contentType: 'application/json',
-					success: function(response) {
-						self.message("Producto guardado");
-						self.getProductos();
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
 			}
 			
 			getProductos() {
@@ -71,23 +50,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 							};
 							self.productos.push(objetito);
 						}*/
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
-			}
-
-			eliminarProducto(nombre) {
-				let self = this;
-				let data = {
-					url: "product/borrarProducto/" + nombre,
-					type: "delete",
-					contentTyp: 'application/json',
-					success: function(response) {
-						self.message("Producto eliminado");
-						self.getProductos();
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -120,7 +82,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			connected() {
 				accUtils.announce('Login page loaded.');
 				document.title = "Login";
-
 				this.getProductos();
 			};
 

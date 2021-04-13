@@ -22,31 +22,23 @@
 						<!-- /ko -->
 					</table>
 
-
 					<div>
-						<input type="text" data-bind="value : nombre"
-							placeholder="Nombre del producto"> <input type="text"
-							data-bind="value : precio" placeholder="Precio">
-						<button data-bind="click : add">Guardar producto</button>
 						<div data-bind="html : message" style="color: blue"></div>
 						<div data-bind="html : error" style="color: red"></div>
 					</div>
 
 					<table>
 						<tr>
+							<th>Imagen</th>
 							<th>Nombre</th>
 							<th>Precio</th>
-							<th></th>
 							<th></th>
 						</tr>
 						<!-- ko foreach : productos -->
 						<tr>
+							<td><img data-bind="attr: {src: picture}" width="200px" height="200px"> </td>
 							<td data-bind="html : nombre"></td>
 							<td data-bind="html : precio"></td>
-							<td>
-								<button
-									data-bind="click : function() { $parent.eliminarProducto(nombre); }">Eliminar</button>
-							</td>
 							<td>
 								<button
 									data-bind="click : function() { $parent.addAlCarrito(nombre); }">Añadir
