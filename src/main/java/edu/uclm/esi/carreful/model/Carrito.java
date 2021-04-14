@@ -2,6 +2,7 @@ package edu.uclm.esi.carreful.model;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Carrito {
 	private HashMap<String, OrderedProduct> products;
@@ -24,8 +25,21 @@ public class Carrito {
 		return products.values();
 	}
 
-	public Long getImporte() {
-		// TODO Auto-generated method stub
-		return null;
+	public double getImporte() {
+		double importe = 0;
+		for(Map.Entry<String, OrderedProduct> entry : this.products.entrySet()) {
+			importe += entry.getValue().getAmount() * entry.getValue().getPrice();
+		}
+		return importe;
 	}
+
+	public void eliminar(Product product, int amount) {
+		OrderedProduct orderedProduct = this.products.get(product.getNombre());
+		if(orderedProduct.getAmount() >= amount) {
+			orderedProduct.decreaseAmount(amount);
+			if(orderedProduct.getAmount() == 0)
+				this.products.remove(product.getNombre());
+		}
+	}
+
 }

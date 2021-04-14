@@ -9,6 +9,7 @@
 		<div role="main" class="oj-hybrid-applayout-content">
 			<div class="oj-hybrid-padding">
 				<h1>Producto</h1>
+					<div id="table-container">
 					<table>
 						<tr>
 							<th>Unidades</th>
@@ -18,13 +19,21 @@
 						<tr>
 							<td data-bind="html : amount"></td>
 							<td data-bind="html : name"></td>
+							<td>
+								<button
+									data-bind="click : function() { $parent.eliminarDelCarrito(name); }">Quitar 1 unidad</button>
+							</td>
 						</tr>
 						<!-- /ko -->
 					</table>
+					<!-- ko if : importe -->
+						<span data-bind="html: importe"> €</span>
+					<!-- /ko -->
+					</div>
 
 					<div>
-						<div data-bind="html : message" style="color: blue"></div>
-						<div data-bind="html : error" style="color: red"></div>
+						<div data-bind="html : message" style="color: blue" id="msg"></div>
+						<div data-bind="html : error" style="color: red" id="error"></div>
 					</div>
 
 					<table>

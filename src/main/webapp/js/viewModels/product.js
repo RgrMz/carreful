@@ -8,6 +8,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.nombre = ko.observable("Detergente");
 				self.precio = ko.observable("8,50 €");
 				self.picture = ko.observable("");
+				self.importe = ko.observable(null);
 				
 				self.productos = ko.observableArray([]);
 				self.carrito = ko.observableArray([]);
@@ -67,6 +68,40 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					success: function(response) {
 						self.message("Producto añadido al carrito");
 						self.carrito(response.products);
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
+			eliminarDelCarrito(nombre) {
+				let self = this;
+				let data = {
+					url: "product/eliminarDelCarrito/" + nombre,
+					type: "post",
+					contentTyp: 'application/json',
+					success: function(response) {
+						self.message("Quitaste 1 unidad del producto: " + nombre);
+						document.getElementById("msg").style.color = "red";
+						self.carrito(response.products);
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
+			getImporte(){
+				let self = this;
+				let data = {
+					url: "product/getImporte",
+					type: "get",
+					contentTyp: 'application/json',
+					success: function(response) {
+						self.importe(response);
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);

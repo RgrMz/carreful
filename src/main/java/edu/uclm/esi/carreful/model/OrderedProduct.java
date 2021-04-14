@@ -10,7 +10,8 @@ public class OrderedProduct {
 	}
 
 	public void addAmount(double amount) {
-		this.amount+=amount;
+		if(amount>0)
+			this.amount+=amount;
 	}
 	
 	public double getAmount() {
@@ -19,5 +20,14 @@ public class OrderedProduct {
 	
 	public String getName() {
 		return this.product.getNombre();
+	}
+	
+	public double getPrice() {
+		return this.product.getPrecio();
+	}
+
+	public void decreaseAmount(int amount) {
+		if(amount>0)
+			this.amount-=amount;
 	}
 }

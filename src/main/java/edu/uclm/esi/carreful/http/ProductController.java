@@ -46,7 +46,7 @@ public class ProductController extends CookiesController {
 	}
 	
 	@GetMapping("/getPrecio/{nombre}")
-	public String getPrecio(@PathVariable String nombre) {
+	public double getPrecio(@PathVariable String nombre) {
 		try {
 			Optional<Product> optProduct = productDao.findById(nombre);
 			if (optProduct.isPresent())
@@ -69,6 +69,18 @@ public class ProductController extends CookiesController {
 		return carrito;
 	}
 	
+	@PostMapping("/eliminarDelCarrito/{nombre}")
+	public Carrito elminarDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		if (carrito==null) {
+			carrito = new Carrito();
+			request.getSession().setAttribute("carrito", carrito);
+		}
+		Product producto = productDao.findByNombre(nombre).get();
+		carrito.eliminar(producto, 1);
+		return carrito;
+	}
+	
 	@DeleteMapping("/borrarProducto/{nombre}")
 	public void borrarProducto(@PathVariable String nombre) {
 		try {
@@ -80,5 +92,15 @@ public class ProductController extends CookiesController {
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
+	}
+	
+	@GetMapping("/getImporte")
+	public double getMapping(HttpServletRequest request) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		if (carrito==null) {
+			carrito = new Carrito();
+			request.getSession().setAttribute("carrito", carrito);
+		}
+		return carrito.getImporte();
 	}
 }

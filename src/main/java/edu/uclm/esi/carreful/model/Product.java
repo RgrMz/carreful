@@ -14,8 +14,8 @@ public class Product {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigo;
 	private String nombre;
-	@Column(length = 10)
-	private String precio;
+	@Column
+	private double precio;
 	@Column(columnDefinition = "integer default 4")
 	private int stock;
 	@Lob
@@ -40,11 +40,11 @@ public class Product {
 		this.nombre = nombre;
 	}
 	
-	public String getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 	
-	public void setPrecio(String precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 	
