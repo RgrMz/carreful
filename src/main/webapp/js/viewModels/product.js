@@ -12,9 +12,11 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 				self.productos = ko.observableArray([]);
 				self.carrito = ko.observableArray([]);
+				self.categorias = ko.observableArray([]);
 
 				self.message = ko.observable(null);
 				self.error = ko.observable(null);
+				
 
 				// Header Config
 				self.headerConfig = ko.observable({
@@ -30,8 +32,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						'viewModel': app.getHeaderModel()
 					})
 				})
-				
-				self.categorias = ko.observableArray([]);
 
 			}
 

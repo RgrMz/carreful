@@ -36,8 +36,9 @@ public class PaymentsController extends CookiesController {
 			 * Mejro usar la sesion del cliente para tener su carrito y usarr getImporte()
 			 */
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+			System.out.println((long)carrito.getImporte());
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder().setCurrency("eur")
-					.setAmount(null).build();
+					.setAmount((long) carrito.getImporte() * 100).build();
 			// Create a PaymentIntent with the order amount and currency
 			PaymentIntent intent = PaymentIntent.create(createParams);
 			JSONObject jso = new JSONObject(intent.toJson());

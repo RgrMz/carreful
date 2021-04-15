@@ -1,5 +1,13 @@
-#contenedor-categorias{
-	display:inline-block;
-    margin: 0 auto;
-    padding: 3px;
+.categoria{
+	display: inline;
+}
+
+#categorias{
+	width: 100%;
+	text-align: center;
+	background: rgba(255, 204, 204,0.9);
+}
+
+.oj-hybrid-applayout-content{
+	background-image: linear-gradient(to right, rgba(255, 204, 204,1), rgba(255, 229, 204,0.5));
 }
