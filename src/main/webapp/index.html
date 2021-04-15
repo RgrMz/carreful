@@ -47,16 +47,16 @@
          ** Please see the demos under Cookbook/Patterns/App Shell: Hybrid Mobile
          ** and the CSS documentation under Support/API Docs/Non-Component Styling
          ** on the JET website for more information on how to use this pattern.
-      -->
-		<div class="oj-applayout-fixed-top">
-			<div role="navigation" class="oj-hybrid-applayout-navbar-app">
-				<oj-navigation-list id="navList"
-					class="oj-navigationlist-stack-icon-label"
-					data="[[navDataProvider]]" edge="top"
-					item.renderer="[[KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
-					selection="{{selection.path}}"> </oj-navigation-list>
+      	-->
+		<div class="oj-applayout-fixed-bottom">
+				<div role="navigation" class="oj-hybrid-applayout-navbar-app">
+					<oj-navigation-list id="navList"
+						class="oj-navigationlist-stack-icon-label"
+						data="[[navDataProvider]]" edge="top"
+						item.renderer="[[KnockoutTemplateUtils.getRenderer('navTemplate', true)]]"
+						selection="{{selection.path}}"> </oj-navigation-list>
+				</div>
 			</div>
-		</div>
 	</div>
 
 	<!-- Los 2 primeros son scripts locales. Ahora, se enviara una peticion GET a la direccion indicada en el atributo src del script
