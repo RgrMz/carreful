@@ -11,3 +11,36 @@
 .oj-hybrid-applayout-content{
 	background-image: linear-gradient(to right, rgba(255, 204, 204,1), rgba(255, 229, 204,0.5));
 }
+
+#content-wrapper{
+	display: flex;
+}
+
+#products-wrapper{
+	display: flex;
+	margin: 20px;
+	max-width : 70%;
+}
+
+#products-list{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#products-list li {
+	list-style: none;
+  	flex: 0 0 33.333333%;
+}
+
+#carrito-wrapper{
+	margin: 20px;
+}
+
+.product-card{
+	display: inline-block;
+	border: 3px solid black;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+	background: white;
+	width: 100%;
+	height: 100%;
+}

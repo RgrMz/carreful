@@ -24,7 +24,7 @@ public class PaymentsController extends CookiesController {
 
 	// This is your real test secret API key.
 	static {
-		Stripe.apiKey = "sk_test_51Idbt6HmArDnS3pXZqkxllvllEdJ2Ar22MtcKMBGxsbOpyWsvq2NN3eBWtI3SFZYGWmholpJrrcGfvEYaKnwDjgM003YICHUbA";
+		Stripe.apiKey = "sk_test_51Idbt6HmArDnS3pXZqkxllvllEdJ2Ar22MtcKMBGxsbOpyWsvq2NN3eBWtI3SFZYGWmholpJrrcGfvEYaKnwDjgM003YICHUbA";      
 	}
 
 	@PostMapping("/solicitarPreautorizacion")
@@ -36,7 +36,7 @@ public class PaymentsController extends CookiesController {
 			 * Mejro usar la sesion del cliente para tener su carrito y usarr getImporte()
 			 */
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-			System.out.println((long)carrito.getImporte());
+			System.out.println((long)carrito.getImporte() * 100);
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder().setCurrency("eur")
 					.setAmount((long) carrito.getImporte() * 100).build();
 			// Create a PaymentIntent with the order amount and currency

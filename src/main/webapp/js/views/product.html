@@ -23,9 +23,50 @@
 	</div>
 	<div class="oj-applayout-content">
 		<div role="main" class="oj-hybrid-applayout-content">
-			<div class="oj-hybrid-padding">
-				<h1>Productos del Carreful</h1>
-				<div id="table-container">
+		<h1>Productos del Carreful</h1>
+			<div class="oj-hybrid-padding" id="content-wrapper">
+				<div id="products-wrapper">
+					<!--  <table>
+						<tr>
+							<th>Imagen</th>
+							<th>Nombre</th>
+							<th>Precio</th>
+							<th></th>
+						</tr> -->
+						<!-- ko foreach : productos -->
+						<!-- <tr>
+							<td><img data-bind="attr: {src: picture}" width="100px"
+								height="100px"></td>
+							<td data-bind="html : nombre"></td>
+							<td data-bind="html : precio"></td>
+							<td>
+								<button
+									data-bind="click : function() { $parent.addAlCarrito(nombre); }">Añadir
+									al carrito</button>
+							</td>
+						</tr> -->
+						<!-- /ko -->
+					<!-- </table> -->
+					<ul id="products-list">
+					<!-- ko foreach: productos -->
+					<li>
+						<div class = "product-card">
+							<div class = "product-card-content">
+								<img data-bind="attr: {src: picture}" width="100px"
+									height="100px">
+								<h6 data-bind="html : nombre"></h6><br>
+								<h6 data-bind="html : precio"></h6><br>
+								<button
+										data-bind="click : function() { $parent.addAlCarrito(nombre); }">
+										Añadir al carrito
+								</button>
+							</div>
+						</div>
+					</li>
+					<!-- /ko -->
+					</ul>
+				</div>
+				<div id="carrito-wrapper">
 					<table>
 						<tr>
 							<th>Unidades</th>
@@ -48,33 +89,11 @@
 					<div data-bind="html: importe"></div>
 					<!-- /ko -->
 				</div>
-
+				
 				<div>
 					<div data-bind="html : message" style="color: blue" id="msg"></div>
 					<div data-bind="html : error" style="color: red" id="error"></div>
 				</div>
-
-				<table>
-					<tr>
-						<th>Imagen</th>
-						<th>Nombre</th>
-						<th>Precio</th>
-						<th></th>
-					</tr>
-					<!-- ko foreach : productos -->
-					<tr>
-						<td><img data-bind="attr: {src: picture}" width="100px"
-							height="100px"></td>
-						<td data-bind="html : nombre"></td>
-						<td data-bind="html : precio"></td>
-						<td>
-							<button
-								data-bind="click : function() { $parent.addAlCarrito(nombre); }">Añadir
-								al carrito</button>
-						</td>
-					</tr>
-					<!-- /ko -->
-				</table>
 			</div>
 		</div>
 	</div>
