@@ -1,14 +1,27 @@
+<head>
+	<link href="../css/product.css" rel="stylesheet"></link>
+</head>
 <div class="oj-hybrid-applayout-page">
 	<div class="oj-applayout-fixed-top">
 		<header role="banner" class="oj-hybrid-applayout-header">
 			<oj-module config="[[headerConfig]]"></oj-module>
 		</header>
 	</div>
-	<!-- This is where your main page content will be loaded -->
 	<div class="oj-applayout-content">
 		<div role="main" class="oj-hybrid-applayout-content">
 			<div class="oj-hybrid-padding">
-				<h1>Producto</h1>
+				<div id="contenedor-categorias">
+					<div id="categorias">
+					<!-- ko foreach : categorias -->
+					<div class = "categoria">
+						<button
+							data-bind = "html : name, click : function() {$parent.getProductosPorCategoria(name);}">
+						</button>
+						</div>
+					<!-- /ko -->
+					</div>
+				</div>
+				<h1>Productos del Carreful</h1>
 					<div id="table-container">
 					<table>
 						<tr>
@@ -27,7 +40,8 @@
 						<!-- /ko -->
 					</table>
 					<!-- ko if : importe -->
-						<span data-bind="html: importe"> €</span>
+						<div>Importe del pedido:</div>
+						<div data-bind="html: importe"></div>
 					<!-- /ko -->
 					</div>
 
@@ -56,7 +70,6 @@
 						</tr>
 						<!-- /ko -->
 					</table>
-
 				</div>
 			</div>
 		</div>

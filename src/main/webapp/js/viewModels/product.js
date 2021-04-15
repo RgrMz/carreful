@@ -1,5 +1,5 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
-	'jquery'], function(ko, app, moduleUtils, accUtils, $) {
+	'jquery', "ojs/ojfilmstrip"], function(ko, app, moduleUtils, accUtils, $) {
 
 		class ProductViewModel {
 			constructor() {
@@ -8,8 +8,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.nombre = ko.observable("Detergente");
 				self.precio = ko.observable("8,50 €");
 				self.picture = ko.observable("");
-				self.importe = ko.observable(null);
-				
+				self.importe = ko.observable();
+
 				self.productos = ko.observableArray([]);
 				self.carrito = ko.observableArray([]);
 
@@ -21,6 +21,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					'view': [],
 					'viewModel': null
 				});
+
 				moduleUtils.createView({
 					'viewPath': 'views/header.html'
 				}).then(function(view) {
@@ -29,8 +30,11 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						'viewModel': app.getHeaderModel()
 					})
 				})
+				
+				self.categorias = ko.observableArray([]);
+
 			}
-			
+
 			getProductos() {
 				let self = this;
 				let data = {
@@ -68,6 +72,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					success: function(response) {
 						self.message("Producto añadido al carrito");
 						self.carrito(response.products);
+						self.getImporte();
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -75,7 +80,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
-			
+
 			eliminarDelCarrito(nombre) {
 				let self = this;
 				let data = {
@@ -86,6 +91,23 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						self.message("Quitaste 1 unidad del producto: " + nombre);
 						document.getElementById("msg").style.color = "red";
 						self.carrito(response.products);
+						self.getImporte();
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+
+			getImporte() {
+				let self = this;
+				let data = {
+					url: "product/getImporte",
+					type: "get",
+					contentTyp: 'application/json',
+					success: function(response) {
+						self.importe(response.toString() + ' €');
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -94,14 +116,35 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				$.ajax(data);
 			}
 			
-			getImporte(){
+			getCategorias() {
 				let self = this;
 				let data = {
-					url: "product/getImporte",
+					url: "categories/getTodas",
 					type: "get",
 					contentTyp: 'application/json',
 					success: function(response) {
-						self.importe(response);
+						for (let i=0; i<response.length; i++) {
+							let objetito = {
+								name : response[i].nombre,
+							};
+							self.categorias.push(objetito);
+						}
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
+			getProductosPorCategoria(nombre){
+				let self = this;
+				let data = {
+					url: "categories/" + nombre,
+					type: "get",
+					contentTyp: 'application/json',
+					success: function(response) {
+						self.productos(response);
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -115,9 +158,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			}
 
 			connected() {
-				accUtils.announce('Login page loaded.');
-				document.title = "Login";
+				accUtils.announce('Productos page loaded.');
+				document.title = "Productos";
 				this.getProductos();
+				this.getCategorias();
 			};
 
 			disconnected() {
@@ -128,6 +172,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				// Implement if needed
 			};
 		}
-
+			
 		return ProductViewModel;
+		
+		
 	});
