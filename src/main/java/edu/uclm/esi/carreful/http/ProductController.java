@@ -57,6 +57,21 @@ public class ProductController extends CookiesController {
 		}
 	}
 	
+	@GetMapping("/getCarrito")
+	public Carrito getCarrito(HttpServletRequest request) {
+		Carrito carrito;
+		try {
+			carrito = (Carrito) request.getSession().getAttribute("carrito");
+			if (carrito == null) {
+				carrito = new Carrito();
+				request.getSession().setAttribute("carrito", carrito);
+			}
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+		return carrito;
+	}
+	
 	@PostMapping("/addAlCarrito/{nombre}")
 	public Carrito addAlCarrito(HttpServletRequest request, @PathVariable String nombre) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");

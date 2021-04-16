@@ -152,6 +152,25 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
+			
+			getCarrito(){
+				let self = this;
+				let data = {
+					url: "product/getCarrito",
+					type: "get",
+					contentTyp: 'application/json',
+					success: function(response) {
+						if (self.carrito(response.products)){
+							self.carrito(response.products);
+							self.getImporte();
+						}
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
 
 			register() {
 				app.router.go({ path: "register" });
@@ -162,6 +181,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				document.title = "Productos";
 				this.getProductos();
 				this.getCategorias();
+				this.getCarrito();
 			};
 
 			disconnected() {
