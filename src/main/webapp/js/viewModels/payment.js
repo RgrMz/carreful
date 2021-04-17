@@ -10,6 +10,17 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 				self.message = ko.observable("");
 				self.error = ko.observable("");
+				
+				self.nombre = ko.observable();
+				self.apellidos = ko.observable();
+				self.direccion = ko.observable();
+				self.ciudad = ko.observable();
+				self.provincia = ko.observable();
+				self.codigoPostal = ko.observable();
+				self.pais = ko.observable();
+				
+				self.carrito = ko.observableArray([]);
+				self.importe = ko.observable();
 
 				// Header Config
 				self.headerConfig = ko.observable({
@@ -30,6 +41,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				accUtils.announce('Login page loaded.');
 				document.title = "Login";
 				this.solicitarPreautorizacion();
+				this.getCarrito();
 			};
 
 			solicitarPreautorizacion() {
@@ -115,6 +127,41 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						}
 					}
 				});
+			}
+			
+			getImporte() {
+				let self = this;
+				let data = {
+					url: "product/getImporte",
+					type: "get",
+					contentTyp: 'application/json',
+					success: function(response) {
+						self.importe(response.toString() + ' €');
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
+			getCarrito(){
+				let self = this;
+				let data = {
+					url: "product/getCarrito",
+					type: "get",
+					contentTyp: 'application/json',
+					success: function(response) {
+						if (self.carrito(response.products)){
+							self.carrito(response.products);
+							self.getImporte();
+						}
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
 			}
 
 			disconnected() {

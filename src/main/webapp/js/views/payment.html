@@ -1,5 +1,6 @@
 <head>
-<link rel="stylesheet" href="../css/login.css">
+<link rel="stylesheet" href="../css/payment.css">
+<!-- <script type="text/javascript" src="../viewModels/product.js"></script> -->
 </head>
 <div class="oj-hybrid-applayout-page">
 	<div class="oj-applayout-fixed-top">
@@ -12,7 +13,67 @@
 		<div role="main" class="oj-hybrid-applayout-content">
 			<div class="oj-hybrid-padding">
 				<div class="oj-flex contenedor">
-					<h1 class="titulo-contenedor">Pagar</h1>
+
+					<section class="order-form my-4 mx-4">
+						<div class="container pt-4">
+
+							<div class="row">
+								<div class="col-12">
+									<h4>Detalles de Facturación</h4>
+									<hr class="mt-1">
+								</div>
+								<div class="col-12">
+
+									<div class="row mx-4">
+										<div class="col-12 mb-2">
+											<label class="order-form-label">Nombre Completo</label>
+										</div>
+										<div class="col-12 col-sm-6">
+											<input class="order-form-input" placeholder="Nombre">
+										</div>
+										<div class="col-12 col-sm-6 mt-2 mt-sm-0">
+											<input class="order-form-input" placeholder="Apellidos">
+										</div>
+									</div>
+									<br>
+									<div class="row mt-3 mx-4">
+										<div class="col-12">
+											<label class="order-form-label">Dirección</label>
+										</div>
+										<div class="col-12">
+											<input class="order-form-input"
+												placeholder="Calle, número, piso, puerta.">
+										</div>
+										<div class="col-12 col-sm-6 mt-2 pr-sm-2">
+											<input class="order-form-input" placeholder="Ciudad">
+										</div>
+										<div class="col-12 col-sm-6 mt-2 pl-sm-0">
+											<input class="order-form-input" placeholder="Provincia">
+										</div>
+										<div class="col-12 col-sm-6 mt-2 pr-sm-2">
+											<input class="order-form-input" placeholder="Código Postal">
+										</div>
+										<div class="col-12 col-sm-6 mt-2 pl-sm-0">
+											<input class="order-form-input" placeholder="País">
+										</div>
+									</div>
+									<br>
+									<div class="row mt-3 mx-4">
+										<div class="col-12">
+											<div class="form-check">
+												<input type="checkbox" class="form-check-input"
+													name="validation" id="validation" value="1"> <label
+													for="validation" class="form-check-label">He leído
+													y estoy de acuerdo con los términos y condiciones de la web</label>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</section>
+					
 					<!-- Display a payment form -->
 					<form id="payment-form">
 						<div id="card-element">
@@ -20,15 +81,34 @@
 						</div>
 						<button id="submit">
 							<div class="spinner hidden" id="spinner"></div>
-							<span id="button-text">Pay now</span>
+							<span id="button-text">Pagar</span>
 						</button>
 						<p id="card-error" role="alert"></p>
 						<p class="result-message hidden">
 							Payment succeeded, see the result in your <a href=""
-								target="_blank">Stripe dashboard.</a> 
-							Refresh the page to pay again.
+								target="_blank">Stripe dashboard.</a> Refresh the page to pay
+							again.
 						</p>
 					</form>
+
+					<div id="carrito-wrapper">
+						<table>
+							<tr>
+								<th>Unidades</th>
+								<th>Producto</th>
+							</tr>
+							<!-- ko foreach : carrito -->
+							<tr>
+								<td data-bind="html : amount"></td>
+								<td data-bind="html : name"></td>
+							</tr>
+							<!-- /ko -->
+						</table>
+						<!-- ko if : importe -->
+						<div>Importe del pedido:</div>
+						<div data-bind="html: importe"></div>
+						<!-- /ko -->
+					</div>
 				</div>
 			</div>
 		</div>

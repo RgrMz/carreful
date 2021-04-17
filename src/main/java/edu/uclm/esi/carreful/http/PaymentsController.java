@@ -30,14 +30,8 @@ public class PaymentsController extends CookiesController {
 	@PostMapping("/solicitarPreautorizacion")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		try {
-			/*
-			 * long importe = (long) info.get("importe"); Con eso los clientes podrian
-			 * cambiar el importe Mejro usar la sesion del cliente para tener su carrito y
-			 * usar getImporte()
-			 */
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 			double importe = carrito.getImporte() * 100;
-			System.out.println((long) importe);
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder().setCurrency("eur")
 					.setAmount((long) importe).build();
 			// Create a PaymentIntent with the order amount and currency

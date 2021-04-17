@@ -5,12 +5,13 @@
 #categorias {
 	width: 100%;
 	text-align: center;
-	background: rgba(255, 204, 204, 0.9);
+	background: rgba(238, 205, 163, 0.8);
 }
 
 .oj-hybrid-applayout-content {
-	background-image: linear-gradient(to right, rgba(255, 204, 204, 1),
-		rgba(255, 229, 204, 0.5));
+  background: #eecda3;
+  background: -webkit-linear-gradient(to right, #eecda3, #ef629f);
+  background: linear-gradient(to right, #eecda3, #ef629f);
 }
 
 #content-wrapper {
