@@ -1,5 +1,6 @@
 <head>
 <link href="../css/product.css" rel="stylesheet"></link>
+<link href="../css/font-awesome.min.css" rel="stylesheet"></link>
 </head>
 
 <div class="oj-hybrid-applayout-page">
@@ -12,7 +13,7 @@
 				<div id="contenedor-categorias">
 					<!-- ko foreach : categorias -->
 					<div class="categoria">
-						<button
+						<button class="btn-categoria"
 							data-bind="html : name, click : function() {$parent.getProductosPorCategoria(name);}">
 						</button>
 					</div>
@@ -21,6 +22,7 @@
 			</div>
 		</div>
 	</div>
+	<br> <br>
 	<div class="oj-applayout-content">
 		<div role="main" class="oj-hybrid-applayout-content">
 			<h1>Productos del Carreful</h1>
@@ -45,124 +47,81 @@
 					</ul>
 				</div>
 				<div id="carrito-wrapper">
-					<table>
+					<table class="tabla-carrito" width="500">
 						<tr>
-							<th>Unidades</th>
-							<th>Producto</th>
+							<th><h4>Producto</h4></th>
+							<th><h4>Unidades</h4></th>
+							<th></th>
 						</tr>
 						<!-- ko foreach : carrito -->
-						<tr> 
-							<td data-bind="html : amount"></td>
-							<td data-bind="html : name"></td>
+						<tr>
+							<td width=65%>
+								<div class="nombre-producto-carrito">
+									<b class="mob-text" data-bind="html : name"></b>
+								</div>
+							</td>
+							<td width=30%>
+								<div class="cantidad-producto-carrito">
+									<p data-bind="html : amount"></p>
+								</div>
+							</td>
+							<td width=5%>
+								<table class="botones-mas-menos">
+									<tr>
+										<td>
+											<button class="mas-menos"
+												data-bind="click : function() { $parent.addUnidadDelCarrito(name); }">
+												<i class="fa fa-plus" aria-hidden="true"></i>
+											</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<button class="mas-menos"
+												data-bind="click : function() { $parent.eliminarUnidadDelCarrito(name); }">
+												<i class="fa fa-minus" aria-hidden="true"></i>
+											</button>
+										</td>
+									</tr>
+								</table>
+							</td>
 							<td>
-								<button
-									data-bind="click : function() { $parent.eliminarDelCarrito(name); }">Quitar
-									1 unidad</button>
+								<button class="boton-borrar-del-carrito"
+									data-bind="click : function() { $parent.eliminarProductoDelCarrito(name); }">
+									<i class="fa fa-trash-o fa-lg"></i>
+								</button>
 							</td>
 						</tr>
 						<!-- /ko -->
 					</table>
+					<br>
+
+					<hr
+						style="width: 100%; text-align: left; margin-left: 0; background-color: white">
+					<br>
 					<!-- ko if : importe -->
-					<div>Importe del pedido:</div>
-					<div data-bind="html: importe"></div>
+					<table class="tabla-carrito" width="500">
+						<tr>
+							<td width=65%>
+								<h5>Importe total del pedido</h5>
+							</td>
+							<td width=35%>
+								<h4 data-bind="html: importe"></h4>
+							</td>
+							<td width=5%></td>
+						</tr>
+					</table>
 					<!-- /ko -->
-					
-					<!-- End 
-					<div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-
-						
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col" class="border-0 bg-light">
-											<div class="p-2 px-3 text-uppercase">Product</div>
-										</th>
-										<th scope="col" class="border-0 bg-light">
-											<div class="py-2 text-uppercase">Price</div>
-										</th>
-										<th scope="col" class="border-0 bg-light">
-											<div class="py-2 text-uppercase">Quantity</div>
-										</th>
-										<th scope="col" class="border-0 bg-light">
-											<div class="py-2 text-uppercase">Remove</div>
-										</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row" class="border-0">
-											<div class="p-2">
-												<img
-													src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg"
-													alt="" width="70" class="img-fluid rounded shadow-sm">
-												<div class="ml-3 d-inline-block align-middle">
-													<h5 class="mb-0">
-														<a href="#" class="text-dark d-inline-block align-middle">Timex
-															Unisex Originals</a>
-													</h5>
-													<span
-														class="text-muted font-weight-normal font-italic d-block">Category:
-														Watches</span>
-												</div>
-											</div>
-										</th>
-										<td class="border-0 align-middle"><strong>$79.00</strong></td>
-										<td class="border-0 align-middle"><strong>3</strong></td>
-										<td class="border-0 align-middle"><a href="#"
-											class="text-dark"><i class="fa fa-trash"></i></a></td>
-									</tr>
-									<tr>
-										<th scope="row">
-											<div class="p-2">
-												<img
-													src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-3_cexmhn.jpg"
-													alt="" width="70" class="img-fluid rounded shadow-sm">
-												<div class="ml-3 d-inline-block align-middle">
-													<h5 class="mb-0">
-														<a href="#" class="text-dark d-inline-block">Lumix
-															camera lense</a>
-													</h5>
-													<span class="text-muted font-weight-normal font-italic">Category:
-														Electronics</span>
-												</div>
-											</div>
-										</th>
-										<td class="align-middle"><strong>$79.00</strong></td>
-										<td class="align-middle"><strong>3</strong></td>
-										<td class="align-middle"><a href="#" class="text-dark"><i
-												class="fa fa-trash"></i></a></td>
-									</tr>
-									<tr>
-										<th scope="row">
-											<div class="p-2">
-												<img
-													src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-2_qxjis2.jpg"
-													alt="" width="70" class="img-fluid rounded shadow-sm">
-												<div class="ml-3 d-inline-block align-middle">
-													<h5 class="mb-0">
-														<a href="#" class="text-dark d-inline-block">Gray Nike
-															running shoe</a>
-													</h5>
-													<span class="text-muted font-weight-normal font-italic">Category:
-														Fashion</span>
-												</div>
-											</div>
-										<td class="align-middle"><strong>$79.00</strong></td>
-										<td class="align-middle"><strong>3</strong></td>
-										<td class="align-middle"><a href="#" class="text-dark"><i
-												class="fa fa-trash"></i></a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						
-					</div> -->
-				</div>
-
-				<div>
-					<div data-bind="html : message" style="color: blue" id="msg"></div>
-					<div data-bind="html : error" style="color: red" id="error"></div>
+					<br> <br>
+					<table>
+						<tr>
+							<td><i class="fa fa-info-circle" aria-hidden="true"></i></td>
+							<td>
+								<div data-bind="html : message" style="color: black" id="msg"></div>
+								<div data-bind="html : error" style="color: red" id="error"></div>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>

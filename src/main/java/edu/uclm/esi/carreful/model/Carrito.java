@@ -33,13 +33,17 @@ public class Carrito {
 		return importe;
 	}
 
-	public void eliminar(Product product, int amount) {
+	public void eliminarUnidad(Product product, int amount) {
 		OrderedProduct orderedProduct = this.products.get(product.getNombre());
 		if(orderedProduct.getAmount() >= amount) {
 			orderedProduct.decreaseAmount(amount);
 			if(orderedProduct.getAmount() == 0)
 				this.products.remove(product.getNombre());
 		}
+	}
+	
+	public void eliminarProducto(Product product) {
+		this.products.remove(product.getNombre());
 	}
 
 }

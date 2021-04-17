@@ -17,6 +17,6 @@ public abstract class Pedido {
 	private String nombre, apellidos, email, telefonoMovil, direccion, ciudad, provincia, pais;
 	@NotNull
 	private int codigoPostal;
-	@NotNull
-	private Carrito carrito;
+	//@NotNull
+	//private Carrito carrito;
 }

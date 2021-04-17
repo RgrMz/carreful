@@ -84,15 +84,39 @@ public class ProductController extends CookiesController {
 		return carrito;
 	}
 	
-	@PostMapping("/eliminarDelCarrito/{nombre}")
-	public Carrito elminarDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
+	@PostMapping("/eliminarUnidadDelCarrito/{nombre}")
+	public Carrito elminarUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 		if (carrito==null) {
 			carrito = new Carrito();
 			request.getSession().setAttribute("carrito", carrito);
 		}
 		Product producto = productDao.findByNombre(nombre).get();
-		carrito.eliminar(producto, 1);
+		carrito.eliminarUnidad(producto, 1);
+		return carrito;
+	}
+	
+	@PostMapping("/addUnidadDelCarrito/{nombre}")
+	public Carrito addUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		if (carrito==null) {
+			carrito = new Carrito();
+			request.getSession().setAttribute("carrito", carrito);
+		}
+		Product producto = productDao.findByNombre(nombre).get();
+		carrito.add(producto, 1);
+		return carrito;
+	}
+	
+	@PostMapping("/eliminarProductoDelCarrito/{nombre}")
+	public Carrito eliminarProductoDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		if (carrito==null) {
+			carrito = new Carrito();
+			request.getSession().setAttribute("carrito", carrito);
+		}
+		Product producto = productDao.findByNombre(nombre).get();
+		carrito.eliminarProducto(producto);
 		return carrito;
 	}
 	
@@ -110,12 +134,12 @@ public class ProductController extends CookiesController {
 	}
 	
 	@GetMapping("/getImporte")
-	public double getMapping(HttpServletRequest request) {
+	public String getMapping(HttpServletRequest request) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
 		if (carrito==null) {
 			carrito = new Carrito();
 			request.getSession().setAttribute("carrito", carrito);
 		}
-		return carrito.getImporte();
+		return String.format("%.2f", carrito.getImporte());
 	}
 }
