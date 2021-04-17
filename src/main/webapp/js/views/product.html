@@ -8,7 +8,7 @@
 			<oj-module config="[[headerConfig]]"></oj-module>
 		</header>
 		<div class="oj-flex oj-web-applayout-content" id="categorias">
-			<div class="oj-flex-item" >
+			<div class="oj-flex-item">
 				<div id="contenedor-categorias">
 					<!-- ko foreach : categorias -->
 					<div class="categoria">
@@ -23,7 +23,7 @@
 	</div>
 	<div class="oj-applayout-content">
 		<div role="main" class="oj-hybrid-applayout-content">
-		<h1>Productos del Carreful</h1>
+			<h1>Productos del Carreful</h1>
 			<div class="oj-hybrid-padding" id="content-wrapper">
 				<div id="products-wrapper">
 					<!--  <table>
@@ -33,8 +33,8 @@
 							<th>Precio</th>
 							<th></th>
 						</tr> -->
-						<!-- ko foreach : productos -->
-						<!-- <tr>
+					<!-- ko foreach : productos -->
+					<!-- <tr>
 							<td><img data-bind="attr: {src: picture}" width="100px"
 								height="100px"></td>
 							<td data-bind="html : nombre"></td>
@@ -45,25 +45,26 @@
 									al carrito</button>
 							</td>
 						</tr> -->
-						<!-- /ko -->
+					<!-- /ko -->
 					<!-- </table> -->
 					<ul id="products-list">
-					<!-- ko foreach: productos -->
-					<li>
-						<div class = "product-card">
-							<div class = "product-card-content">
-								<img data-bind="attr: {src: picture}" width="100px"
-									height="100px">
-								<h6 data-bind="html : nombre"></h6><br>
-								<h6 data-bind="html : precio"></h6><br>
+						<!-- ko foreach: productos -->
+						<li class="product-list-item">
+							<div class="product-card">
+								<!-- <div class="product-card-content">  -->
+								<br> <img data-bind="attr: {src: picture}" width="150px"
+									height="150px"> <br> 
+								
+								<b class="product-name"
+									data-bind="html : nombre"></b> <br> 
+								<span class="price"
+									data-bind="html : precio"></span> <span class="price"> €</span> <br> <br>
 								<button
-										data-bind="click : function() { $parent.addAlCarrito(nombre); }">
-										Añadir al carrito
-								</button>
+									data-bind="click : function() { $parent.addAlCarrito(nombre); }">
+									Añadir al carrito</button>
 							</div>
-						</div>
-					</li>
-					<!-- /ko -->
+						</li>
+						<!-- /ko -->
 					</ul>
 				</div>
 				<div id="carrito-wrapper">
@@ -89,7 +90,7 @@
 					<div data-bind="html: importe"></div>
 					<!-- /ko -->
 				</div>
-				
+
 				<div>
 					<div data-bind="html : message" style="color: blue" id="msg"></div>
 					<div data-bind="html : error" style="color: red" id="error"></div>
