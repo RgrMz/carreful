@@ -27,6 +27,21 @@
 	border-color: #cccccc;
 }
 
+.btn-blue {
+    border: none;
+    border-radius: 10px;
+    background-color: #673AB7;
+    color: #fff;
+    padding: 8px 15px;
+    margin: 20px 0px;
+    cursor: pointer
+}
+
+.btn-blue:hover {
+    background-color: #311B92;
+    color: #fff
+}
+
 .btn-submit:hover {
 	background-color: #090909 !important;
 }

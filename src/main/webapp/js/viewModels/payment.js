@@ -13,6 +13,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				
 				self.nombre = ko.observable();
 				self.apellidos = ko.observable();
+				self.email = ko.observable();
+				self.telefonoMovil = ko.observable();
 				self.direccion = ko.observable();
 				self.ciudad = ko.observable();
 				self.provincia = ko.observable();
@@ -38,8 +40,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			}
 
 			connected() {
-				accUtils.announce('Login page loaded.');
-				document.title = "Login";
+				accUtils.announce('Payment page loaded.');
+				document.title = "Pago";
 				this.solicitarPreautorizacion();
 				this.getCarrito();
 			};
