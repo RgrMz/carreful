@@ -78,16 +78,20 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			}
 
 			recoverPwd() {
-				document.getElementById("alerta-pwd").style.display = "block";
 				var self = this;
 				var data = {
 					url: "user/recoverPwd?email=" + self.email(),
 					type: "get",
 					contentType: 'application/json',
 					success: function(response) {
+						document.getElementById("alerta-pwd").style.display = "block";
+						document.getElementById("alerta-error").style.display = "none";
 						self.message("Si estás dado de alta, te habrá llegado un correo electrónico");
 					},
 					error: function(response) {
+						document.getElementById("alerta-error").style.display = "block";
+						document.getElementById("alerta-pwd").style.display = "none";
+						document.getElementById("alerta-error").style.background = "rgb(255, 0, 0)";
 						self.error(response.responseJSON.errorMessage);
 					}
 				};
