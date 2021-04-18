@@ -99,7 +99,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
-			
+
 			eliminarUnidadDelCarrito(nombre) {
 				let self = this;
 				let data = {
@@ -118,7 +118,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
-			
+
 			addUnidadDelCarrito(nombre) {
 				let self = this;
 				let data = {
@@ -220,24 +220,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				this.getProductos();
 				this.getCategorias();
 				this.getCarrito();
-				console.log('hola');
-				var botonesCategorias = document.getElementsByClassName('btn-categoria');
-				for (let boton of botonesCategorias) {
-					console.log(boton.name);
-					if (boton.name == 'El Mercado') {
-						boton.innerHTML = '<i class="fa fa-shopping-basket" style="color: white"></i>';
-					} else if (boton.name == 'La Despensa') {
-						boton.innerHTML = '<i class="fa fa-lemon-o" style="color: white"></i>';
-					} else if (boton.name == 'Bebidas') {
-						boton.innerHTML = '<i class="fa fa-coffee" style="color: white"></i>';
-					} else if (boton.name == 'Mascotas') {
-						boton.innerHTML = '<i class="fa fa-paw" style="color: white"></i>';
-					} else if (boton.name == 'Parafarmacia') {
-						boton.innerHTML = '<i class="fa fa-medkit" style="color: white"></i>';
-					} else if (boton.name == 'Perfumería e Higiene') {
-						boton.innerHTML = '<i class="fa fa-hand-paper-o" style="color: white"></i>';
-					}
-				}
 			};
 
 			disconnected() {
