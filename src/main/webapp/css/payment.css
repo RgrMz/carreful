@@ -1,5 +1,9 @@
 @charset "ISO-8859-1";
 
+.oj-hybrid-applayout-content {
+	background: #eecda3;
+	background-image: linear-gradient(to bottom right, cornflowerblue, white);
+}
 .order-form .container {
 	color: #4c4c4c;
 	padding: 20px;
@@ -25,6 +29,30 @@
 	line-height: 1.2em;
 	background-color: transparent;
 	border-color: #cccccc;
+}
+
+.col-25-carrito {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+
+.carrito-wrapper {
+  background-color: #ffffff;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+span.price {
+  color: grey;
+}
+
+.importe-total{
+	text-align: right;
+}
+
+.tabla-precio-total-carrito{
+	font-size: 23px;
 }
 
 .btn-blue {
