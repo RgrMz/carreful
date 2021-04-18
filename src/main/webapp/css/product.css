@@ -5,7 +5,6 @@
 #categorias {
 	width: 100%;
 	text-align: center;
-	/*background: rgba(238, 205, 163, 0.8);*/
 	background: mintcream;
 	opacity: 0.90;
 }
@@ -16,8 +15,6 @@
 
 .oj-hybrid-applayout-content {
 	background: #eecda3;
-	/*background: -webkit-linear-gradient(to right, #eecda3, #ef629f);
-	background: linear-gradient(to right, #eecda3, #ef629f);*/
 	background-image: linear-gradient(to bottom right, cornflowerblue, white);
 }
 

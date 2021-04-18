@@ -1,5 +1,6 @@
 <head>
 <link rel="stylesheet" href="../css/payment.css">
+<link href="../css/font-awesome.min.css" rel="stylesheet"></link>
 <!-- <script type="text/javascript" src="../viewModels/product.js"></script> -->
 </head>
 <div class="oj-hybrid-applayout-page">
@@ -99,7 +100,9 @@
 						<div id="card-element">
 							<!--Stripe.js injects the Card Element-->
 						</div>
-						<button class="btn-block btn-blue"> <span> <span id="checkout">Pagar</span></button>
+						<button class="btn-block btn-blue">
+							<span> <span id="checkout">Pagar</span>
+						</button>
 						<p id="card-error" role="alert"></p>
 						<p class="result-message hidden">
 							Payment succeeded, see the result in your <a href=""
@@ -108,26 +111,71 @@
 						</p>
 					</form>
 
-					<div id="carrito-wrapper">
-						<table>
-							<tr>
-								<th>Unidades</th>
-								<th>Producto</th>
-							</tr>
-							<!-- ko foreach : carrito -->
-							<tr>
-								<td data-bind="html : amount"></td>
-								<td data-bind="html : name"></td>
-							</tr>
-							<!-- /ko -->
-						</table>
-						<!-- ko if : importe -->
-						<div>Importe del pedido:</div>
-						<div data-bind="html: importe"></div>
-						<!-- /ko -->
+					<div class="col-25-carrito">
+						<div class="carrito-wrapper">
+							<h4>
+								Carrito<span style="color: black"> <i
+									class="fa fa-shopping-cart"></i></span>
+							</h4>
+							<table>
+								<tr>
+									<th>Producto</th>
+									<th>Unidades</th>
+									<th>Precio/unidad</th>
+								</tr>
+								<!-- ko foreach : carrito -->
+								<tr>
+									<td data-bind="html : name"></td>
+									<td align="center" data-bind="html : amount"></td>
+									<td align="center"><span class="price"
+										data-bind="html : priceXAmount"></span> <span class="price">
+											€</span></td>
+								</tr> 
+								<tr>
+									<td><br></td>
+								</tr>
+								<!-- /ko -->
+							</table> <br>
+							<hr>
+							<table class="tabla-precio-total-carrito" style="width:400px">
+								<tr>
+									<td width=75%>
+										<b>
+											Precio Total <span class="price" style="color: black"></span>
+										</b>
+									</td>
+									<td width=25% align="right">
+										<b class="importe-total" data-bind="html: importe"></b>
+									</td>
+								</tr>
+							</table>
+						</div>
 					</div>
 				</div>
+				<!-- 
+				<div id="carrito-wrapper">
+					<table>
+						<tr>
+							<th>Unidades</th>
+							<th>Producto</th>
+						</tr>
+						<!-- ko foreach : carrito -->
+				<!-- 
+						<tr>
+							<td data-bind="html : amount"></td>
+							<td data-bind="html : name"></td>
+						</tr>
+						<!-- /ko -->
+				<!-- 
+					</table>
+					<!-- ko if : importe -->
+				<!-- 
+					<div>Importe del pedido:</div>
+					<div data-bind="html: importe"></div>
+					<!-- /ko -->
 			</div>
 		</div>
 	</div>
+</div>
+</div>
 </div>
