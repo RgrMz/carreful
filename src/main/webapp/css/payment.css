@@ -4,8 +4,8 @@
 	background: #eecda3;
 	background-image: linear-gradient(to bottom right, cornflowerblue, white);
 }
+
 .order-form .container {
-	color: #4c4c4c;
 	padding: 20px;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
 }
@@ -31,43 +31,121 @@
 	border-color: #cccccc;
 }
 
+.padding-entre-columnas {
+	padding: 0 30px;
+}
+
+.datos-contacto {
+	font-size: 25px;
+}
+
 .col-25-carrito {
-  -ms-flex: 25%; /* IE10 */
-  flex: 25%;
+	-ms-flex: 25%; /* IE10 */
+	flex: 25%;
 }
 
 .carrito-wrapper {
-  background-color: #ffffff;
-  padding: 5px 20px 15px 20px;
-  border: 1px solid lightgrey;
-  border-radius: 3px;
+	background-color: #ffffff;
+	padding: 5px 20px 15px 20px;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+}
+
+.direccion-entrega {
+	flex: 1 1 0;
 }
 
 span.price {
-  color: grey;
+	color: grey;
 }
 
-.importe-total{
+.row {
+	display: -ms-flexbox; /* IE10 */
+	display: flex;
+	-ms-flex-wrap: wrap; /* IE10 */
+	flex-wrap: wrap;
+	margin: 0 -16px;
+	width: 1000px;
+}
+
+.col-50 {
+	-ms-flex: 50%; /* IE10 */
+	flex: 50%;
+}
+
+.col-75 {
+	-ms-flex: 75%; /* IE10 */
+	flex: 75%;
+}
+
+.col-25-carrito, .col-50, .col-75 {
+	padding: 0 16px;
+}
+
+.container {
+	background-color: #ffffff;
+	padding: 5px 20px 15px 20px;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+}
+
+input[type=text] {
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+label {
+	margin-bottom: 10px;
+	display: block;
+}
+
+.icon-container {
+	margin-bottom: 20px;
+	padding: 7px 0;
+	font-size: 24px;
+}
+
+.btn {
+	background-color: #673AB7;
+	color: white;
+	padding: 12px;
+	margin: 10px 0;
+	border: none;
+	width: 100%;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 17px;
+}
+
+.btn:hover {
+	background-color: #7842d6;
+	cursor: pointer;
+}
+
+span.price {
+	float: right;
+	color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+@media ( max-width : 800px) {
+	.row {
+		flex-direction: column-reverse;
+	}
+	.col-25 {
+		margin-bottom: 20px;
+	}
+}
+
+.importe-total {
 	text-align: right;
 }
 
-.tabla-precio-total-carrito{
+.tabla-precio-total-carrito {
 	font-size: 23px;
-}
-
-.btn-blue {
-    border: none;
-    border-radius: 10px;
-    background-color: #673AB7;
-    color: #fff;
-    padding: 8px 15px;
-    margin: 20px 0px;
-    cursor: pointer
-}
-
-.btn-blue:hover {
-    background-color: #311B92;
-    color: #fff
 }
 
 .btn-submit:hover {

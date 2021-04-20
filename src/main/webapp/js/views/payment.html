@@ -16,100 +16,153 @@
 				<div class="oj-flex contenedor">
 
 					<section class="order-form my-4 mx-4">
-						<div class="container pt-4">
+						<div class="col-75">
+							<div class="container">
+								<form action="/action_page.php">
 
-							<div class="row">
-								<div class="col-12">
-									<h4>Detalles de Facturación</h4>
-									<hr class="mt-1">
-								</div>
-								<div class="col-12">
-
-									<div class="row mx-4">
-										<div class="col-12 mb-2">
-											<label class="order-form-label">Nombre Completo</label>
+									<div class="row">
+										<div class="col-50">
+											<h3>Detalles de Facturación</h3>
+											<hr>
+											<b class="datos-contacto">Datos de Contacto</b> <br> <br>
+											<div class="nombre-completo col-12 mb-2">
+												<label for="fname"><i class="fa fa-user"></i> Nombre
+													Completo</label>
+												<table style="width: 100%">
+													<tr>
+														<td>
+															<div class="col-12 col-sm-6">
+																<input class="order-form-input" placeholder="Nombre">
+															</div> <br>
+														</td>
+														<td class="padding-entre-columnas">
+															<div class="col-12 col-sm-6 mt-2 mt-sm-0">
+																<input class="order-form-input" placeholder="Apellidos">
+															</div> <br>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="email col-12 mb-2">
+																<label for="email"><i class="fa fa-envelope"></i>
+																	Correo electrónico</label>
+																<div class="col-12 col-sm-6">
+																	<input class="order-form-input"
+																		placeholder="email@email.com">
+																</div>
+															</div>
+														</td>
+														<td class="padding-entre-columnas">
+															<div class="telefono-movil col-12 mb-2">
+																<label for="telefono-movil"><i
+																	class="fa fa-mobile"></i> Teléfono Móvil</label>
+																<div class="col-12 col-sm-6">
+																	<input class="order-form-input"
+																		placeholder="(777 777 777)">
+																</div>
+															</div>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<br>
+											<hr>
+											<br> <b class="datos-contacto">Dirección de Entrega</b>
+											<br> <br>
+											<div class="nombre-completo col-12 mb-2">
+												<label for="fname"><i class="fa fa-map-marker"
+													aria-hidden="true"></i> Dirección</label>
+												<table class="direccion-entrega" style="width: 100%">
+													<tr>
+														<td>
+															<div class="col-12 col-sm-6">
+																<input class="order-form-input"
+																	placeholder="Calle, número, piso, puerta.">
+															</div> <br>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="email col-12 mb-2">
+																<label for="fname"><i class="fa fa-institution"></i>
+																	Ciudad</label>
+																<div class="col-12 col-sm-6">
+																	<input class="order-form-input" placeholder="Ciudad">
+																</div>
+																<br>
+															</div>
+														</td>
+														<td class="padding-entre-columnas">
+															<div class="telefono-movil col-12 mb-2">
+																<label for="fname">Provincia</label>
+																<div class="col-12 col-sm-6">
+																	<input class="order-form-input" placeholder="Provincia">
+																</div>
+															</div> <br>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="email col-12 mb-2">
+																<label for="fname">Código Postal</label>
+																<div class="col-12 col-sm-6">
+																	<input class="order-form-input" placeholder="15005">
+																</div>
+															</div>
+														</td>
+														<td class="padding-entre-columnas">
+															<div class="telefono-movil col-12 mb-2">
+																<label for="fname">País</label>
+																<div class="col-12 col-sm-6">
+																	<input class="order-form-input" placeholder="España">
+																</div>
+															</div>
+														</td>
+													</tr>
+												</table>
+											</div>
+											<br>
 										</div>
-										<div class="col-12 col-sm-6">
-											<input class="order-form-input" placeholder="Nombre">
-										</div>
-										<div class="col-12 col-sm-6 mt-2 mt-sm-0">
-											<input class="order-form-input" placeholder="Apellidos">
-										</div>
-										<br>
-										<div class="col-12 mb-2">
-											<label class="order-form-label">Datos de Contacto</label>
-										</div>
-										<div class="col-12 col-sm-6 mt-2 mt-sm-0">
-											<input class="order-form-input" placeholder="Email">
-										</div>
-										<div class="col-12 col-sm-6 mt-2 mt-sm-0">
-											<input class="order-form-input" placeholder="Teléfono Móvil">
+										<hr>
+										<div class="col-50">
+											<h3>Pago</h3>
+											<table>
+												<tr>
+													<td><label for="fname">Tarjetas aceptadas</label></td>
+													<td class="padding-entre-columnas">
+														<div class="iconos-tarjetas">
+															<i class="fa fa-cc-visa" style="color: navy;"></i> <i
+																class="fa fa-cc-paypal" style="color: blue;"></i> <i
+																class="fa fa-cc-mastercard" style="color: red;"></i> <i
+																class="fa fa-cc-discover" style="color: orange;"></i>
+														</div>
+													</td>
+												</tr>
+											</table>
 										</div>
 									</div>
 									<br>
-									<div class="row mt-3 mx-4">
-										<div class="col-12">
-											<label class="order-form-label">Dirección</label>
-										</div>
-										<div class="col-12">
-											<input class="order-form-input"
-												placeholder="Calle, número, piso, puerta.">
-										</div>
-										<div class="col-12 col-sm-6 mt-2 pr-sm-2">
-											<input class="order-form-input" placeholder="Ciudad">
-										</div>
-										<div class="col-12 col-sm-6 mt-2 pl-sm-0">
-											<input class="order-form-input" placeholder="Provincia">
-										</div>
-										<div class="col-12 col-sm-6 mt-2 pr-sm-2">
-											<input class="order-form-input" placeholder="Código Postal">
-										</div>
-										<div class="col-12 col-sm-6 mt-2 pl-sm-0">
-											<input class="order-form-input" placeholder="País">
-										</div>
+								</form>
+								<!-- Display a payment form -->
+								<form id="payment-form">
+									<div id="card-element">
+										<!--Stripe.js injects the Card Element-->
 									</div>
-									<div class="row mt-3 mx-4">
-										<div class="col-12">
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input"
-													name="validation" id="validation" value="1"> <label
-													for="validation" class="form-check-label">La
-													dirección de envío es la misma que la de facturación</label>
-											</div>
-										</div>
-									</div>
-									<br>
-									<div class="row mt-3 mx-4">
-										<div class="col-12">
-											<div class="form-check">
-												<input type="checkbox" class="form-check-input"
-													name="validation" id="validation" value="1"> <label
-													for="validation" class="form-check-label">He leído
-													y estoy de acuerdo con los términos y condiciones de la web</label>
-											</div>
-										</div>
-									</div>
-
-								</div>
+									<br> <br> <label> <input type="checkbox">
+										Este pedido es urgente
+									</label> <br> <label> <input type="checkbox"> La
+										dirección de envío es la misma que la de facturación
+									</label> <label> <input type="checkbox"> He leído y
+										estoy de acuerdo con los términos y condiciones de la web
+									</label><br>
+									<button class="btn-block btn">
+										<span id="checkout">Realizar el pedido</span>
+									</button>
+									<p id="card-error" role="alert"></p>
+								</form>
 							</div>
 						</div>
 					</section>
-
-					<!-- Display a payment form -->
-					<form id="payment-form">
-						<div id="card-element">
-							<!--Stripe.js injects the Card Element-->
-						</div>
-						<button class="btn-block btn-blue">
-							<span> <span id="checkout">Pagar</span>
-						</button>
-						<p id="card-error" role="alert"></p>
-						<p class="result-message hidden">
-							Payment succeeded, see the result in your <a href=""
-								target="_blank">Stripe dashboard.</a> Refresh the page to pay
-							again.
-						</p>
-					</form>
 
 					<div class="col-25-carrito">
 						<div class="carrito-wrapper">
@@ -121,7 +174,7 @@
 								<tr>
 									<th>Producto</th>
 									<th>Unidades</th>
-									<th>Precio/unidad</th>
+									<th>€/ud.</th>
 								</tr>
 								<!-- ko foreach : carrito -->
 								<tr>
@@ -130,52 +183,27 @@
 									<td align="center"><span class="price"
 										data-bind="html : priceXAmount"></span> <span class="price">
 											€</span></td>
-								</tr> 
+								</tr>
 								<tr>
 									<td><br></td>
 								</tr>
 								<!-- /ko -->
-							</table> <br>
+							</table>
+							<br>
 							<hr>
-							<table class="tabla-precio-total-carrito" style="width:400px">
+							<table class="tabla-precio-total-carrito" style="width: 400px">
 								<tr>
-									<td width=75%>
-										<b>
-											Precio Total <span class="price" style="color: black"></span>
-										</b>
-									</td>
-									<td width=25% align="right">
-										<b class="importe-total" data-bind="html: importe"></b>
-									</td>
+									<td width=75%><b> Precio Total <span class="price"
+											style="color: black"></span>
+									</b></td>
+									<td width=25% align="right"><b class="importe-total"
+										data-bind="html: importe"></b></td>
 								</tr>
 							</table>
 						</div>
 					</div>
 				</div>
-				<!-- 
-				<div id="carrito-wrapper">
-					<table>
-						<tr>
-							<th>Unidades</th>
-							<th>Producto</th>
-						</tr>
-						<!-- ko foreach : carrito -->
-				<!-- 
-						<tr>
-							<td data-bind="html : amount"></td>
-							<td data-bind="html : name"></td>
-						</tr>
-						<!-- /ko -->
-				<!-- 
-					</table>
-					<!-- ko if : importe -->
-				<!-- 
-					<div>Importe del pedido:</div>
-					<div data-bind="html: importe"></div>
-					<!-- /ko -->
 			</div>
 		</div>
 	</div>
-</div>
-</div>
 </div>
