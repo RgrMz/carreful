@@ -23,15 +23,19 @@
 							class="oj-text-field-start-end-icon oj-ux-ico-email" role="img"></div>
 						</oj-input-text> <oj-input-password id="password" value="{{pwd}}"
 							label-hint="Contraseña" mask-icon="visible"required">
-						</oj-input-password> <oj-button id="icon_button2" data-bind="click : login"">
+						</oj-input-password> <oj-button id="icon_button2" data-bind="click : login">
 						<span slot='startIcon' class="oj-ux-ico-arrow-right"></span>
-						Entrar </oj-button> <a data-bind="click : recoverPwd" class="button three">Recuperar
-							contraseña</a> <a data-bind="click : register" class="button three">Crear
-							cuenta</a> </oj-form-layout>
+						Entrar </oj-button> 
+						<a data-bind="click : recoverPwd" class="button three">Recuperar contraseña</a> 
+						<a data-bind="click : register" class="button three">Crear cuenta</a> 
+						</oj-form-layout>
 					</div>
 
-					<div class="oj-sm-12 error" data-bind="html : error"
-						style="color: red"></div>
+					<div class="alert" style="display: none" id="alerta-error">
+						<span class="closebtn"
+							onclick="this.parentElement.style.display='none';">&times;</span>
+						<strong data-bind="html: error"></strong>
+					</div>
 				</div>
 				<div class="alert" style="display: none" id="alerta-pwd">
 					<span class="closebtn"

@@ -17,6 +17,8 @@ public class User {
 	private String pwd;
 	@Lob
 	private String picture;
+	@Column(columnDefinition = "bit default 0")
+	private boolean activado;
 	
 	public User() { }
 
@@ -44,4 +46,13 @@ public class User {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
+	public boolean isActivado() {
+		return activado;
+	}
+
+	public void setActivado(boolean activado) {
+		this.activado = activado;
+	}
+
 }

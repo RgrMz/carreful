@@ -59,9 +59,35 @@ public class UserController extends CookiesController {
 		}
 	}
 	
+	@GetMapping("confirmarCorreo/{tokenId}")
+	public void confirmarCorreo(HttpServletResponse response, @PathVariable String tokenId) throws IOException {
+		Optional<Token> optToken = tokenDao.findById(tokenId);
+		if (optToken.isPresent()) {
+			Token token = optToken.get();
+			if (token.isUsed())
+				response.sendError(409, "El token ya se utilizó");
+			else {
+				User user = userDao.findByEmail(token.getEmail());
+				if(user != null) {
+					user.setActivado(true);
+					userDao.save(user);
+					response.sendRedirect("http://localhost:8080?ojr=login");
+				}
+				else {
+					response.sendError(404, "El usuario no existe");
+				}
+			}
+		} else {
+			response.sendError(404, "El token no existe");
+		}
+	}
+	
 	@GetMapping("/recoverPwd")
 	public void recoverPwd(@RequestParam String email) {
 		try {
+			if (email.length()==0) {
+				throw new Exception("Debes introducir un correo válido en el campo \"Correo electrónico\"");
+			}
 			User user = userDao.findByEmail(email);
 			if (user!=null) {
 				Token token = new Token(email);
@@ -87,9 +113,11 @@ public class UserController extends CookiesController {
 			User user = userDao.findByEmailAndPwd(email, DigestUtils.sha512Hex(pwd));
 			if (user==null)
 				throw new Exception("Credenciales inválidas");
-			request.getSession().setAttribute("userEmail", email);
+			if(!user.isActivado())
+				throw new Exception("No confirmaste tu cuenta de correo electrónico. Por favor, confirmala para poder entrar al sistema.");
+				request.getSession().setAttribute("userEmail", email);
 		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
 		}
 	}
 	
@@ -113,11 +141,13 @@ public class UserController extends CookiesController {
 			user.setEmail(email);
 			user.setPwd(pwd1);
 			user.setPicture(jso.optString("picture"));
-			String correoConfirmacion = "<p>Para confirmar tu cuenta de correo y finalizar la"
-					+ " creación de tu cuenta, clicka aqui: </p><br>"
-					+ "<a href=\"http://localhost:8080\"> Activación de la cuenta</a>";
+			Token token = new Token(email);
+			tokenDao.save(token);
+			String correoConfirmacion = "<p>Para confirmar tu cuenta de correo y finalizar"
+					+ " el registro de tu cuenta, clicka aqui: </p><br>"
+					+ "<a href=\"http://localhost:8080/user/confirmarCorreo/" + token.getId() + "\"> Activa tu cuenta</a>";
 			smtp.send(email, "Carreful: confirmación de cuenta", correoConfirmacion);
-			//userDao.save(user);
+			userDao.save(user);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}

@@ -1,5 +1,6 @@
 package edu.uclm.esi.carreful.model;
 
+
 public class OrderedProduct {
 	private Product product;
 	private double amount;
