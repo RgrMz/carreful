@@ -127,14 +127,11 @@ public class UserController extends CookiesController {
 	}
 
 	@GetMapping("/getUsuarioRecordado")
-	public JSONObject getUsuarioRecordado(HttpServletRequest request) {
+	public String[] getUsuarioRecordado(HttpServletRequest request) {
 		AlmacenUsuarios almacen = AlmacenUsuarios.getInstance();
 		if (almacen.isRecordado(request.getSession().getId())) {
-			JSONObject json = new JSONObject();
 			String[] datos = almacen.getDatos(request.getSession().getId());
-			json.put("correo", datos[0]);
-			json.put("pwd", datos[1]);
-			return json;
+			return datos;
 		} else {
 			return null;
 		}

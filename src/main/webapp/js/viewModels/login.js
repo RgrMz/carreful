@@ -39,10 +39,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.email = ko.observable("");
 				self.pwd = ko.observable("");
 				self.message = ko.observable();
-				self.recuerdame = ko.observable();
+				/*self.recuerdame = ko.observable();*/
 				/* Prueba con el self.recuerdame bindeandolo a un checkbox si te deja, si no,
-				usamois el DOM con el tema de document.getElementById('checkbox').getEstado no se muy
-				bien cual sera el atributo */ 
+				usamois el DOM con el tema de document.getElementById('rememberMe').getEstado no se muy
+				bien cual sera el atributo */
 				self.error = ko.observable();
 
 				// Header Config
@@ -65,7 +65,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				var info = {
 					email: this.email(),
 					pwd: this.pwd(),
-					recuerdame: this.recuerdame()
+					recuerdame: document.getElementById("recuerdame").checked
 				};
 				var data = {
 					data: JSON.stringify(info),
@@ -111,8 +111,9 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					contentType: 'application/json',
 					success: function(response) {
 						if(response) {
-							self.email(response.correo);
-							self.pwd(response.pwd);
+							self.email(response[0]);
+							self.pwd(response[1]);
+							document.getElementById("recuerdame").checked = true;
 						}
 					},
 					error: function(response) {

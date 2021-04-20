@@ -13,34 +13,40 @@
 			<div class="oj-hybrid-padding">
 				<div class="oj-flex contenedor">
 					<div
-						class="oj-panel oj-panel-shadow-lg oj-bg-margin-4x demo-panel-customization">
+						class="panel-completo oj-panel oj-panel-shadow-lg oj-bg-margin-4x demo-panel-customization">
 						<h1 class="titulo-contenedor">Login</h1>
-						<oj-form-layout label-edge="[[labelEdge]]"
-							readonly="[[readonlyControls]]"> <oj-input-text
-							id="start-icon" value='{{email}}' label-hint="Correo electrónico"
-							disabled="[[disableControls]]">
-						<div slot="start"
-							class="oj-text-field-start-end-icon oj-ux-ico-email" role="img"></div>
-						</oj-input-text> <oj-input-password id="password" value="{{pwd}}"
-							label-hint="Contraseña" mask-icon="visible"required">
-						</oj-input-password> <oj-button id="icon_button2" data-bind="click : login">
-						<span slot='startIcon' class="oj-ux-ico-arrow-right"></span>
-						Entrar </oj-button> 
-						<a data-bind="click : recoverPwd" class="button three">Recuperar contraseña</a> 
-						<a data-bind="click : register" class="button three">Crear cuenta</a> 
-						</oj-form-layout>
+						<div class="centrado-elementos-login">
+							<oj-form-layout label-edge="[[labelEdge]]"
+								readonly="[[readonlyControls]]"> <oj-input-text
+								id="start-icon" value='{{email}}'
+								label-hint="Correo electrónico" disabled="[[disableControls]]">
+							<div slot="start"
+								class="oj-text-field-start-end-icon oj-ux-ico-email" role="img"></div>
+							</oj-input-text> <oj-input-password id="password" value="{{pwd}}"
+								label-hint="Contraseña" mask-icon="visible"required">
+							</oj-input-password> <!-- Remember me --> <label class="checkbox-recuerdame">
+								<input type="checkbox" value="recuerdame" id="recuerdame"
+								name="recuerdame"> Recuérdame
+							</label>
+							<button class="button button_border button_arrow"
+								data-button="green" data-bind="click : login">Entrar</button>
+							<hr>
+							<!-- Recuperar Contraseña & Crear Cuenta --> <a
+								data-bind="click : recoverPwd" class="button three">Recuperar
+								contraseña</a> <a data-bind="click : register" class="button three">Crear
+								cuenta</a></oj-form-layout>
+						</div>
 					</div>
-
 					<div class="alert" style="display: none" id="alerta-error">
 						<span class="closebtn"
 							onclick="this.parentElement.style.display='none';">&times;</span>
 						<strong data-bind="html: error"></strong>
 					</div>
-				</div>
-				<div class="alert" style="display: none" id="alerta-pwd">
-					<span class="closebtn"
-						onclick="this.parentElement.style.display='none';">&times;</span>
-					<strong data-bind="html: message"></strong>
+					<div class="alert" style="display: none" id="alerta-pwd">
+						<span class="closebtn"
+							onclick="this.parentElement.style.display='none';">&times;</span>
+						<strong data-bind="html: message"></strong>
+					</div>
 				</div>
 			</div>
 		</div>
