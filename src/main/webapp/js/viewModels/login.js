@@ -39,6 +39,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.email = ko.observable("");
 				self.pwd = ko.observable("");
 				self.message = ko.observable();
+				self.recuerdame = ko.observable();
+				/* Prueba con el self.recuerdame bindeandolo a un checkbox si te deja, si no,
+				usamois el DOM con el tema de document.getElementById('checkbox').getEstado no se muy
+				bien cual sera el atributo */ 
 				self.error = ko.observable();
 
 				// Header Config
@@ -60,7 +64,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				var self = this;
 				var info = {
 					email: this.email(),
-					pwd: this.pwd()
+					pwd: this.pwd(),
+					recuerdame: this.recuerdame()
 				};
 				var data = {
 					data: JSON.stringify(info),
@@ -97,6 +102,28 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
+			
+			recordarUsuario() {
+				var self = this;
+				var data = {
+					url: "user/getUsuarioRecordado",
+					type: "get",
+					contentType: 'application/json',
+					success: function(response) {
+						if(response) {
+							self.email(response.correo);
+							self.pwd(response.pwd);
+						}
+					},
+					error: function(response) {
+						document.getElementById("alerta-error").style.display = "block";
+						document.getElementById("alerta-pwd").style.display = "none";
+						document.getElementById("alerta-error").style.background = "rgb(255, 0, 0)";
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
 
 			register() {
 				app.router.go({ path: "register" });
@@ -105,6 +132,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			connected() {
 				accUtils.announce('Login page loaded.');
 				document.title = "Login";
+				this.recordarUsuario();
 			};
 
 			disconnected() {
