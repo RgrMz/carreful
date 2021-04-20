@@ -4,13 +4,12 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		class PaymentViewModel {
 			constructor() {
 
-				var self = this;
 				// Para paginas que no son single page (index.html con un router que va cambiando la vista) seria asi
 				self.stripe = Stripe('pk_test_51Idbt6HmArDnS3pXvdBN6zJ0jyaJS65zY1vMv4z0wfoG3vyjTEoPYMjpGU9G04ZLEUCokpTsvirO806CJ2xN8EwW00kXh8tv4f');
 
 				self.message = ko.observable("");
 				self.error = ko.observable("");
-				
+
 				self.nombre = ko.observable();
 				self.apellidos = ko.observable();
 				self.email = ko.observable();
@@ -20,7 +19,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.provincia = ko.observable();
 				self.codigoPostal = ko.observable();
 				self.pais = ko.observable();
-				
+
 				self.carrito = ko.observableArray([]);
 				self.importe = ko.observable();
 
@@ -130,7 +129,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					}
 				});
 			}
-			
+
 			getImporte() {
 				let self = this;
 				let data = {
@@ -146,15 +145,15 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
-			
-			getCarrito(){
+
+			getCarrito() {
 				let self = this;
 				let data = {
 					url: "product/getCarrito",
 					type: "get",
 					contentTyp: 'application/json',
 					success: function(response) {
-						if (self.carrito(response.products)){
+						if (self.carrito(response.products)) {
 							self.carrito(response.products);
 							self.getImporte();
 						}
@@ -173,6 +172,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			transitionCompleted() {
 				// Implement if needed
 			};
+			
+			
 		}
 
 		return PaymentViewModel;

@@ -121,9 +121,8 @@
 													</tr>
 												</table>
 											</div>
-											<br>
+											<br> <hr>
 										</div>
-										<hr>
 										<div class="col-50">
 											<h3>Pago</h3>
 											<table>
@@ -142,15 +141,29 @@
 										</div>
 									</div>
 									<br>
-								</form>
+								</form> <hr>
 								<!-- Display a payment form -->
 								<form id="payment-form">
 									<div id="card-element">
 										<!--Stripe.js injects the Card Element-->
 									</div>
-									<br> <br> <label> <input type="checkbox">
-										Este pedido es urgente
-									</label> <br> <label> <input type="checkbox"> La
+									<br>
+									<h4>Opciones de envío</h4>
+									<div class="radio-pedidos">
+										<label class="radio-pedidos">Envío a domicilio <input
+											type="radio" checked="checked" name="radio"> <span
+											class="checkmark"></span>
+										</label> 
+										<label class="radio-pedidos">Envío a domicilio express <input
+											type="radio" name="radio"> <span
+											class="checkmark"></span>
+										</label>
+										<label class="radio-pedidos">Recogida en tienda <input
+											type="radio" name="radio"> <span
+											class="checkmark"></span>
+										</label>
+									</div> <br> <hr>
+									<br> <label> <input type="checkbox"> La
 										dirección de envío es la misma que la de facturación
 									</label> <label> <input type="checkbox"> He leído y
 										estoy de acuerdo con los términos y condiciones de la web
@@ -173,16 +186,16 @@
 							<table>
 								<tr>
 									<th>Producto</th>
-									<th>Unidades</th>
+									<th>Uds.</th>
 									<th>€/ud.</th>
 								</tr>
 								<!-- ko foreach : carrito -->
 								<tr>
 									<td data-bind="html : name"></td>
-									<td align="center" data-bind="html : amount"></td>
-									<td align="center"><span class="price"
-										data-bind="html : priceXAmount"></span> <span class="price">
-											€</span></td>
+									<td align="center" class="padding-entre-columnas"
+										data-bind="html : amount"></td>
+									<td align="center"><span class="price"> €</span><span
+										class="price" data-bind="html : priceXAmount"></span></td>
 								</tr>
 								<tr>
 									<td><br></td>
