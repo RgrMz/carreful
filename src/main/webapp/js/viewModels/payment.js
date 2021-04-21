@@ -20,8 +20,13 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.provincia = ko.observable();
 				self.codigoPostal = ko.observable();
 				self.pais = ko.observable();
+				
+				self.domicilio = ko.observable();
+				self.domicilioExpress = ko.observable();
+				self.recoger = ko.observable();
 
 				self.carrito = ko.observableArray([]);
+				self.gastosEnvio = ko.observable();
 				self.importe = ko.observable();
 
 				// Header Config
@@ -138,7 +143,18 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					type: "get",
 					contentTyp: 'application/json',
 					success: function(response) {
-						self.importe(response.toString() + ' €');
+						console.log(document.getElementById('pedidos-domicilio').checked);
+						if (document.getElementById('pedidos-domicilio').checked){
+							/* Funcion para calcular los gastos de envio*/
+							self.gastosEnvio('3,25 €');
+						} else if (document.getElementById('pedidos-domicilio-express').checked) {
+							/* Funcion para calcular los gastos de envio*/
+							self.gastosEnvio('5,5 €');
+						} else if (document.getElementById('pedidos-recogida').checked) {
+							/* Funcion para calcular los gastos de envio*/
+							self.gastosEnvio('0,0 €');
+						}
+						self.importe((response).toString() + ' €');
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);

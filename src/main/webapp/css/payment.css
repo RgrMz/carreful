@@ -108,7 +108,7 @@ label {
 	font-size: 24px;
 }
 
-.btn {
+.btn-realizar-pedido {
 	background-color: #673AB7;
 	color: white;
 	padding: 12px;
@@ -120,7 +120,7 @@ label {
 	font-size: 17px;
 }
 
-.btn:hover {
+.btn-realizar-pedido:hover {
 	background-color: #7842d6;
 	cursor: pointer;
 }
@@ -154,61 +154,61 @@ span.price {
 
 /* Radio button pedidos container */
 .radio-pedidos {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 20px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 20px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 /* Hide the browser's default radio button */
 .radio-pedidos input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
 }
 
 /* Create a custom radio button */
 .checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-  border-radius: 50%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+	border-radius: 50%;
 }
 
-/* On mouse-over, add a grey background color */
+/* Grey background color */
 .radio-pedidos input ~ .checkmark {
-  background-color: #ccc;
+	background-color: grey;
 }
 
 /* When the radio button is checked, add a purple background */
 .radio-pedidos input:checked ~ .checkmark {
-  background-color: #8021f3;
+	background-color: #8021f3;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
 .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+	content: "";
+	position: absolute;
+	display: none;
 }
 
 /* Show the indicator (dot/circle) when checked */
 .radio-pedidos input:checked ~ .checkmark:after {
-  display: block;
+	display: block;
 }
 
 /* Style the indicator (dot/circle) */
 .radio-pedidos .checkmark:after {
- 	top: 9px;
+	top: 9px;
 	left: 9px;
 	width: 8px;
 	height: 8px;

@@ -32,12 +32,14 @@
 													<tr>
 														<td>
 															<div class="col-12 col-sm-6">
-																<input class="order-form-input" placeholder="Nombre">
+																<input class="order-form-input"
+																	data-bind="html : nombre" placeholder="Nombre">
 															</div> <br>
 														</td>
 														<td class="padding-entre-columnas">
 															<div class="col-12 col-sm-6 mt-2 mt-sm-0">
-																<input class="order-form-input" placeholder="Apellidos">
+																<input class="order-form-input"
+																	data-bind="html : apellidos" placeholder="Apellidos">
 															</div> <br>
 														</td>
 													</tr>
@@ -48,7 +50,7 @@
 																	Correo electrónico</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		placeholder="email@email.com">
+																		data-bind="html : email" placeholder="email@email.com">
 																</div>
 															</div>
 														</td>
@@ -58,6 +60,7 @@
 																	class="fa fa-mobile"></i> Teléfono Móvil</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
+																		data-bind="html : telefonoMovil"
 																		placeholder="(777 777 777)">
 																</div>
 															</div>
@@ -77,6 +80,7 @@
 														<td>
 															<div class="col-12 col-sm-6">
 																<input class="order-form-input"
+																	data-bind="html : direccion"
 																	placeholder="Calle, número, piso, puerta.">
 															</div> <br>
 														</td>
@@ -87,7 +91,8 @@
 																<label for="fname"><i class="fa fa-institution"></i>
 																	Ciudad</label>
 																<div class="col-12 col-sm-6">
-																	<input class="order-form-input" placeholder="Ciudad">
+																	<input class="order-form-input"
+																		data-bind="html : ciudad" placeholder="Ciudad">
 																</div>
 																<br>
 															</div>
@@ -96,7 +101,8 @@
 															<div class="telefono-movil col-12 mb-2">
 																<label for="fname">Provincia</label>
 																<div class="col-12 col-sm-6">
-																	<input class="order-form-input" placeholder="Provincia">
+																	<input class="order-form-input"
+																		data-bind="html : provincia" placeholder="Provincia">
 																</div>
 															</div> <br>
 														</td>
@@ -106,7 +112,8 @@
 															<div class="email col-12 mb-2">
 																<label for="fname">Código Postal</label>
 																<div class="col-12 col-sm-6">
-																	<input class="order-form-input" placeholder="15005">
+																	<input class="order-form-input"
+																		data-bind="html : codigoPostal" placeholder="15005">
 																</div>
 															</div>
 														</td>
@@ -114,14 +121,16 @@
 															<div class="telefono-movil col-12 mb-2">
 																<label for="fname">País</label>
 																<div class="col-12 col-sm-6">
-																	<input class="order-form-input" placeholder="España">
+																	<input class="order-form-input" data-bind="html : pais"
+																		placeholder="España">
 																</div>
 															</div>
 														</td>
 													</tr>
 												</table>
 											</div>
-											<br> <hr>
+											<br>
+											<hr>
 										</div>
 										<div class="col-50">
 											<h3>Pago</h3>
@@ -138,37 +147,40 @@
 													</td>
 												</tr>
 											</table>
+
 										</div>
 									</div>
 									<br>
-								</form> <hr>
+								</form>
 								<!-- Display a payment form -->
 								<form id="payment-form">
 									<div id="card-element">
 										<!--Stripe.js injects the Card Element-->
 									</div>
+									<br><hr>
 									<br>
 									<h4>Opciones de envío</h4>
 									<div class="radio-pedidos">
 										<label class="radio-pedidos">Envío a domicilio <input
-											type="radio" checked="checked" name="radio"> <span
+											type="radio" checked="checked" name="radio"
+											id="pedidos-domicilio"> <span class="checkmark"></span>
+										</label> <label class="radio-pedidos">Envío a domicilio
+											express <input type="radio" name="radio"
+											id="pedidos-domicilio-express"> <span
 											class="checkmark"></span>
-										</label> 
-										<label class="radio-pedidos">Envío a domicilio express <input
-											type="radio" name="radio"> <span
+										</label> <label class="radio-pedidos">Recogida en tienda <input
+											type="radio" name="radio" id="pedidos-recogida"> <span
 											class="checkmark"></span>
 										</label>
-										<label class="radio-pedidos">Recogida en tienda <input
-											type="radio" name="radio"> <span
-											class="checkmark"></span>
-										</label>
-									</div> <br> <hr>
+									</div>
+									<br>
+									<hr>
 									<br> <label> <input type="checkbox"> La
 										dirección de envío es la misma que la de facturación
 									</label> <label> <input type="checkbox"> He leído y
 										estoy de acuerdo con los términos y condiciones de la web
 									</label><br>
-									<button class="btn-block btn">
+									<button class="btn-block btn-realizar-pedido">
 										<span id="checkout">Realizar el pedido</span>
 									</button>
 									<p id="card-error" role="alert"></p>
@@ -201,6 +213,17 @@
 									<td><br></td>
 								</tr>
 								<!-- /ko -->
+							</table>
+							<br>
+							<hr>
+							<table class="tabla-envios" style="width: 400px">
+								<tr>
+									<td width=75%><b> Gastos de envío <span class="price"
+											style="color: black"></span>
+									</b></td>
+									<td width=25% align="right"><b class="importe-envio"
+										data-bind="html : gastosEnvio"></b></td>
+								</tr>
 							</table>
 							<br>
 							<hr>
