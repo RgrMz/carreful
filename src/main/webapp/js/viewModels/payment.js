@@ -3,7 +3,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 		class PaymentViewModel {
 			constructor() {
-
+				
+				var self = this;
 				// Para paginas que no son single page (index.html con un router que va cambiando la vista) seria asi
 				self.stripe = Stripe('pk_test_51Idbt6HmArDnS3pXvdBN6zJ0jyaJS65zY1vMv4z0wfoG3vyjTEoPYMjpGU9G04ZLEUCokpTsvirO806CJ2xN8EwW00kXh8tv4f');
 
@@ -153,7 +154,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					type: "get",
 					contentTyp: 'application/json',
 					success: function(response) {
-						if (self.carrito(response.products)) {
+						if (response.products) {
 							self.carrito(response.products);
 							self.getImporte();
 						}
