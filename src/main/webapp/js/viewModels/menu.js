@@ -5,8 +5,9 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			constructor() {
 				var self = this;
 
-				self.nombre = ko.observable("Detergente");
-				self.precio = ko.observable("8,50 €");
+				self.nombre = ko.observable("");
+				self.precio = ko.observable("");
+				self.imagenBuscada = ko.observable("https://image.flaticon.com/icons/png/512/18/18436.png");
 
 				self.productos = ko.observableArray([]);
 				self.carrito = ko.observableArray([]);
@@ -33,7 +34,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				var self = this;
 				let info = {
 					nombre: this.nombre(),
-					precio: this.precio()
+					precio: this.precio(),
+					congelado: document.getElementById('congelado').checked
 				};
 				let data = {
 					data: JSON.stringify(info),
@@ -59,18 +61,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					contentType: 'application/json',
 					success: function(response) {
 						self.productos(response);
-						/* Ya no hace falta lo de abajo porque hemos puesto
-						 * en cada botón la llamada a $parent.eliminarProducto(...)  
-						 * for (let i=0; i<response.length; i++) {
-							let objetito = {
-								nombre : response[i].nombre,
-								precio : response[i].precio,
-								eliminar : function() {
-									self.eliminarProducto(response[i].nombre);
-								}
-							};
-							self.productos.push(objetito);
-						}*/
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -95,7 +85,24 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
-			
+
+			buscarImagen() {
+				let self = this;
+				$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+					{
+						tags: self.nombre,
+						tagmode: "any",
+						format: "json"
+					},
+					function(data) {
+						var rnd = Math.floor(Math.random() * 20);
+
+						var image_src = data.items[rnd]['media']['m'].replace("_m", "_b");
+
+						self.imagenBuscada(image_src);
+					});
+			}
+
 			connected() {
 				accUtils.announce('Menu page loaded.');
 				document.title = "Menu";

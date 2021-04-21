@@ -1,3 +1,6 @@
+<head>
+<script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+</head>
 <div class="oj-hybrid-applayout-page">
 	<div class="oj-applayout-fixed-top">
 		<header role="banner" class="oj-hybrid-applayout-header">
@@ -9,47 +12,53 @@
 		<div role="main" class="oj-hybrid-applayout-content">
 			<div class="oj-hybrid-padding">
 				<h1>Menú de opciones</h1>
-					<table>
-						<tr>
-							<th>Unidades</th>
-							<th>Producto</th>
-						</tr>
-						<!-- ko foreach : carrito -->
-						<tr>
-							<td data-bind="html : amount"></td>
-							<td data-bind="html : name"></td>
-						</tr>
-						<!-- /ko -->
-					</table>
-					<div>
-						<input type="text" data-bind="value : nombre"
-							placeholder="Nombre del producto"> <input type="text"
-							data-bind="value : precio" placeholder="Precio">
-						<button data-bind="click : add">Guardar producto</button>
-						<div data-bind="html : message" style="color: blue"></div>
-						<div data-bind="html : error" style="color: red"></div>
-					</div>
-
-					<table>
-						<tr>
-							<th>Nombre</th>
-							<th>Precio</th>
-							<th></th>
-							<th></th>
-						</tr>
-						<!-- ko foreach : productos -->
-						<tr>
-							<td data-bind="html : nombre"></td>
-							<td data-bind="html : precio"></td>
-							<td>
-								<button
-									data-bind="click : function() { $parent.eliminarProducto(nombre); }">Eliminar</button>
-							</td>
-						</tr>
-						<!-- /ko -->
-					</table>
-
+				<table>
+					<tr>
+						<th>Añadir producto al Carreful</th>
+					</tr>
+					<!-- ko foreach : carrito -->
+					<tr>
+						<td data-bind="html : amount"></td>
+						<td data-bind="html : name"></td>
+					</tr>
+					<!-- /ko -->
+				</table>
+				<div>
+					<input type="text" data-bind="value : nombre"
+						placeholder="Nombre del producto"> <input type="text"
+						data-bind="value : precio" placeholder="Precio"> <label
+						class="checkbox-congelado"> <input type="checkbox"
+						value="congelado" id="congelado" name="congelado">
+						Congelado
+					</label>
+					<img data-bind="attr: {src: imagenBuscada}" width="150px"
+									height="150px">
+					<button data-bind="click : buscarImagen">Buscar imagen</button>
+					<button data-bind="click : add">Guardar producto</button>
+					<div data-bind="html : message" style="color: blue"></div>
+					<div data-bind="html : error" style="color: red"></div>
 				</div>
+
+				<table>
+					<tr>
+						<th>Nombre</th>
+						<th>Precio</th>
+						<th></th>
+						<th></th>
+					</tr>
+					<!-- ko foreach : productos -->
+					<tr>
+						<td data-bind="html : nombre"></td>
+						<td data-bind="html : precio"></td>
+						<td>
+							<button
+								data-bind="click : function() { $parent.eliminarProducto(nombre); }">Eliminar</button>
+						</td>
+					</tr>
+					<!-- /ko -->
+				</table>
+
 			</div>
 		</div>
 	</div>
+</div>

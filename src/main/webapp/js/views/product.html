@@ -35,8 +35,13 @@
 							<div class="product-card">
 								<!-- <div class="product-card-content">  -->
 								<br> <img data-bind="attr: {src: picture}" width="150px"
-									height="150px"> <br> <b class="product-name"
-									data-bind="html : nombre"></b> <br> <span class="price"
+									height="150px">
+									<!-- ko if : congelado -->
+										<i class="fa fa-snowflake-o" aria-hidden="true" style="display: inline;"></i>
+									<!-- /ko -->  <br> <b class="product-name"
+									data-bind="html : nombre"></b>
+									
+									<br> <span class="price"
 									data-bind="html : precio"></span> <span class="price"> €</span>
 								<br> <br>
 								<button

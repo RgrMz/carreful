@@ -20,6 +20,8 @@ public class Product {
 	private int stock;
 	@Lob
 	private String picture;
+	@Column(columnDefinition = "bit default 0")
+	private boolean congelado;
 	@ManyToOne
 	@JoinColumn(name = "idCategoria", referencedColumnName = "id")
 	private Categoria idCategoria;
@@ -71,6 +73,13 @@ public class Product {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-	
+
+	public boolean isCongelado() {
+		return congelado;
+	}
+
+	public void setCongelado(boolean congelado) {
+		this.congelado = congelado;
+	}
 	
 }
