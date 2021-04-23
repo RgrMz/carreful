@@ -1,17 +1,16 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery', "ojs/ojfilmstrip"], function(ko, app, moduleUtils, accUtils, $) {
 
-		class ProductViewModel {
+		class ProductViewModel extends ViewModelConCarrito {
 			constructor() {
+				super(ko);
 				var self = this;
 
 				self.nombre = ko.observable("Detergente");
 				self.precio = ko.observable("8,50 €");
 				self.picture = ko.observable("");
-				self.importe = ko.observable();
 
 				self.productos = ko.observableArray([]);
-				self.carrito = ko.observableArray([]);
 				self.categorias = ko.observableArray([]);
 
 				self.message = ko.observable(null);
@@ -138,21 +137,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				$.ajax(data);
 			}
 
-			getImporte() {
-				let self = this;
-				let data = {
-					url: "product/getImporte",
-					type: "get",
-					contentTyp: 'application/json',
-					success: function(response) {
-						self.importe(response + ' €');
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
-			}
+
 
 			getCategorias() {
 				let self = this;
@@ -191,24 +176,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				$.ajax(data);
 			}
 
-			getCarrito() {
-				let self = this;
-				let data = {
-					url: "product/getCarrito",
-					type: "get",
-					contentTyp: 'application/json',
-					success: function(response) {
-						if (self.carrito(response.products)) {
-							self.carrito(response.products);
-							self.getImporte();
-						}
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
-			}
 
 			register() {
 				app.router.go({ path: "register" });

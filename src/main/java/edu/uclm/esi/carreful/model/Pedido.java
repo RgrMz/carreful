@@ -1,21 +1,15 @@
 package edu.uclm.esi.carreful.model;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@DiscriminatorColumn(name = "tipo")
-@DiscriminatorValue(value = "Pedido")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Pedido {
+public class Pedido {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idPedido;
 
@@ -23,10 +17,15 @@ public abstract class Pedido {
 	private String nombre, apellidos, email, telefonoMovil, direccion, ciudad, provincia, pais;
 	@NotNull
 	private int codigoPostal;
-	@NotNull @Column(columnDefinition = "varchar(255) default 'Pendiente de envío'")
-	private String estado;
+	@NotNull @Column(columnDefinition = "varchar(255) default 'Recibido'")
+	private Estado estado;
+	
+	@Transient
+	private TipoPedido tipo;
+	
+	private String tipoPedido;
 
-	public long getIdPedido() {
+	public long getIdPedido() { 
 		return idPedido;
 	}
 	public void setIdPedido(long idPedido) {
@@ -86,15 +85,31 @@ public abstract class Pedido {
 	public void setCodigoPostal(int codigoPostal) {
 		this.codigoPostal = codigoPostal;
 	}
-
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstado(Estado estado) {
+		this.estado = this.tipo.updateEstado();
 	}
 	
-	public abstract String generarFactura(Carrito carrito);
-	public abstract void actualizarEstado();
-
+	public TipoPedido getTipo() {
+		return tipo;
+	}
+	public void setTipo(TipoPedido tipo) {
+		this.tipo = tipo;
+	}
+	
+	public void setTipoPedido(String tipoPedido) {
+		this.tipoPedido = tipoPedido;
+		try {
+			Class<TipoPedido> clazz = (Class<TipoPedido>) Class.forName(tipoPedido);
+			this.tipo = clazz.getDeclaredConstructor().newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public String getTipoPedido() {
+		return this.tipo.getClass().getName();
+	}
+	
 }

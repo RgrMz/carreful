@@ -115,8 +115,10 @@ public class UserController extends CookiesController {
 			boolean recuerdame = jso.optBoolean("recuerdame");
 			AlmacenUsuarios almacen = AlmacenUsuarios.getInstance();
 			if (recuerdame) {
-				if (!almacen.isRecordado(request.getSession().getId()))
+				if (!almacen.isRecordado(request.getSession().getId())) {
 					almacen.recordarUsuario(request.getSession().getId(), email, pwd);
+					request.getSession().setMaxInactiveInterval(0);
+				}
 			} else {
 				almacen.dejarDeRecordarUsuario(request.getSession().getId());
 			}

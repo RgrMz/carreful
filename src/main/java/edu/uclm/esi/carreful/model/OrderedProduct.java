@@ -1,11 +1,35 @@
 package edu.uclm.esi.carreful.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+@Entity
 public class OrderedProduct {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long codigo;
+	@OneToOne
 	private Product product;
+	@Column
 	private double amount;
+	@Column
 	private double priceXAmount;
 	
+	@ManyToOne
+	private Pedido pedido;
+	
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
 	public OrderedProduct(Product product, double amount) {
 		this.product = product;
 		this.amount = amount;

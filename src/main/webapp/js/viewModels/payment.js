@@ -1,9 +1,9 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery', "ojs/ojbootstrap", "ojs/ojknockout", "ojs/ojinputtext", "ojs/ojformlayout", "ojs/ojlabel", "ojs/ojbutton"], function(ko, app, moduleUtils, accUtils, $) {
 
-		class PaymentViewModel {
+		class PaymentViewModel extends ViewModelConCarrito {
 			constructor() {
-				
+				super(ko);
 				var self = this;
 				// Para paginas que no son single page (index.html con un router que va cambiando la vista) seria asi
 				self.stripe = Stripe('pk_test_51Idbt6HmArDnS3pXvdBN6zJ0jyaJS65zY1vMv4z0wfoG3vyjTEoPYMjpGU9G04ZLEUCokpTsvirO806CJ2xN8EwW00kXh8tv4f');
@@ -25,9 +25,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.domicilioExpress = ko.observable();
 				self.recoger = ko.observable();
 
-				self.carrito = ko.observableArray([]);
 				self.gastosEnvio = ko.observable();
-				self.importe = ko.observable();
 
 				// Header Config
 				self.headerConfig = ko.observable({
@@ -134,52 +132,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						}
 					}
 				});
-			}
-
-			getImporte() {
-				let self = this;
-				let data = {
-					url: "product/getImporte",
-					type: "get",
-					contentTyp: 'application/json',
-					success: function(response) {
-						console.log(document.getElementById('pedidos-domicilio').checked);
-						if (document.getElementById('pedidos-domicilio').checked){
-							/* Funcion para calcular los gastos de envio*/
-							self.gastosEnvio('3,25 €');
-						} else if (document.getElementById('pedidos-domicilio-express').checked) {
-							/* Funcion para calcular los gastos de envio*/
-							self.gastosEnvio('5,5 €');
-						} else if (document.getElementById('pedidos-recogida').checked) {
-							/* Funcion para calcular los gastos de envio*/
-							self.gastosEnvio('0,0 €');
-						}
-						self.importe((response).toString() + ' €');
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
-			}
-
-			getCarrito() {
-				let self = this;
-				let data = {
-					url: "product/getCarrito",
-					type: "get",
-					contentTyp: 'application/json',
-					success: function(response) {
-						if (response.products) {
-							self.carrito(response.products);
-							self.getImporte();
-						}
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
 			}
 
 			disconnected() {
