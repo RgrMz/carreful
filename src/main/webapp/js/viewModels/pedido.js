@@ -11,15 +11,19 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.message = ko.observable("");
 				self.error = ko.observable("");
 
-				self.nombre = ko.observable("");
-				self.apellidos = ko.observable("");
-				self.email = ko.observable("");
-				self.telefonoMovil = ko.observable("");
-				self.direccion = ko.observable("");
-				self.ciudad = ko.observable("");
-				self.provincia = ko.observable("");
-				self.codigoPostal = ko.observable("");
-				self.pais = ko.observable("");
+				self.nombre = ko.observable();
+				self.apellidos = ko.observable();
+				self.email = ko.observable();
+				self.telefonoMovil = ko.observable();
+				self.direccion = ko.observable();
+				self.ciudad = ko.observable();
+				self.provincia = ko.observable();
+				self.codigoPostal = ko.observable();
+				self.pais = ko.observable();
+				
+				self.domicilio = ko.observable();
+				self.domicilioExpress = ko.observable();
+				self.recoger = ko.observable();
 
 				self.gastosEnvio = ko.observable();
 
@@ -125,40 +129,9 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						// The payment has been processed!
 						if (result.paymentIntent.status === 'succeeded') {
 							alert("Pago exitoso");
-							self.generarPedido();
 						}
 					}
 				});
-			}
-			
-			generarPedido() {
-				var self = this;
-				var info = {
-					nombre: this.nombre(),
-					apellidos: this.apellidos(),
-					email: this.email(),
-					telefonoMovil: this.telefonoMovil(),
-					direccion: this.direccion(),
-					ciudad: this.ciudad(),
-					provincia: this.provincia(),
-					pais: this.pais(),
-					codigoPostal: this.codigoPostal(),
-					tipoPedido: document.getElementById('pedidos-domicilio').checked ? "Domicilio" : 
-						document.getElementById('pedidos-domicilio-express').checked ? "DomExpress" : "Recogida"
-				};
-				var data = {
-					data: JSON.stringify(info),
-					url: "pedido/guardarPedido",
-					type: "post",
-					contentType: 'application/json',
-					success: function(response) {
-						app.router.go({ path: "menu" });
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
 			}
 
 			disconnected() {

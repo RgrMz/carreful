@@ -89,7 +89,7 @@ public class Pedido {
 		return estado;
 	}
 	public void setEstado(Estado estado) {
-		this.estado = this.tipo.updateEstado();
+		this.estado = estado;
 	}
 	
 	public TipoPedido getTipo() {
@@ -102,8 +102,9 @@ public class Pedido {
 	public void setTipoPedido(String tipoPedido) {
 		this.tipoPedido = tipoPedido;
 		try {
+			// Hay que coger la full path: edu.uclm.esi...
 			Class<TipoPedido> clazz = (Class<TipoPedido>) Class.forName(tipoPedido);
-			this.tipo = clazz.getDeclaredConstructor().newInstance();
+			this.tipo = clazz.getDeclaredConstructor().newInstance(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

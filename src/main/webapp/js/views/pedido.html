@@ -33,13 +33,13 @@
 														<td>
 															<div class="col-12 col-sm-6">
 																<input class="order-form-input"
-																	data-bind="value : nombre" placeholder="Nombre">
+																	data-bind="html : nombre" placeholder="Nombre">
 															</div> <br>
 														</td>
 														<td class="padding-entre-columnas">
 															<div class="col-12 col-sm-6 mt-2 mt-sm-0">
 																<input class="order-form-input"
-																	data-bind="value : apellidos" placeholder="Apellidos">
+																	data-bind="html : apellidos" placeholder="Apellidos">
 															</div> <br>
 														</td>
 													</tr>
@@ -50,7 +50,7 @@
 																	Correo electrónico</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : email" placeholder="email@email.com">
+																		data-bind="html : email" placeholder="email@email.com">
 																</div>
 															</div>
 														</td>
@@ -60,7 +60,7 @@
 																	class="fa fa-mobile"></i> Teléfono Móvil</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : telefonoMovil"
+																		data-bind="html : telefonoMovil"
 																		placeholder="(777 777 777)">
 																</div>
 															</div>
@@ -80,7 +80,7 @@
 														<td>
 															<div class="col-12 col-sm-6">
 																<input class="order-form-input"
-																	data-bind="value : direccion"
+																	data-bind="html : direccion"
 																	placeholder="Calle, número, piso, puerta.">
 															</div> <br>
 														</td>
@@ -92,7 +92,7 @@
 																	Ciudad</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : ciudad" placeholder="Ciudad">
+																		data-bind="html : ciudad" placeholder="Ciudad">
 																</div>
 																<br>
 															</div>
@@ -102,7 +102,7 @@
 																<label for="fname">Provincia</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : provincia" placeholder="Provincia">
+																		data-bind="html : provincia" placeholder="Provincia">
 																</div>
 															</div> <br>
 														</td>
@@ -113,7 +113,7 @@
 																<label for="fname">Código Postal</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : codigoPostal" placeholder="15005">
+																		data-bind="html : codigoPostal" placeholder="15005">
 																</div>
 															</div>
 														</td>
@@ -121,7 +121,7 @@
 															<div class="telefono-movil col-12 mb-2">
 																<label for="fname">País</label>
 																<div class="col-12 col-sm-6">
-																	<input class="order-form-input" data-bind="value : pais"
+																	<input class="order-form-input" data-bind="html : pais"
 																		placeholder="España">
 																</div>
 															</div>
@@ -180,7 +180,7 @@
 									</label> <label> <input type="checkbox"> He leído y
 										estoy de acuerdo con los términos y condiciones de la web
 									</label><br>
-									<button class="btn-block btn-realizar-pedido" >
+									<button class="btn-block btn-realizar-pedido">
 										<span id="checkout">Realizar el pedido</span>
 									</button>
 									<p id="card-error" role="alert"></p>

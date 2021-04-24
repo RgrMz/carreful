@@ -104,7 +104,7 @@ public class UserController extends CookiesController {
 			JSONObject jso = new JSONObject(info);
 			String email = jso.optString("email");
 			if (email.length() == 0)
-				throw new Exception("Debes indicar tu nombre de usuario");
+				throw new Exception("Debes indicar tu correo electrónico");
 			String pwd = jso.optString("pwd");
 			User user = userDao.findByEmailAndPwd(email, DigestUtils.sha512Hex(pwd));
 			if (user == null)
