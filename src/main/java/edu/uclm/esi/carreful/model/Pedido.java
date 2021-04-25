@@ -1,5 +1,7 @@
 package edu.uclm.esi.carreful.model;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,25 +12,29 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Pedido {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long idPedido;
+	@Id @Column(length = 36)
+	private String idPedido;
 
 	@NotNull @Column(length = 70)
 	private String nombre, apellidos, email, telefonoMovil, direccion, ciudad, provincia, pais;
 	@NotNull
 	private int codigoPostal;
-	@NotNull @Column(columnDefinition = "varchar(255) default 'Recibido'")
+	@NotNull
 	private Estado estado;
 	
 	@Transient
 	private TipoPedido tipo;
 	
 	private String tipoPedido;
+	
+	public Pedido(){
+		this.idPedido = UUID.randomUUID().toString();
+	}
 
-	public long getIdPedido() { 
+	public String getIdPedido() { 
 		return idPedido;
 	}
-	public void setIdPedido(long idPedido) {
+	public void setIdPedido(String idPedido) {
 		this.idPedido = idPedido;
 	}
 	public String getNombre() {
@@ -103,8 +109,8 @@ public class Pedido {
 		this.tipoPedido = tipoPedido;
 		try {
 			// Hay que coger la full path: edu.uclm.esi...
-			Class<TipoPedido> clazz = (Class<TipoPedido>) Class.forName(tipoPedido);
-			this.tipo = clazz.getDeclaredConstructor().newInstance(this);
+			Class<TipoPedido> clazz = (Class<TipoPedido>) Class.forName("edu.uclm.esi.carreful.model."+tipoPedido);
+			this.tipo = clazz.getDeclaredConstructor(Pedido.class).newInstance(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

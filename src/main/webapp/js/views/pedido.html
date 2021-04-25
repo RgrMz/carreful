@@ -130,116 +130,14 @@
 												</table>
 											</div>
 											<br>
-											<hr>
 										</div>
-										<div class="col-50">
-											<h3>Pago</h3>
-											<table>
-												<tr>
-													<td><label for="fname">Tarjetas aceptadas</label></td>
-													<td class="padding-entre-columnas">
-														<div class="iconos-tarjetas">
-															<i class="fa fa-cc-visa" style="color: navy;"></i> <i
-																class="fa fa-cc-paypal" style="color: blue;"></i> <i
-																class="fa fa-cc-mastercard" style="color: red;"></i> <i
-																class="fa fa-cc-discover" style="color: orange;"></i>
-														</div>
-													</td>
-												</tr>
-											</table>
-
-										</div>
-									</div>
-									<br>
-								</form>
-								<!-- Display a payment form -->
-								<form id="payment-form">
-									<div id="card-element">
-										<!--Stripe.js injects the Card Element-->
-									</div>
-									<br><hr>
-									<br>
-									<h4>Opciones de envío</h4>
-									<div class="radio-pedidos">
-										<label class="radio-pedidos">Envío a domicilio <input
-											type="radio" checked="checked" name="radio"
-											id="pedidos-domicilio"> <span class="checkmark"></span>
-										</label> <label class="radio-pedidos">Envío a domicilio
-											express <input type="radio" name="radio"
-											id="pedidos-domicilio-express"> <span
-											class="checkmark"></span>
-										</label> <label class="radio-pedidos">Recogida en tienda <input
-											type="radio" name="radio" id="pedidos-recogida"> <span
-											class="checkmark"></span>
-										</label>
-									</div>
-									<br>
-									<hr>
-									<br> <label> <input type="checkbox"> La
-										dirección de envío es la misma que la de facturación
-									</label> <label> <input type="checkbox"> He leído y
-										estoy de acuerdo con los términos y condiciones de la web
-									</label><br>
-									<button class="btn-block btn-realizar-pedido">
-										<span id="checkout">Realizar el pedido</span>
-									</button>
-									<p id="card-error" role="alert"></p>
+										<br>
+										<span data-bind="html: precioPedido"></span>
 								</form>
 							</div>
 						</div>
 					</section>
-
-					<div class="col-25-carrito">
-						<div class="carrito-wrapper">
-							<h4>
-								Carrito<span style="color: black"> <i
-									class="fa fa-shopping-cart"></i></span>
-							</h4>
-							<table>
-								<tr>
-									<th>Producto</th>
-									<th>Uds.</th>
-									<th>€/ud.</th>
-								</tr>
-								<!-- ko foreach : carrito -->
-								<tr>
-									<td data-bind="html : name"></td>
-									<td align="center" class="padding-entre-columnas"
-										data-bind="html : amount"></td>
-									<td align="center"><span class="price"> €</span><span
-										class="price" data-bind="html : priceXAmount"></span></td>
-								</tr>
-								<tr>
-									<td><br></td>
-								</tr>
-								<!-- /ko -->
-							</table>
-							<br>
-							<hr>
-							<table class="tabla-envios" style="width: 400px">
-								<tr>
-									<td width=75%><b> Gastos de envío <span class="price"
-											style="color: black"></span>
-									</b></td>
-									<td width=25% align="right"><b class="importe-envio"
-										data-bind="html : gastosEnvio"></b></td>
-								</tr>
-							</table>
-							<br>
-							<hr>
-							<table class="tabla-precio-total-carrito" style="width: 400px">
-								<tr>
-									<td width=75%><b> Precio Total <span class="price"
-											style="color: black"></span>
-									</b></td>
-									<td width=25% align="right"><b class="importe-total"
-										data-bind="html: importe"></b></td>
-								</tr>
-							</table>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>

@@ -90,7 +90,7 @@ public class UserController extends CookiesController {
 				tokenDao.save(token);
 
 				String texto = "Para recuperar tu contraseña, pulsa aquí: "
-						+ "<a href='http://localhost:8080/user/usarToken/" + token.getId() + "'>aquí</a>";
+						+ "<a href=\"http://localhost:8080/user/usarToken/" + token.getId() + "\">aquí</a>";
 				smtp.send(email, "Carreful: recuperación de contraseña", texto);
 			}
 		} catch (Exception e) {

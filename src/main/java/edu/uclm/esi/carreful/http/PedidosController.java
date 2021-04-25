@@ -1,14 +1,19 @@
 package edu.uclm.esi.carreful.http;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +23,12 @@ import org.springframework.web.server.ResponseStatusException;
 import edu.uclm.esi.carreful.dao.OrderedProductDao;
 import edu.uclm.esi.carreful.dao.PedidoDao;
 import edu.uclm.esi.carreful.model.Carrito;
+import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Pedido;
+import edu.uclm.esi.carreful.model.User;
+import edu.uclm.esi.carreful.tokens.Email;
+import edu.uclm.esi.carreful.tokens.Token;
 
 
 @RestController
@@ -31,6 +40,8 @@ public class PedidosController {
 	
 	@Autowired
 	private OrderedProductDao orderedProductDao;
+	
+	private Email smtp = new Email();
 	
 	@PostMapping("/guardarPedido")
 	public void add(HttpServletRequest request, @RequestBody Map<String, Object> info) {
@@ -56,7 +67,9 @@ public class PedidosController {
 			String pais = jso.optString("pais");
 			String codigoPostal = jso.optString("codigoPostal");
 			String tipoPedido = jso.optString("tipoPedido");
+			String direccion = jso.optString("direccion");
 			Pedido pedido = new Pedido();
+			pedido.setDireccion(direccion);
 			pedido.setNombre(nombre);
 			pedido.setApellidos(apellidos);
 			pedido.setEmail(email);
@@ -66,8 +79,12 @@ public class PedidosController {
 			pedido.setPais(pais);
 			pedido.setCodigoPostal(Integer.parseInt(codigoPostal));
 			pedido.setTipoPedido(tipoPedido);
+			pedido.setEstado(Estado.RECIBIDO);
 			pedidoDao.save(pedido);
 			guardarProductosDelPedido(carrito, pedido);
+			String texto = "Para consultar el estado del pedido realizado, pulsa aqui: <br></br>"
+					+ "<a href=\"http://localhost:8080?ojr=pedido&idPedido=" + pedido.getIdPedido() + "\">Consultar mi pedido</a>";
+			smtp.send(email, "Carreful: Consulta el estado de tu pedido", texto);
 		} catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
 		}
@@ -77,6 +94,21 @@ public class PedidosController {
 		for(OrderedProduct op : carrito.getProducts()) {
 			op.setPedido(pedido);
 			orderedProductDao.save(op);
+		}
+	}
+	
+	@GetMapping("/consultarPedido/{idPedido}")
+	public Pedido consultarPedido (HttpServletResponse response, @PathVariable String idPedido) {
+		Optional<Pedido> optPedido = pedidoDao.findById(idPedido);
+		if (optPedido.isPresent()) {
+			return optPedido.get();
+		} else {
+			try {
+				response.sendError(404, "El pedido consultado no existe");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 	}
 	
