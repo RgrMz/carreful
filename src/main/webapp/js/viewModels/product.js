@@ -116,7 +116,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					contentTyp: 'application/json',
 					success: function(response) {
 						for (let categoria in response) {
-							console.log(categoria);
 							let objetito = {
 								name: response[categoria].nombre,
 							};

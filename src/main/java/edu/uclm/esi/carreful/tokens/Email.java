@@ -1,6 +1,8 @@
 package edu.uclm.esi.carreful.tokens;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -30,12 +32,11 @@ public class Email {
         properties.put("mail.smtp.user", serverUser);  
         properties.put("mail.smtp.auth", userAutentication);
         properties.put("mail.smtp.socketFactory.port", port);
+        properties.put("mail.smtp.ssl.checkserveridentity", true);
         properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.smtp.socketFactory.fallback", fallback);
         
-        Runnable r = new Runnable() {
-			@Override
-			public void run() {
+        Runnable r = () -> {
 		        Authenticator auth = new AutentificadorSMTP(sender, pwd);
 		        Session session = Session.getInstance(properties, auth);
 
@@ -47,15 +48,14 @@ public class Email {
 			        msg.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
 			        Transport.send(msg);
 		        } catch (Exception e) {
-					System.err.println(e);
+		        	Logger.getLogger("edu.uclm.esi.carreful.tokens.Email").log(Level.SEVERE, e.getMessage());
 				}
-			}
-		};
+        };
 		new Thread(r).start();
 	}
-	
+
 	private class AutentificadorSMTP extends javax.mail.Authenticator {
-        private String sender;
+		private String sender;
 		private String pwd;
 
 		public AutentificadorSMTP(String sender, String pwd) {
@@ -65,7 +65,7 @@ public class Email {
 
 		@Override
 		public PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(sender, pwd);
-        }
-    }
+			return new PasswordAuthentication(sender, pwd);
+		}
+	}
 }
