@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import edu.uclm.esi.carreful.dao.ProductDao;
+import edu.uclm.esi.carreful.exceptionhandling.CarrefulException;
 import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Product;
 
@@ -26,6 +27,7 @@ public class ProductController extends CookiesController {
 	
 	@Autowired
 	private ProductDao productDao;
+	private static final String CARRITO_STRING = "carrito";
 	
 	@PostMapping("/add")
 	public void add(@RequestBody Product product) {
@@ -51,9 +53,9 @@ public class ProductController extends CookiesController {
 			Optional<Product> optProduct = productDao.findById(nombre);
 			if (optProduct.isPresent())
 				return optProduct.get().getPrecio();
-			throw new Exception("El producto no existe");
-		} catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+			throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto no existe");
+		} catch(CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
 	
@@ -61,10 +63,10 @@ public class ProductController extends CookiesController {
 	public Carrito getCarrito(HttpServletRequest request) {
 		Carrito carrito;
 		try {
-			carrito = (Carrito) request.getSession().getAttribute("carrito");
+			carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 			if (carrito == null) {
 				carrito = new Carrito();
-				request.getSession().setAttribute("carrito", carrito);
+				request.getSession().setAttribute(CARRITO_STRING, carrito);
 			}
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -72,50 +74,50 @@ public class ProductController extends CookiesController {
 		return carrito;
 	}
 	
-	@PostMapping("/addAlCarrito/{nombre}")
-	public Carrito addAlCarrito(HttpServletRequest request, @PathVariable String nombre) {
-		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-		if (carrito==null) {
-			carrito = new Carrito();
-			request.getSession().setAttribute("carrito", carrito);
-		}
-		Product producto = productDao.findByNombre(nombre).get();
-		carrito.add(producto, 1);
-		return carrito;
-	}
-	
 	@PostMapping("/eliminarUnidadDelCarrito/{nombre}")
 	public Carrito elminarUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
-		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
+		Product producto = new Product();
 		if (carrito==null) {
 			carrito = new Carrito();
-			request.getSession().setAttribute("carrito", carrito);
+			request.getSession().setAttribute(CARRITO_STRING, carrito);
 		}
-		Product producto = productDao.findByNombre(nombre).get();
+		Optional<Product> optProducto = productDao.findByNombre(nombre);
+		if (optProducto.isPresent()) {
+			producto = optProducto.get();
+		}
 		carrito.eliminarUnidad(producto, 1);
 		return carrito;
 	}
 	
 	@PostMapping("/addUnidadDelCarrito/{nombre}")
 	public Carrito addUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
-		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
+		Product producto = new Product();
 		if (carrito==null) {
 			carrito = new Carrito();
-			request.getSession().setAttribute("carrito", carrito);
+			request.getSession().setAttribute(CARRITO_STRING, carrito);
 		}
-		Product producto = productDao.findByNombre(nombre).get();
+		Optional<Product> optProducto = productDao.findByNombre(nombre);
+		if (optProducto.isPresent()) {
+			producto = optProducto.get();
+		}
 		carrito.add(producto, 1);
 		return carrito;
 	}
 	
 	@PostMapping("/eliminarProductoDelCarrito/{nombre}")
 	public Carrito eliminarProductoDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
-		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
+		Product producto = new Product();
 		if (carrito==null) {
 			carrito = new Carrito();
-			request.getSession().setAttribute("carrito", carrito);
+			request.getSession().setAttribute(CARRITO_STRING, carrito);
 		}
-		Product producto = productDao.findByNombre(nombre).get();
+		Optional<Product> optProducto = productDao.findByNombre(nombre);
+		if (optProducto.isPresent()) {
+			producto = optProducto.get();
+		}
 		carrito.eliminarProducto(producto);
 		return carrito;
 	}
@@ -127,18 +129,18 @@ public class ProductController extends CookiesController {
 			if (optProduct.isPresent())
 				productDao.deleteById(nombre);
 			else
-				throw new Exception("El producto no existe");
-		} catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+				throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto no existe");
+		} catch(CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
 	
 	@GetMapping("/getImporte")
 	public String getMapping(HttpServletRequest request) {
-		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		if (carrito==null) {
 			carrito = new Carrito();
-			request.getSession().setAttribute("carrito", carrito);
+			request.getSession().setAttribute(CARRITO_STRING, carrito);
 		}
 		return String.format("%.2f", carrito.getImporte());
 	}

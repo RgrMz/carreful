@@ -16,7 +16,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.message = ko.observable(null);
 				self.error = ko.observable(null);
 
-
 				// Header Config
 				self.headerConfig = ko.observable({
 					'view': [],
@@ -42,24 +41,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					contentType: 'application/json',
 					success: function(response) {
 						self.productos(response);
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
-			}
-
-			addAlCarrito(nombre) {
-				let self = this;
-				let data = {
-					url: "product/addAlCarrito/" + nombre,
-					type: "post",
-					contentTyp: 'application/json',
-					success: function(response) {
-						self.message("Producto añadido al carrito");
-						self.carrito(response.products);
-						self.getImporte();
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -134,9 +115,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					type: "get",
 					contentTyp: 'application/json',
 					success: function(response) {
-						for (let i = 0; i < response.length; i++) {
+						for (let categoria in response) {
+							console.log(categoria);
 							let objetito = {
-								name: response[i].nombre,
+								name: response[categoria].nombre,
 							};
 							self.categorias.push(objetito);
 						}
@@ -175,15 +157,15 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				this.getProductos();
 				this.getCategorias();
 				this.getCarrito();
-			};
+			}
 
 			disconnected() {
 				// Implement if needed
-			};
+			}
 
 			transitionCompleted() {
 				// Implement if needed
-			};
+			}
 		}
 
 		return ProductViewModel;

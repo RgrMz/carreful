@@ -39,10 +39,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.email = ko.observable("");
 				self.pwd = ko.observable("");
 				self.message = ko.observable();
-				/*self.recuerdame = ko.observable();*/
-				/* Prueba con el self.recuerdame bindeandolo a un checkbox si te deja, si no,
-				usamois el DOM con el tema de document.getElementById('rememberMe').getEstado no se muy
-				bien cual sera el atributo */
 				self.error = ko.observable();
 
 				// Header Config
@@ -72,7 +68,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					url: "user/login",
 					type: "post",
 					contentType: 'application/json',
-					success: function(response) {
+					success: function() {
 						app.router.go({ path: "menu" });
 					},
 					error: function(response) {
@@ -88,7 +84,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					url: "user/recoverPwd?email=" + self.email(),
 					type: "get",
 					contentType: 'application/json',
-					success: function(response) {
+					success: function() {
 						document.getElementById("alerta-pwd").style.display = "block";
 						document.getElementById("alerta-error").style.display = "none";
 						self.message("Si estás dado de alta, te habrá llegado un correo electrónico");
@@ -117,8 +113,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						}
 					},
 					error: function(response) {
-						document.getElementById("alerta-error").style.display = "block";
 						document.getElementById("alerta-pwd").style.display = "none";
+						document.getElementById("alerta-error").style.display = "block";
 						document.getElementById("alerta-error").style.background = "rgb(255, 0, 0)";
 						self.error(response.responseJSON.errorMessage);
 					}
@@ -134,15 +130,15 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				accUtils.announce('Login page loaded.');
 				document.title = "Login";
 				this.recordarUsuario();
-			};
+			}
 
 			disconnected() {
 				// Implement if needed
-			};
+			}
 
 			transitionCompleted() {
 				// Implement if needed
-			};
+			}
 		}
 
 		return LoginViewModel;

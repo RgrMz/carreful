@@ -42,7 +42,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					url: "product/add",
 					typ: "post",
 					contentType: 'application/json',
-					success: function(response) {
+					success: function() {
 						self.message("Producto guardado");
 						self.getProductos();
 					},
@@ -75,7 +75,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					url: "product/borrarProducto/" + nombre,
 					type: "delete",
 					contentTyp: 'application/json',
-					success: function(response) {
+					success: function() {
 						self.message("Producto eliminado");
 						self.getProductos();
 					},
@@ -107,15 +107,15 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				accUtils.announce('Menu page loaded.');
 				document.title = "Menu";
 				this.getProductos();
-			};
+			}
 
 			disconnected() {
 				// Implement if needed
-			};
+			}
 
 			transitionCompleted() {
 				// Implement if needed
-			};
+			}
 		}
 
 		return ProductViewModel;

@@ -1,8 +1,8 @@
 package edu.uclm.esi.carreful.model;
 
-import edu.uclm.esi.carreful.model.interfaces.GASTOS_DE_ENVIO;
+import edu.uclm.esi.carreful.model.interfaces.GastosDeEnvio;
 
-public class DomExpress extends TipoPedido implements GASTOS_DE_ENVIO {
+public class DomExpress extends TipoPedido{
 
 	public DomExpress(Pedido pedido) {
 		super(pedido);
@@ -10,8 +10,7 @@ public class DomExpress extends TipoPedido implements GASTOS_DE_ENVIO {
 
 	@Override
 	public double getGastosDeEnvio() {
-		// TODO Auto-generated method stub
-		return GASTOS_EXPRESS;
+		return GastosDeEnvio.getGastosexpress();
 	}
 
 	@Override

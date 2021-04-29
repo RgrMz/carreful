@@ -1,7 +1,5 @@
 package edu.uclm.esi.carreful.model;
 
-import javax.validation.constraints.NotNull;
-
 public abstract class TipoPedido {
 	
 	protected Pedido pedido;
@@ -13,7 +11,7 @@ public abstract class TipoPedido {
 		this.pedido = pedido;
 	}
 
-	public TipoPedido(Pedido pedido) {
+	protected TipoPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
 

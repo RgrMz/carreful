@@ -63,14 +63,9 @@ public class Email {
 			this.pwd = pwd;
 		}
 
+		@Override
 		public PasswordAuthentication getPasswordAuthentication() {
             return new PasswordAuthentication(sender, pwd);
         }
     }
-	
-//	public static void main(String[] args) throws Exception {
-//		Email sender=new Email();
-//		sender.send("carreful2021@gmail.com", "Hola", "Caracola");
-//		System.out.println("Enviado");
-//	}
 }

@@ -9,31 +9,27 @@ public class AlmacenUsuarios {
 	private HashMap<String, String[]> usuariosRecordados;
 
 	private AlmacenUsuarios() {
-		this.usuariosRecordados = new HashMap<String, String[]>();
+		this.usuariosRecordados = new HashMap<>();
 	}
-	
-	public static AlmacenUsuarios getInstance() {
-		if (yo==null) {
-			synchronized (AlmacenUsuarios.class) {
-				if (yo==null)
-					yo=new AlmacenUsuarios();				
-			}
-		}
+
+	public static synchronized AlmacenUsuarios getInstance() {
+		if (yo == null)
+			yo = new AlmacenUsuarios();
 		return yo;
 	}
-	
+
 	public void recordarUsuario(String idSession, String correo, String pwd) {
-		this.usuariosRecordados.put(idSession, new String[] {correo, pwd});
+		this.usuariosRecordados.put(idSession, new String[] { correo, pwd });
 	}
-	
+
 	public String[] getDatos(String idSession) {
 		return this.usuariosRecordados.get(idSession);
 	}
-	
+
 	public void dejarDeRecordarUsuario(String idSession) {
 		this.usuariosRecordados.remove(idSession);
 	}
-	
+
 	public boolean isRecordado(String idSession) {
 		return this.usuariosRecordados.containsKey(idSession);
 	}

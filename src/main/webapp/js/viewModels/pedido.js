@@ -55,7 +55,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						self.provincia(response.provincia);
 						self.codigoPostal(response.codigoPostal);
 						self.pais(response.pais);
-						//self.precioPedido();
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -68,19 +67,16 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				accUtils.announce('Información del pedido page loaded.');
 				document.title = "Información del pedido";
 				this.consultarPedido();
-			};
+			}
 
 
 			disconnected() {
 				// Implement if needed
-			};
+			}
 
 			transitionCompleted() {
 				// Implement if needed
-			};
-
-
+			}
 		}
-
 		return PaymentViewModel;
 	});

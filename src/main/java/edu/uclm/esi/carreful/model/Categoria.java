@@ -15,7 +15,9 @@ public class Categoria {
 	private String nombre;
 
 	
-	public Categoria() {}
+	public Categoria() {
+		/* Empty constructor used by Spring */
+	}
 	
 	public int getId() {
 		return id;

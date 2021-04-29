@@ -4,8 +4,6 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -16,7 +14,21 @@ public class Pedido {
 	private String idPedido;
 
 	@NotNull @Column(length = 70)
-	private String nombre, apellidos, email, telefonoMovil, direccion, ciudad, provincia, pais;
+	private String nombre;
+	@NotNull @Column(length = 70)
+	private String apellidos;
+	@NotNull @Column(length = 70)
+	private String email;
+	@NotNull @Column(length = 70)
+	private String telefonoMovil;
+	@NotNull @Column(length = 70)
+	private String direccion;
+	@NotNull @Column(length = 70)
+	private String ciudad;
+	@NotNull @Column(length = 70)
+	private String provincia;
+	@NotNull @Column(length = 70)
+	private String pais;
 	@NotNull
 	private int codigoPostal;
 	@NotNull
@@ -25,6 +37,7 @@ public class Pedido {
 	@Transient
 	private TipoPedido tipo;
 	
+	@SuppressWarnings("unused")
 	private String tipoPedido;
 	
 	public Pedido(){
@@ -109,6 +122,7 @@ public class Pedido {
 		this.tipoPedido = tipoPedido;
 		try {
 			// Hay que coger la full path: edu.uclm.esi...
+			@SuppressWarnings("unchecked")
 			Class<TipoPedido> clazz = (Class<TipoPedido>) Class.forName("edu.uclm.esi.carreful.model."+tipoPedido);
 			this.tipo = clazz.getDeclaredConstructor(Pedido.class).newInstance(this);
 		} catch (Exception e) {

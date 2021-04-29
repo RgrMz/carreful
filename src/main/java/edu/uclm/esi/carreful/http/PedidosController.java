@@ -3,7 +3,6 @@ package edu.uclm.esi.carreful.http;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +25,7 @@ import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Pedido;
-import edu.uclm.esi.carreful.model.User;
 import edu.uclm.esi.carreful.tokens.Email;
-import edu.uclm.esi.carreful.tokens.Token;
 
 
 @RestController
@@ -46,17 +43,14 @@ public class PedidosController {
 	@PostMapping("/guardarPedido")
 	public void add(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-		String validacionEmail = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
-		Pattern patron = Pattern.compile(validacionEmail);
+		//String validacionEmail = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+		//Pattern patron = Pattern.compile(validacionEmail);
 		try {
 			JSONObject jso = new JSONObject(info);
 			String nombre = jso.optString("nombre");
 			String apellidos = jso.optString("apellidos");
 			String email = jso.optString("email");
-			Matcher matcher = patron.matcher(email);
-			/*if(!matcher.matches()) {
-				throw new Exception("Por favor, introduzca un email válido.");
-			}*/
+			/* Matcher matcher = patron.matcher(email); */
 			// Checkear validez de campos: opcional
 			// Checkear congelados para dom express obligatorio
 			// Checkear formulario

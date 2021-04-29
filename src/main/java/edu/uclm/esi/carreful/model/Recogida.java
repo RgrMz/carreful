@@ -1,15 +1,15 @@
 package edu.uclm.esi.carreful.model;
 
-import edu.uclm.esi.carreful.model.interfaces.GASTOS_DE_ENVIO;
+import edu.uclm.esi.carreful.model.interfaces.GastosDeEnvio;
 
-public class Recogida extends TipoPedido implements GASTOS_DE_ENVIO {
+public class Recogida extends TipoPedido {
 
 	public Recogida(Pedido pedido) {
 		super(pedido);
 	}
 
 	public double getGastosDeEnvio() {
-		return GASTOS_RECOGIDA;
+		return GastosDeEnvio.getGastosrecogida();
 	}
 
 	@Override

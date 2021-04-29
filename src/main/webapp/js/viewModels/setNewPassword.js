@@ -23,7 +23,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 		self.message = ko.observable();
 		self.error = ko.observable();
 		
-		self.setPicture = function(widget, event) {
+		self.setPicture = function(event) {
 			var file = event.target.files[0];
 			var reader = new FileReader();
 			reader.onload = function () {
@@ -45,7 +45,7 @@ define([ 'knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					url : "user/register",
 					type : "put",
 					contentType : 'application/json',
-					success : function(response) {
+					success : function() {
 						self.error("");
 						self.message("Te hemos enviado un correo para confirmar tu registro");
 					},

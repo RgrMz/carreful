@@ -11,7 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
-	@Id @Column(length = 80)
+	@Id
+	@Column(length = 80)
 	private String email;
 	@Lob
 	private String pwd;
@@ -19,8 +20,10 @@ public class User {
 	private String picture;
 	@Column(columnDefinition = "bit default 0")
 	private boolean activado;
-	
-	public User() { }
+
+	public User() {
+		/* Empty constructor used by Spring */
+	}
 
 	public String getEmail() {
 		return email;

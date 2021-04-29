@@ -43,7 +43,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				document.title = "Pago";
 				this.solicitarPreautorizacion();
 				this.getCarrito();
-			};
+			}
 
 			solicitarPreautorizacion() {
 
@@ -130,9 +130,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					}
 				});
 			}
-			
+
 			generarPedido() {
 				var self = this;
+				const iff = (condition, then, otherwise) => condition ? then : otherwise;
 				var info = {
 					nombre: this.nombre(),
 					apellidos: this.apellidos(),
@@ -143,31 +144,32 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					provincia: this.provincia(),
 					pais: this.pais(),
 					codigoPostal: this.codigoPostal(),
-					tipoPedido: document.getElementById('pedidos-domicilio').checked ? "Domicilio" : 
-						document.getElementById('pedidos-domicilio-express').checked ? "DomExpress" : "Recogida"
-				};
+					tipoPedido: document.getElementById('pedidos-domicilio').checked ? "Domicilio" :
+					iff(document.getElementById('pedidos-domicilio-express').checked,  "DomExpress","Recogida" )
+			};
 				var data = {
-					data: JSON.stringify(info),
-					url: "pedido/guardarPedido",
-					type: "post",
-					contentType: 'application/json',
-					success: function(response) {
-
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
+			data: JSON.stringify(info),
+			url: "pedido/guardarPedido",
+			type: "post",
+			contentType: 'application/json',
+			/*
+			success: function(response) {
+				
+			},*/
+			error: function(response) {
+				self.error(response.responseJSON.errorMessage);
 			}
+		};
+		$.ajax(data);
+	}
 
 			disconnected() {
-				// Implement if needed
-			};
+	// Implement if needed
+}
 
 			transitionCompleted() {
-				// Implement if needed
-			};
+	// Implement if needed
+}
 			
 			
 		}

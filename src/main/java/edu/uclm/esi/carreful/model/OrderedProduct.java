@@ -33,7 +33,7 @@ public class OrderedProduct {
 	public OrderedProduct(Product product, double amount) {
 		this.product = product;
 		this.amount = amount;
-		this.setPriceXAmount(this.getPrice());
+		this.setPriceXAmount();
 	}
 
 	public void addAmount(double amount) {
@@ -62,7 +62,7 @@ public class OrderedProduct {
 		return priceXAmount;
 	}
 
-	public void setPriceXAmount(double priceXAmount) {
+	public void setPriceXAmount() {
 		this.priceXAmount = this.getPrice();
 	}
 }

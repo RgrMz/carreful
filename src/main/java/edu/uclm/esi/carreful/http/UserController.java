@@ -23,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import edu.uclm.esi.carreful.dao.TokenDao;
 import edu.uclm.esi.carreful.dao.UserDao;
+import edu.uclm.esi.carreful.exceptionhandling.CarrefulException;
 import edu.uclm.esi.carreful.model.User;
 import edu.uclm.esi.carreful.tokens.AlmacenUsuarios;
 import edu.uclm.esi.carreful.tokens.Email;
@@ -82,7 +83,7 @@ public class UserController extends CookiesController {
 	public void recoverPwd(@RequestParam String email) {
 		try {
 			if (email.length() == 0) {
-				throw new Exception("Debes introducir un correo válido en el campo \"Correo electrónico\"");
+				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE, "Debes introducir un correo válido en el campo \"Correo electrónico\"");
 			}
 			User user = userDao.findByEmail(email);
 			if (user != null) {
@@ -93,8 +94,8 @@ public class UserController extends CookiesController {
 						+ "<a href=\"http://localhost:8080/user/usarToken/" + token.getId() + "\">aquí</a>";
 				smtp.send(email, "Carreful: recuperación de contraseña", texto);
 			}
-		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		} catch (CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
 
@@ -104,14 +105,15 @@ public class UserController extends CookiesController {
 			JSONObject jso = new JSONObject(info);
 			String email = jso.optString("email");
 			if (email.length() == 0)
-				throw new Exception("Debes indicar tu correo electrónico");
+				throw new CarrefulException(HttpStatus.FORBIDDEN, "Por favor, escribe tu correo");
 			String pwd = jso.optString("pwd");
 			User user = userDao.findByEmailAndPwd(email, DigestUtils.sha512Hex(pwd));
 			if (user == null)
-				throw new Exception("Credenciales inválidas");
+				throw new CarrefulException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
 			if (!user.isActivado())
-				throw new Exception(
+				throw new CarrefulException(HttpStatus.UNAUTHORIZED,
 						"No confirmaste tu cuenta de correo electrónico. Por favor, confirmala para poder entrar al sistema.");
+			/* Recuerdame */
 			boolean recuerdame = jso.optBoolean("recuerdame");
 			AlmacenUsuarios almacen = AlmacenUsuarios.getInstance();
 			if (recuerdame) {
@@ -123,8 +125,8 @@ public class UserController extends CookiesController {
 				almacen.dejarDeRecordarUsuario(request.getSession().getId());
 			}
 			request.getSession().setAttribute("userEmail", email);
-		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+		} catch (CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
 
@@ -132,10 +134,9 @@ public class UserController extends CookiesController {
 	public String[] getUsuarioRecordado(HttpServletRequest request) {
 		AlmacenUsuarios almacen = AlmacenUsuarios.getInstance();
 		if (almacen.isRecordado(request.getSession().getId())) {
-			String[] datos = almacen.getDatos(request.getSession().getId());
-			return datos;
+			return almacen.getDatos(request.getSession().getId());
 		} else {
-			return null;
+			return new String[0];
 		}
 	}
 
@@ -145,16 +146,16 @@ public class UserController extends CookiesController {
 			JSONObject jso = new JSONObject(info);
 			String userName = jso.optString("userName");
 			if (userName.length() == 0)
-				throw new Exception("Debes indicar tu nombre de usuario");
+				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE, "Debes indicar tu nombre de usuario");
 			String email = jso.optString("email");
 			if (email.length() == 0)
-				throw new Exception("Debes indicar un email válido");
+				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE, "Debes indicar un email válido");
 			String pwd1 = jso.optString("pwd");
 			String pwd2 = jso.optString("pwd2");
 			if (!pwd1.equals(pwd2))
-				throw new Exception("La contraseña no coincide con su confirmación");
+				throw new CarrefulException(HttpStatus.FORBIDDEN, "La contraseña no coincide con su confirmación");
 			if (pwd1.length() < 8)
-				throw new Exception("La contraseña tiene que tener al menos 8 caracteres");
+				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE, "La contraseña tiene que tener al menos 8 caracteres");
 			User user = new User();
 			user.setEmail(email);
 			user.setPwd(pwd1);
@@ -167,8 +168,8 @@ public class UserController extends CookiesController {
 					+ "\"> Activa tu cuenta</a>";
 			smtp.send(email, "Carreful: confirmación de cuenta", correoConfirmacion);
 			userDao.save(user);
-		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		} catch (CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
 }
