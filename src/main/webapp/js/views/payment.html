@@ -24,9 +24,9 @@
 										<div class="col-50">
 											<h3>Detalles de Facturación</h3>
 											<hr>
-											<b class="datos-contacto">Datos de Contacto</b> <br> <br>
+											<strong class="datos-contacto">Datos de Contacto</strong> <br> <br>
 											<div class="nombre-completo col-12 mb-2">
-												<label for="fname"><i class="fa fa-user"></i> Nombre
+												<label for="fname"><em class="fa fa-user"></em> Nombre
 													Completo</label>
 												<table style="width: 100%">
 													<tr>
@@ -46,7 +46,7 @@
 													<tr>
 														<td>
 															<div class="email col-12 mb-2">
-																<label for="email"><i class="fa fa-envelope"></i>
+																<label for="email"><em class="fa fa-envelope"></em>
 																	Correo electrónico</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
@@ -56,8 +56,8 @@
 														</td>
 														<td class="padding-entre-columnas">
 															<div class="telefono-movil col-12 mb-2">
-																<label for="telefono-movil"><i
-																	class="fa fa-mobile"></i> Teléfono Móvil</label>
+																<label for="telefono-movil"><em
+																	class="fa fa-mobile"></em> Teléfono Móvil</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
 																		data-bind="value : telefonoMovil"
@@ -70,7 +70,7 @@
 											</div>
 											<br>
 											<hr>
-											<br> <b class="datos-contacto">Dirección de Entrega</b>
+											<br> <strong class="datos-contacto">Dirección de Entrega</strong>
 											<br> <br>
 											<div class="nombre-completo col-12 mb-2">
 												<label for="fname"><i class="fa fa-map-marker"
@@ -139,10 +139,10 @@
 													<td><label for="fname">Tarjetas aceptadas</label></td>
 													<td class="padding-entre-columnas">
 														<div class="iconos-tarjetas">
-															<i class="fa fa-cc-visa" style="color: navy;"></i> <i
-																class="fa fa-cc-paypal" style="color: blue;"></i> <i
-																class="fa fa-cc-mastercard" style="color: red;"></i> <i
-																class="fa fa-cc-discover" style="color: orange;"></i>
+															<em class="fa fa-cc-visa" style="color: navy;"></em> <em
+																class="fa fa-cc-paypal" style="color: blue;"></em> <em
+																class="fa fa-cc-mastercard" style="color: red;"></em> <em
+																class="fa fa-cc-discover" style="color: orange;"></em>
 														</div>
 													</td>
 												</tr>
@@ -192,8 +192,8 @@
 					<div class="col-25-carrito">
 						<div class="carrito-wrapper">
 							<h4>
-								Carrito<span style="color: black"> <i
-									class="fa fa-shopping-cart"></i></span>
+								Carrito<span style="color: black"> <em
+									class="fa fa-shopping-cart"></em></span>
 							</h4>
 							<table>
 								<tr>
@@ -204,9 +204,9 @@
 								<!-- ko foreach : carrito -->
 								<tr>
 									<td data-bind="html : name"></td>
-									<td align="center" class="padding-entre-columnas"
+									<td class="padding-entre-columnas"
 										data-bind="html : amount"></td>
-									<td align="center"><span class="price"> €</span><span
+									<td><span class="price"> €</span><span
 										class="price" data-bind="html : priceXAmount"></span></td>
 								</tr>
 								<tr>
@@ -218,22 +218,22 @@
 							<hr>
 							<table class="tabla-envios" style="width: 400px">
 								<tr>
-									<td width=75%><b> Gastos de envío <span class="price"
+									<td><strong> Gastos de envío <span class="price"
 											style="color: black"></span>
-									</b></td>
-									<td width=25% align="right"><b class="importe-envio"
-										data-bind="html : gastosEnvio"></b></td>
+									</strong></td>
+									<td><strong class="importe-envio"
+										data-bind="html : gastosEnvio"></strong></td>
 								</tr>
 							</table>
 							<br>
 							<hr>
 							<table class="tabla-precio-total-carrito" style="width: 400px">
 								<tr>
-									<td width=75%><b> Precio Total <span class="price"
+									<td><strong> Precio Total <span class="price"
 											style="color: black"></span>
-									</b></td>
-									<td width=25% align="right"><b class="importe-total"
-										data-bind="html: importe"></b></td>
+									</strong></td>
+									<td><strong class="importe-total"
+										data-bind="html: importe"></strong></td>
 								</tr>
 							</table>
 						</div>

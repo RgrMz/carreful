@@ -38,8 +38,8 @@
 									height="150px">
 									<!-- ko if : congelado -->
 										<i class="fa fa-snowflake-o" aria-hidden="true" style="display: inline;"></i>
-									<!-- /ko -->  <br> <b class="product-name"
-									data-bind="html : nombre"></b>
+									<!-- /ko -->  <br> <strong class="product-name"
+									data-bind="html : nombre"></strong>
 									
 									<br> <span class="price"
 									data-bind="html : precio"></span> <span class="price"> €</span>
@@ -61,17 +61,17 @@
 						</tr>
 						<!-- ko foreach : carrito -->
 						<tr>
-							<td width=65%>
+							<td>
 								<div class="nombre-producto-carrito">
-									<b class="mob-text" data-bind="html : name"></b>
+									<strong class="mob-text" data-bind="html : name"></strong>
 								</div>
 							</td>
-							<td width=30%>
+							<td>
 								<div class="cantidad-producto-carrito">
 									<p data-bind="html : amount"></p>
 								</div>
 							</td>
-							<td width=5%>
+							<td>
 								<table class="botones-mas-menos">
 									<tr>
 										<td>
@@ -94,7 +94,7 @@
 							<td>
 								<button class="boton-borrar-del-carrito"
 									data-bind="click : function() { $parent.eliminarProductoDelCarrito(name); }">
-									<i class="fa fa-trash-o fa-lg"></i>
+									<em class="fa fa-trash-o fa-lg"></em>
 								</button>
 							</td>
 						</tr>
@@ -108,13 +108,13 @@
 					<!-- ko if : importe -->
 					<table class="tabla-carrito" style="width: 500px">
 						<tr>
-							<td width=65%>
+							<td>
 								<h5>Importe total del pedido</h5>
 							</td>
-							<td width=35%>
+							<td>
 								<h4 data-bind="html: importe"></h4>
 							</td>
-							<td width=5%></td>
+							<td></td>
 						</tr>
 					</table>
 					<!-- /ko -->
