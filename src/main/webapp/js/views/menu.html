@@ -1,5 +1,8 @@
 <head>
-<script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+<link rel="stylesheet" href="../css/menu.css">
+<script type="text/javascript" charset="utf-8"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<link href="../css/font-awesome.min.css" rel="stylesheet"></link>
 </head>
 <div class="oj-hybrid-applayout-page">
 	<div class="oj-applayout-fixed-top">
@@ -12,34 +15,70 @@
 		<div role="main" class="oj-hybrid-applayout-content">
 			<div class="oj-hybrid-padding">
 				<h1>Menú de opciones</h1>
-				<table>
-					<caption></caption>
-					<tr>
-						<th id="header-aniadir-producto">Añadir producto al Carreful</th>
-					</tr>
-					<!-- ko foreach : carrito -->
-					<tr>
-						<td data-bind="html : amount"></td>
-						<td data-bind="html : name"></td>
-					</tr>
-					<!-- /ko -->
-				</table>
-				<div>
-					<input type="text" data-bind="value : nombre"
-						placeholder="Nombre del producto"> <input type="text"
-						data-bind="value : precio" placeholder="Precio"> <label
-						class="checkbox-congelado"> <input type="checkbox"
-						value="congelado" id="congelado" name="congelado">
-						Congelado
-					</label>
-					<img data-bind="attr: {src: imagenBuscada}" width="150px"
-									height="150px" alt="Imagen del nuevo producto">
-					<button data-bind="click : buscarImagen">Buscar imagen</button>
-					<button data-bind="click : add">Guardar producto</button>
-					<div data-bind="html : message" style="color: blue"></div>
-					<div data-bind="html : error" style="color: red"></div>
-				</div>
+				<div class="add-producto-wrapper">
+					<br>
+					<table class="recurso-centrado">
+						<caption></caption>
+						<tr>
+							<th id="header-aniadir-producto">Añadir producto a Carreful</th>
+						</tr>
+					</table>
+					<br>
+					<div>
+						<table class="recurso-centrado">
+							<caption></caption>
+							<tr>
+								<th id="tabla-aniadir-producto"></th>
+								<th id="espacio-antes-foto"></th>
+								<th id="espacio-foto"></th>
+							</tr>
+							<tr>
+								<td><label>Nombre del Producto</label><br><input class="input-texto" type="text"
+									data-bind="value : nombre" placeholder="&quot Saco de patatas, 1kg &quot"></td>
+								<td></td>
+								<td rowspan="4"><br> <img
+									data-bind="attr: {src: imagenBuscada}" width="200px"
+									height="200px" alt="Imagen del nuevo producto"></td>
+							</tr>
+							<tr>
+								<td><label>Categoría</label><br><input class="input-texto" type="text"
+									data-bind="value : precio" placeholder="&quot La Despensa &quot"></td>
+								<td class="padding-entre-columnas"></td>
 
+							</tr>
+							<tr>
+								<td><label>Precio</label><br><input class="input-texto" type="text"
+									data-bind="value : precio" placeholder="1.5">  €</td>
+							</tr>
+							<tr>
+								<td><label class="checkbox-congelado"> <input
+										type="checkbox" value="congelado" id="congelado"
+										name="congelado"> Congelado <i class="fa fa-snowflake-o" aria-hidden="true"></i>
+								</label></td>
+							</tr>
+							<tr>
+								<td><br>
+									<button class="boton-buscar-imagen"
+										data-bind="click : buscarImagen">
+										<i class="fa fa-search" aria-hidden="true"></i> Buscar imagen
+									</button></td>
+								<td></td>
+								<td class="padding-entre-columnas"></td>
+							</tr>
+							<tr>
+								<td><br>
+									<button class="boton-guardar-producto" data-bind="click : add">Guardar
+										producto</button></td>
+								<td></td>
+
+								<td class="padding-entre-columnas"></td>
+							</tr>
+						</table>
+						<div data-bind="html : message" style="color: blue"></div>
+						<div data-bind="html : error" style="color: red"></div>
+					</div>
+				</div>
+				<br>
 				<table>
 					<caption></caption>
 					<tr>

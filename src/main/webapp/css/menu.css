@@ -1,0 +1,61 @@
+@charset "ISO-8859-1";
+
+#header-aniadir-producto{
+	font-size: 25px;
+}
+.add-producto-wrapper {
+	background-color: #ffffff;
+	padding: 5px 20px 15px 20px;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+}
+
+.recurso-centrado {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.padding-entre-columnas {
+	padding: 0 150px;
+}
+
+.boton-buscar-imagen {
+	float: left;
+	padding: 10px;
+	background: lightblue;
+	color: darkslategrey;
+	font-size: 17px;
+	border: 1px white;
+	border-left: none;
+	cursor: pointer;
+	border-radius: 2px;
+}
+
+.boton-buscar-imagen:hover {
+	background: #94c4d4;
+}
+
+.boton-guardar-producto {
+	background-color: #673AB7;
+	color: white;
+	padding: 12px;
+	margin-left: auto;
+	margin-right: auto;
+	border: none;
+	width: 100%;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 17px;
+	margin-right: auto;
+}
+
+.boton-guardar-producto:hover {
+	background-color: #7842d6;
+	cursor: pointer;
+}
+
+.input-texto {
+	height: 30px;
+	width: 300px;
+	height: 35px;
+}
