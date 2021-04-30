@@ -1,0 +1,3 @@
+autoEnabled=true
+eclipse.preferences.version=1
+fileExclusions=DIRECTORY\:src/main/webapp/js/libs\r\nDIRECTORY\:src/main/webapp/less\r\nDIRECTORY\:src/main/webapp/scss\r\nDIRECTORY\:src/main/webapp/fonts

@@ -1,7 +1,6 @@
 <head>
 <link rel="stylesheet" href="../css/payment.css">
 <link href="../css/font-awesome.min.css" rel="stylesheet"></link>
-<!-- <script type="text/javascript" src="../viewModels/product.js"></script> -->
 </head>
 <div class="oj-hybrid-applayout-page">
 	<div class="oj-applayout-fixed-top">
@@ -29,6 +28,8 @@
 												<label for="fname"><em class="fa fa-user"></em> Nombre
 													Completo</label>
 												<table style="width: 100%">
+													<caption></caption>
+													<tr> <th id="header-detalles-facturacion"> </th> </tr>
 													<tr>
 														<td>
 															<div class="col-12 col-sm-6">
@@ -76,6 +77,8 @@
 												<label for="fname"><i class="fa fa-map-marker"
 													aria-hidden="true"></i> Dirección</label>
 												<table class="direccion-entrega" style="width: 100%">
+													<caption></caption>
+													<tr> <th id="header-direccion"> </th> </tr>
 													<tr>
 														<td>
 															<div class="col-12 col-sm-6">
@@ -88,7 +91,7 @@
 													<tr>
 														<td>
 															<div class="email col-12 mb-2">
-																<label for="fname"><i class="fa fa-institution"></i>
+																<label for="fname"><em class="fa fa-institution"></em>
 																	Ciudad</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
@@ -135,6 +138,8 @@
 										<div class="col-50">
 											<h3>Pago</h3>
 											<table>
+												<caption></caption>
+												<tr> <th id="header-tarjetas"> </th> </tr>
 												<tr>
 													<td><label for="fname">Tarjetas aceptadas</label></td>
 													<td class="padding-entre-columnas">
@@ -196,10 +201,11 @@
 									class="fa fa-shopping-cart"></em></span>
 							</h4>
 							<table>
+								<caption></caption>
 								<tr>
-									<th>Producto</th>
-									<th>Uds.</th>
-									<th>€/ud.</th>
+									<th id="productos">Producto</th>
+									<th id="unidades">Uds.</th>
+									<th id="precio-unidad">€/ud.</th>
 								</tr>
 								<!-- ko foreach : carrito -->
 								<tr>
@@ -217,6 +223,8 @@
 							<br>
 							<hr>
 							<table class="tabla-envios" style="width: 400px">
+								<caption></caption>
+								<tr> <th id="header-envio"> </th> </tr>
 								<tr>
 									<td><strong> Gastos de envío <span class="price"
 											style="color: black"></span>
@@ -228,6 +236,8 @@
 							<br>
 							<hr>
 							<table class="tabla-precio-total-carrito" style="width: 400px">
+								<caption></caption>
+								<tr> <th id="header-precio-total"> </th> </tr>
 								<tr>
 									<td><strong> Precio Total <span class="price"
 											style="color: black"></span>

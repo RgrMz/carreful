@@ -13,8 +13,9 @@
 			<div class="oj-hybrid-padding">
 				<h1>Menú de opciones</h1>
 				<table>
+					<caption></caption>
 					<tr>
-						<th>Añadir producto al Carreful</th>
+						<th id="header-aniadir-producto">Añadir producto al Carreful</th>
 					</tr>
 					<!-- ko foreach : carrito -->
 					<tr>
@@ -32,7 +33,7 @@
 						Congelado
 					</label>
 					<img data-bind="attr: {src: imagenBuscada}" width="150px"
-									height="150px">
+									height="150px" alt="Imagen del nuevo producto">
 					<button data-bind="click : buscarImagen">Buscar imagen</button>
 					<button data-bind="click : add">Guardar producto</button>
 					<div data-bind="html : message" style="color: blue"></div>
@@ -40,11 +41,11 @@
 				</div>
 
 				<table>
+					<caption></caption>
 					<tr>
-						<th>Nombre</th>
-						<th>Precio</th>
-						<th></th>
-						<th></th>
+						<th id="columna-nombre">Nombre</th>
+						<th id="columna-precio">Precio</th>
+						<th id="columna-boton-eliminar"></th>
 					</tr>
 					<!-- ko foreach : productos -->
 					<tr>
