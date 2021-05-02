@@ -25,6 +25,7 @@ import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Pedido;
+import edu.uclm.esi.carreful.model.interfaces.GastosDeEnvio;
 import edu.uclm.esi.carreful.tokens.Email;
 
 
@@ -103,6 +104,18 @@ public class PedidosController {
 				e.printStackTrace();
 			}
 			return null;
+		}
+	}
+	
+	@GetMapping("/precioGastosEnvio/{tipoPedido}")
+	public double precioGastosEnvio(@PathVariable String tipoPedido) {
+		switch(tipoPedido) {
+		case "domicilio":
+			return GastosDeEnvio.getGastosdomicilio();
+		case "express":
+			return GastosDeEnvio.getGastosexpress();
+		default:
+			return GastosDeEnvio.getGastosrecogida();
 		}
 	}
 	

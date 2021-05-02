@@ -168,14 +168,15 @@
 									<div class="radio-pedidos">
 										<label class="radio-pedidos">Envío a domicilio <input
 											type="radio" checked="checked" name="radio"
-											id="pedidos-domicilio"> <span class="checkmark"></span>
+											id="pedidos-domicilio" data-bind="event: { change: $data.getGastosDeEnvio}"> 
+											<span class="checkmark"></span>
 										</label> <label class="radio-pedidos">Envío a domicilio
 											express <input type="radio" name="radio"
-											id="pedidos-domicilio-express"> <span
-											class="checkmark"></span>
+											id="pedidos-domicilio-express" data-bind="event: { change: $data.getGastosDeEnvio}"> 
+											<span class="checkmark"></span>
 										</label> <label class="radio-pedidos">Recogida en tienda <input
-											type="radio" name="radio" id="pedidos-recogida"> <span
-											class="checkmark"></span>
+											type="radio" name="radio" id="pedidos-recogida" data-bind="event: { change: $data.getGastosDeEnvio}"> 
+											<span class="checkmark"></span>
 										</label>
 									</div>
 									<br>

@@ -83,7 +83,8 @@ public class UserController extends CookiesController {
 	public void recoverPwd(@RequestParam String email) {
 		try {
 			if (email.length() == 0) {
-				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE, "Debes introducir un correo válido en el campo \"Correo electrónico\"");
+				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE,
+						"Debes introducir un correo válido en el campo \"Correo electrónico\"");
 			}
 			User user = userDao.findByEmail(email);
 			if (user != null) {
@@ -155,7 +156,8 @@ public class UserController extends CookiesController {
 			if (!pwd1.equals(pwd2))
 				throw new CarrefulException(HttpStatus.FORBIDDEN, "La contraseña no coincide con su confirmación");
 			if (pwd1.length() < 8)
-				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE, "La contraseña tiene que tener al menos 8 caracteres");
+				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE,
+						"La contraseña tiene que tener al menos 8 caracteres");
 			User user = new User();
 			user.setEmail(email);
 			user.setPwd(pwd1);
@@ -170,6 +172,19 @@ public class UserController extends CookiesController {
 			userDao.save(user);
 		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
+		}
+	}
+
+	@GetMapping("/isLoggedIn")
+	public void isLoggedIn(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			if (request.getSession().getAttribute("userEmail") != null) {
+				
+			}
+			else
+				throw new Exception("Forbidden");
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
 		}
 	}
 }

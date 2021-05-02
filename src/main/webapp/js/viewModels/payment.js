@@ -36,13 +36,51 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						'viewModel': app.getHeaderModel()
 					})
 				})
+
 			}
+
+			getGastosDeEnvio() {
+				let self = this;
+				const iff = (condition, then, otherwise) => condition ? then : otherwise;
+				let tipoPedido = document.getElementById('pedidos-domicilio').checked ? "domicilio" :
+					iff(document.getElementById('pedidos-domicilio-express').checked, "express", "Recogida");
+				var data = {
+					url: "pedido/precioGastosEnvio/" + tipoPedido,
+					type: "get",
+					contentType: 'application/json',
+					success: function(response) {
+						self.gastosEnvio(response);
+						self.getImporteTotal();
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			};
 
 			connected() {
 				accUtils.announce('Payment page loaded.');
 				document.title = "Pago";
 				this.solicitarPreautorizacion();
 				this.getCarrito();
+				this.getGastosDeEnvio();
+			}
+			
+			getImporteTotal() {
+				let self = this;
+				let data = {
+					url: "product/getImporte",
+					type: "get",
+					contentTyp: 'application/json',
+					success: function(response) {
+						self.importe(response + self.gastosEnvio()+ ' €');
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
 			}
 
 			solicitarPreautorizacion() {
@@ -145,33 +183,34 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					pais: this.pais(),
 					codigoPostal: this.codigoPostal(),
 					tipoPedido: document.getElementById('pedidos-domicilio').checked ? "Domicilio" :
-					iff(document.getElementById('pedidos-domicilio-express').checked,  "DomExpress","Recogida" )
-			};
+						iff(document.getElementById('pedidos-domicilio-express').checked, "DomExpress", "Recogida"),
+					precioPedido: self.importe() + this.gastosEnvio()
+				};
 				var data = {
-			data: JSON.stringify(info),
-			url: "pedido/guardarPedido",
-			type: "post",
-			contentType: 'application/json',
-			/*
-			success: function(response) {
-				
-			},*/
-			error: function(response) {
-				self.error(response.responseJSON.errorMessage);
+					data: JSON.stringify(info),
+					url: "pedido/guardarPedido",
+					type: "post",
+					contentType: 'application/json',
+					/*
+					success: function(response) {
+						
+					},*/
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
 			}
-		};
-		$.ajax(data);
-	}
 
 			disconnected() {
-	// Implement if needed
-}
+				// Implement if needed
+			}
 
 			transitionCompleted() {
-	// Implement if needed
-}
-			
-			
+				// Implement if needed
+			}
+
+
 		}
 
 		return PaymentViewModel;

@@ -8,9 +8,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.nombre = ko.observable("");
 				self.precio = ko.observable("");
 				self.imagenBuscada = ko.observable("https://image.flaticon.com/icons/png/512/18/18436.png");
+				self.categoriaSeleccionada = ko.observable();
 
 				self.productos = ko.observableArray([]);
-				self.carrito = ko.observableArray([]);
+				self.categorias = ko.observableArray([]);
 
 				self.message = ko.observable(null);
 				self.error = ko.observable(null);
@@ -103,10 +104,42 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					});
 			}
 
+			getCategorias() {
+				let self = this;
+				let data = {
+					url: "product/getCategorias",
+					type: "get",
+					contentType: 'application/json',
+					success: function(response) {
+						self.categorias(response);
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
+			checkLogin() {
+				let data = {
+					url: "user/isLoggedIn",
+					type: "get",
+					contentType: 'application/json',
+					success: function(response) {
+					},
+					error: function(response) {
+						app.router.go({ path: "error403" });
+					}
+				};
+				$.ajax(data);
+			}
+
 			connected() {
 				accUtils.announce('Menu page loaded.');
 				document.title = "Menu";
+				this.checkLogin();
 				this.getProductos();
+				this.getCategorias();
 			}
 
 			disconnected() {

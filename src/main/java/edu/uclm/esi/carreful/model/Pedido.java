@@ -32,6 +32,8 @@ public class Pedido {
 	@NotNull
 	private int codigoPostal;
 	@NotNull
+	private double precioPedido;
+	@NotNull
 	private Estado estado;
 	
 	@Transient
@@ -131,6 +133,14 @@ public class Pedido {
 	}
 	public String getTipoPedido() {
 		return this.tipo.getClass().getName();
+	}
+
+	public double getPrecioPedido() {
+		return precioPedido;
+	}
+
+	public void setPrecioPedido(double precioPedido) {
+		this.precioPedido = precioPedido;
 	}
 	
 }

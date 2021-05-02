@@ -1,5 +1,7 @@
 package edu.uclm.esi.carreful.http;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,37 +18,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import edu.uclm.esi.carreful.dao.CategoriesDao;
 import edu.uclm.esi.carreful.dao.ProductDao;
 import edu.uclm.esi.carreful.exceptionhandling.CarrefulException;
 import edu.uclm.esi.carreful.model.Carrito;
+import edu.uclm.esi.carreful.model.Categoria;
 import edu.uclm.esi.carreful.model.Product;
 
 @RestController
 @RequestMapping("product")
 public class ProductController extends CookiesController {
-	
+
 	@Autowired
 	private ProductDao productDao;
+
+	@Autowired
+	private CategoriesDao categoriesDao;
+
 	private static final String CARRITO_STRING = "carrito";
-	
+
 	@PostMapping("/add")
 	public void add(@RequestBody Product product) {
 		try {
 			productDao.save(product);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
 		}
 	}
-	
+
 	@GetMapping("/getTodos")
 	public List<Product> get() {
 		try {
 			return productDao.findAll();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
-	
+
 	@GetMapping("/getPrecio/{nombre}")
 	public double getPrecio(@PathVariable String nombre) {
 		try {
@@ -54,11 +62,11 @@ public class ProductController extends CookiesController {
 			if (optProduct.isPresent())
 				return optProduct.get().getPrecio();
 			throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto no existe");
-		} catch(CarrefulException e) {
+		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
-	
+
 	@GetMapping("/getCarrito")
 	public Carrito getCarrito(HttpServletRequest request) {
 		Carrito carrito;
@@ -73,12 +81,12 @@ public class ProductController extends CookiesController {
 		}
 		return carrito;
 	}
-	
+
 	@PostMapping("/eliminarUnidadDelCarrito/{nombre}")
 	public Carrito elminarUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		Product producto = new Product();
-		if (carrito==null) {
+		if (carrito == null) {
 			carrito = new Carrito();
 			request.getSession().setAttribute(CARRITO_STRING, carrito);
 		}
@@ -89,12 +97,12 @@ public class ProductController extends CookiesController {
 		carrito.eliminarUnidad(producto, 1);
 		return carrito;
 	}
-	
+
 	@PostMapping("/addUnidadDelCarrito/{nombre}")
 	public Carrito addUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		Product producto = new Product();
-		if (carrito==null) {
+		if (carrito == null) {
 			carrito = new Carrito();
 			request.getSession().setAttribute(CARRITO_STRING, carrito);
 		}
@@ -105,12 +113,12 @@ public class ProductController extends CookiesController {
 		carrito.add(producto, 1);
 		return carrito;
 	}
-	
+
 	@PostMapping("/eliminarProductoDelCarrito/{nombre}")
 	public Carrito eliminarProductoDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		Product producto = new Product();
-		if (carrito==null) {
+		if (carrito == null) {
 			carrito = new Carrito();
 			request.getSession().setAttribute(CARRITO_STRING, carrito);
 		}
@@ -121,7 +129,7 @@ public class ProductController extends CookiesController {
 		carrito.eliminarProducto(producto);
 		return carrito;
 	}
-	
+
 	@DeleteMapping("/borrarProducto/{nombre}")
 	public void borrarProducto(@PathVariable String nombre) {
 		try {
@@ -130,18 +138,32 @@ public class ProductController extends CookiesController {
 				productDao.deleteById(nombre);
 			else
 				throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto no existe");
-		} catch(CarrefulException e) {
+		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
-	
+
 	@GetMapping("/getImporte")
-	public String getMapping(HttpServletRequest request) {
+	public double getMapping(HttpServletRequest request) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
-		if (carrito==null) {
+		if (carrito == null) {
 			carrito = new Carrito();
 			request.getSession().setAttribute(CARRITO_STRING, carrito);
 		}
-		return String.format("%.2f", carrito.getImporte());
+		BigDecimal bigDecimal = new BigDecimal(Double.toString(carrito.getImporte()));
+
+		bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
+
+		return bigDecimal.doubleValue();
 	}
+
+	@GetMapping("/getCategorias")
+	public List<Categoria> getCategorias() {
+		try {
+			return categoriesDao.findAll();
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+
 }
