@@ -42,14 +42,30 @@
 									height="200px" alt="Imagen del nuevo producto"></td>
 							</tr>
 							<tr>
-								<td><label>Categoría</label><br>
-								<input class="input-texto" type="text"
-									data-bind="value : precio"
-									placeholder="&quot La Despensa &quot"></td>
-								<td class="padding-entre-columnas"></td>
+								<td><br><label>Categoría</label><br><details class="combobox-categorias">
+										<summary class="radios">
+											<input type="radio" name="item" id="default"
+												title="Elegir categoría" checked> 
+											<input type="radio" name="item" id="item1" title="El Mercado"> 
+											<input type="radio" name="item" id="item2" title="La Despensa">
+											<input type="radio" name="item" id="item3" title="Mascotas">
+											<input type="radio" name="item" id="item4" title="Parafarmacia">
+											<input type="radio" name="item" id="item5" title="Bebidas">
+											<input type="radio" name="item" id="item6" title="Perfumería e Higiene">
+										</summary>
+										<ul class="list">
+											<li><label for="item1">El Mercado</label></li>
+											<li><label for="item2">La Despensa</label></li>
+											<li><label for="item3">Mascotas</label></li>
+											<li><label for="item4">Parafarmacia</label></li>
+											<li><label for="item5">Bebidas</label></li>
+											<li><label for="item6">Perfumería e Higiene</label></li>
+										</ul>
+									</details></td>
+								<td class="padding-entre-columnas"><br></td>
 							</tr>
 							<tr>
-								<td><label>Precio</label><br> <input
+								<td><br><label>Precio</label><br> <input
 									class="input-texto" type="text" data-bind="value : precio"
 									placeholder="1.5"> €</td>
 							</tr>
