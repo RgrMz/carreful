@@ -45,6 +45,14 @@
 	text-align: center;
 }
 
+.mas-menos:hover{
+	cursor: pointer;
+}
+
+.boton-borrar-del-carrito:hover{
+	cursor: pointer;
+}
+
 .product-card {
 	display: inline-block;
 	border: 3px solid black;
