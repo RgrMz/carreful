@@ -52,7 +52,7 @@ public class PedidosController {
 			String apellidos = jso.optString("apellidos");
 			String email = jso.optString("email");
 			/* Matcher matcher = patron.matcher(email); */
-			//Se debería hacer antes del pago en todo caso
+			// Hacer antes del pago en todo caso
 			// Checkear validez de campos: opcional
 			// Checkear congelados para dom express obligatorio
 			// Checkear formulario

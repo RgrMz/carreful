@@ -36,6 +36,8 @@ public class ProductController extends CookiesController {
 	private CategoriesDao categoriesDao;
 
 	private static final String CARRITO_STRING = "carrito";
+	
+	private Carrito carrito = new Carrito();
 
 	@PostMapping("/add")
 	public void add(@RequestBody Product product) {
@@ -69,7 +71,6 @@ public class ProductController extends CookiesController {
 
 	@GetMapping("/getCarrito")
 	public Carrito getCarrito(HttpServletRequest request) {
-		Carrito carrito;
 		try {
 			carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 			if (carrito == null) {
@@ -84,7 +85,7 @@ public class ProductController extends CookiesController {
 
 	@PostMapping("/eliminarUnidadDelCarrito/{nombre}")
 	public Carrito elminarUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
-		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
+		carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		Product producto = new Product();
 		if (carrito == null) {
 			carrito = new Carrito();
@@ -100,7 +101,7 @@ public class ProductController extends CookiesController {
 
 	@PostMapping("/addUnidadDelCarrito/{nombre}")
 	public Carrito addUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
-		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
+		carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		Product producto = new Product();
 		if (carrito == null) {
 			carrito = new Carrito();
@@ -116,7 +117,7 @@ public class ProductController extends CookiesController {
 
 	@PostMapping("/eliminarProductoDelCarrito/{nombre}")
 	public Carrito eliminarProductoDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
-		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
+		carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		Product producto = new Product();
 		if (carrito == null) {
 			carrito = new Carrito();
@@ -145,7 +146,7 @@ public class ProductController extends CookiesController {
 
 	@GetMapping("/getImporte")
 	public double getMapping(HttpServletRequest request) {
-		Carrito carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
+		carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		if (carrito == null) {
 			carrito = new Carrito();
 			request.getSession().setAttribute(CARRITO_STRING, carrito);

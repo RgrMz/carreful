@@ -182,9 +182,9 @@ public class UserController extends CookiesController {
 				
 			}
 			else
-				throw new Exception("Forbidden");
-		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN, e.getMessage());
+				throw new CarrefulException(HttpStatus.FORBIDDEN, "Forbidden");
+		} catch (CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
 }
