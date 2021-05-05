@@ -52,6 +52,7 @@ public class PedidosController {
 			String apellidos = jso.optString("apellidos");
 			String email = jso.optString("email");
 			/* Matcher matcher = patron.matcher(email); */
+			//Se debería hacer antes del pago en todo caso
 			// Checkear validez de campos: opcional
 			// Checkear congelados para dom express obligatorio
 			// Checkear formulario
@@ -63,6 +64,7 @@ public class PedidosController {
 			String codigoPostal = jso.optString("codigoPostal");
 			String tipoPedido = jso.optString("tipoPedido");
 			String direccion = jso.optString("direccion");
+			double precioPedido = jso.optDouble("precioPedido");
 			Pedido pedido = new Pedido();
 			pedido.setDireccion(direccion);
 			pedido.setNombre(nombre);
@@ -75,6 +77,8 @@ public class PedidosController {
 			pedido.setCodigoPostal(Integer.parseInt(codigoPostal));
 			pedido.setTipoPedido(tipoPedido);
 			pedido.setEstado(Estado.RECIBIDO);
+			pedido.setPrecioPedido(precioPedido);
+			
 			pedidoDao.save(pedido);
 			guardarProductosDelPedido(carrito, pedido);
 			String texto = "Para consultar el estado del pedido realizado, pulsa aqui: <br></br>"

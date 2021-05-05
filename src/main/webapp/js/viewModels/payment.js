@@ -190,10 +190,9 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					url: "pedido/guardarPedido",
 					type: "post",
 					contentType: 'application/json',
-					/*
 					success: function(response) {
 						
-					},*/
+					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
 					}
