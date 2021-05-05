@@ -21,7 +21,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.codigoPostal = ko.observable("");
 				self.pais = ko.observable("");
 
-				self.gastosEnvio = ko.observable();
+				self.gastosEnvio = ko.observable(0);
 
 				// Header Config
 				self.headerConfig = ko.observable({
@@ -50,6 +50,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					contentType: 'application/json',
 					success: function(response) {
 						self.gastosEnvio(response);
+						self.solicitarPreautorizacion();
 						self.getImporteTotal();
 					},
 					error: function(response) {
@@ -62,9 +63,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			connected() {
 				accUtils.announce('Payment page loaded.');
 				document.title = "Pago";
-				this.solicitarPreautorizacion();
 				this.getCarrito();
-				this.getGastosDeEnvio();
 			}
 			
 			getImporteTotal() {
@@ -86,14 +85,14 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			solicitarPreautorizacion() {
 
 				var self = this;
-
+				
 				// The items the customer wants to buy
-				let purchase = {
-					items: [{ id: "xl-tshirt" }]
+				let info = {
+					gastosEnvio: this.gastosEnvio()
 				};
 
 				let data = {
-					data: JSON.stringify(purchase),
+					data: JSON.stringify(info),
 					url: "payments/solicitarPreautorizacion",
 					type: "post",
 					contentType: 'application/json',

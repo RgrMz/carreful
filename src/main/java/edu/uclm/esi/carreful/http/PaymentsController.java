@@ -30,8 +30,10 @@ public class PaymentsController extends CookiesController {
 	@PostMapping("/solicitarPreautorizacion")
 	public String solicitarPreautorizacion(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		try {
+			JSONObject jsoGastosEnvio = new JSONObject(info);
 			Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-			double importe = carrito.getImporte() * 100;
+			double gastosEnvio = jsoGastosEnvio.optDouble("gastosEnvio");
+			double importe = (carrito.getImporte()+gastosEnvio) * 100;
 			PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder().setCurrency("eur")
 					.setAmount((long) importe).build();
 			// Create a PaymentIntent with the order amount and currency
