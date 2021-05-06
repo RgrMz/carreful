@@ -25,6 +25,7 @@ import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Pedido;
+import edu.uclm.esi.carreful.model.TipoPedido;
 import edu.uclm.esi.carreful.model.interfaces.GastosDeEnvio;
 import edu.uclm.esi.carreful.tokens.Email;
 

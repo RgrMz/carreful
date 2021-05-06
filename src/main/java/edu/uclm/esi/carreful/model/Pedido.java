@@ -132,7 +132,7 @@ public class Pedido {
 		}
 	}
 	public String getTipoPedido() {
-		return this.tipo.getClass().getName();
+		return tipoPedido;
 	}
 
 	public double getPrecioPedido() {

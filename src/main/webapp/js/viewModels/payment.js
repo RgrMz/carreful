@@ -183,7 +183,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					codigoPostal: this.codigoPostal(),
 					tipoPedido: document.getElementById('pedidos-domicilio').checked ? "Domicilio" :
 						iff(document.getElementById('pedidos-domicilio-express').checked, "DomExpress", "Recogida"),
-					precioPedido: self.importe() + this.gastosEnvio()
+					precioPedido: parseFloat(self.importe().substring(0, self.importe().length - 2)) + this.gastosEnvio()
 				};
 				var data = {
 					data: JSON.stringify(info),

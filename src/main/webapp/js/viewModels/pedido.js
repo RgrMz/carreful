@@ -1,22 +1,22 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery', "ojs/ojbootstrap", "ojs/ojknockout", "ojs/ojinputtext", "ojs/ojformlayout", "ojs/ojlabel", "ojs/ojbutton"], function(ko, app, moduleUtils, accUtils, $) {
 
-		class PaymentViewModel{
+		class PedidoViewModel{
 			constructor() {
 				var self = this;
 
 				self.message = ko.observable("");
 				self.error = ko.observable("");
 
-				self.nombre = ko.observable();
-				self.apellidos = ko.observable();
-				self.email = ko.observable();
-				self.telefonoMovil = ko.observable();
-				self.direccion = ko.observable();
-				self.ciudad = ko.observable();
-				self.provincia = ko.observable();
-				self.codigoPostal = ko.observable();
-				self.pais = ko.observable();
+				self.nombre = ko.observable("");
+				self.apellidos = ko.observable("");
+				self.email = ko.observable("");
+				self.telefonoMovil = ko.observable("");
+				self.direccion = ko.observable("");
+				self.ciudad = ko.observable("");
+				self.provincia = ko.observable("");
+				self.codigoPostal = ko.observable("");
+				self.pais = ko.observable("");
 
 				self.gastosEnvio = ko.observable();
 				self.precioPedido = ko.observable();
@@ -78,5 +78,5 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				// Implement if needed
 			}
 		}
-		return PaymentViewModel;
+		return PedidoViewModel;
 	});
