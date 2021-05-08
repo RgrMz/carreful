@@ -138,15 +138,24 @@
 									<h4>Opciones de envío</h4>
 									<div class="radio-pedidos">
 										<label class="radio-pedidos">Envío a domicilio <input
-											type="radio" name="radio"
-											id="pedidos-domicilio" data-bind="event: { change: $data.getGastosDeEnvio}"> 
+											type="radio" name="radio" value="domicilio"
+											id="pedidos-domicilio" 
+											data-bind="event: { change: $data.getGastosDeEnvio}, 
+													   checked: tipoPedido ,
+													   enable: enableRadiosDomicilioRecogida"> 
 											<span class="checkmark"></span>
 										</label> <label class="radio-pedidos">Envío a domicilio
-											express <input type="radio" name="radio"
-											id="pedidos-domicilio-express" data-bind="event: { change: $data.getGastosDeEnvio}"> 
+											express <input type="radio" name="radio" value="express"
+											id="pedidos-domicilio-express" 
+											data-bind="event: { change: $data.getGastosDeEnvio}, 
+													   checked: tipoPedido,
+													   enable: hayCongelados"> 
 											<span class="checkmark"></span>
 										</label> <label class="radio-pedidos">Recogida en tienda <input
-											type="radio" name="radio" id="pedidos-recogida" data-bind="event: { change: $data.getGastosDeEnvio}"> 
+											type="radio" name="radio" id="pedidos-recogida"  value="Recogida"
+											data-bind="event: { change: $data.getGastosDeEnvio}, 
+													   checked: tipoPedido,
+													   enable: enableRadiosDomicilioRecogida">
 											<span class="checkmark"></span>
 										</label>
 									</div>
@@ -181,7 +190,12 @@
 										<!--Stripe.js injects the Card Element-->
 									</div>
 									<br><hr>
-									<br> <label> <input type="checkbox"> La
+									<br>
+									<button class="btn-block btn-realizar-pedido" data-bind="click : confirmarPedido">
+										<span id="confirmar-pedido">Confirmar pedido</span>
+									</button>
+									<br> 
+									<label> <input type="checkbox"> La
 										dirección de envío es la misma que la de facturación
 									</label> <label> <input type="checkbox"> He leído y
 										estoy de acuerdo con los términos y condiciones de la web

@@ -65,4 +65,8 @@ public class OrderedProduct {
 	public void setPriceXAmount() {
 		this.priceXAmount = this.getPrice();
 	}
+	
+	public boolean isCongelado() {
+		return this.product.isCongelado();
+	}
 }

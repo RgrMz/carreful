@@ -49,5 +49,9 @@ public class Carrito implements Serializable{
 	public void eliminarProducto(Product product) {
 		this.products.remove(product.getNombre());
 	}
+	
+	public void vaciarCarrito() {
+		this.products.clear();
+	}
 
 }

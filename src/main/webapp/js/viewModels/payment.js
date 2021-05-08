@@ -21,6 +21,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.codigoPostal = ko.observable("");
 				self.pais = ko.observable("");
 
+				self.tipoPedido = ko.observable();
+				self.hayCongelados = ko.observable(true);
+				self.enableRadiosDomicilioRecogida = ko.observable(true);
+
 				self.gastosEnvio = ko.observable(0);
 
 				// Header Config
@@ -41,16 +45,13 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 			getGastosDeEnvio() {
 				let self = this;
-				const iff = (condition, then, otherwise) => condition ? then : otherwise;
-				let tipoPedido = document.getElementById('pedidos-domicilio').checked ? "domicilio" :
-					iff(document.getElementById('pedidos-domicilio-express').checked, "express", "Recogida");
+				let tipoPedido = this.tipoPedido();
 				var data = {
 					url: "pedido/precioGastosEnvio/" + tipoPedido,
 					type: "get",
 					contentType: 'application/json',
 					success: function(response) {
 						self.gastosEnvio(response);
-						self.solicitarPreautorizacion();
 						self.getImporteTotal();
 					},
 					error: function(response) {
@@ -64,16 +65,22 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				accUtils.announce('Payment page loaded.');
 				document.title = "Pago";
 				this.getCarrito();
+				this.checkCongelados();
 			}
-			
-			getImporteTotal() {
+
+			checkCongelados() {
 				let self = this;
-				let data = {
-					url: "product/getImporte",
+				var data = {
+					url: "pedido/checkCongelados",
 					type: "get",
-					contentTyp: 'application/json',
+					contentType: 'application/json',
 					success: function(response) {
-						self.importe(response + self.gastosEnvio()+ ' €');
+						if (response) {
+							alert("Usted añadió al carrito uno o más productos congelados. El tipo de pedido obligatoriamente será \"Domicilio Express\"");
+							self.enableRadiosDomicilioRecogida(false);
+							self.tipoPedido("express");
+							self.getGastosDeEnvio();
+						}
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -82,10 +89,30 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				$.ajax(data);
 			}
 
+			getImporteTotal() {
+				let self = this;
+				let data = {
+					url: "product/getImporte",
+					type: "get",
+					contentTyp: 'application/json',
+					success: function(response) {
+						self.importe(response + self.gastosEnvio() + ' €');
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
+			confirmarPedido() {
+				/* TODO */
+			}
+
 			solicitarPreautorizacion() {
 
 				var self = this;
-				
+
 				// The items the customer wants to buy
 				let info = {
 					gastosEnvio: this.gastosEnvio()
@@ -170,7 +197,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 			generarPedido() {
 				var self = this;
-				const iff = (condition, then, otherwise) => condition ? then : otherwise;
 				var info = {
 					nombre: this.nombre(),
 					apellidos: this.apellidos(),
@@ -181,8 +207,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					provincia: this.provincia(),
 					pais: this.pais(),
 					codigoPostal: this.codigoPostal(),
-					tipoPedido: document.getElementById('pedidos-domicilio').checked ? "Domicilio" :
-						iff(document.getElementById('pedidos-domicilio-express').checked, "DomExpress", "Recogida"),
+					tipoPedido: this.tipoPedido(),
 					precioPedido: parseFloat(self.importe().substring(0, self.importe().length - 2)) + this.gastosEnvio()
 				};
 				var data = {
@@ -191,7 +216,25 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					type: "post",
 					contentType: 'application/json',
 					success: function(response) {
-						
+						self.vaciarCarrito();
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+
+			vaciarCarrito() {
+				var info = {
+					accion: "Vaciar"
+				};
+				var data = {
+					data: JSON.stringify(info),
+					url: "product/vaciarCarrito",
+					type: "put",
+					contentType: 'application/json',
+					success: function() {
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);

@@ -25,10 +25,8 @@ import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Pedido;
-import edu.uclm.esi.carreful.model.TipoPedido;
 import edu.uclm.esi.carreful.model.interfaces.GastosDeEnvio;
 import edu.uclm.esi.carreful.tokens.Email;
-
 
 @RestController
 @RequestMapping("pedido")
@@ -36,17 +34,18 @@ public class PedidosController {
 
 	@Autowired
 	private PedidoDao pedidoDao;
-	
+
 	@Autowired
 	private OrderedProductDao orderedProductDao;
-	
+
 	private Email smtp = new Email();
-	
+
 	@PostMapping("/guardarPedido")
 	public void add(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-		//String validacionEmail = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
-		//Pattern patron = Pattern.compile(validacionEmail);
+		// String validacionEmail =
+		// "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+		// Pattern patron = Pattern.compile(validacionEmail);
 		try {
 			JSONObject jso = new JSONObject(info);
 			String nombre = jso.optString("nombre");
@@ -79,26 +78,44 @@ public class PedidosController {
 			pedido.setTipoPedido(tipoPedido);
 			pedido.setEstado(Estado.RECIBIDO);
 			pedido.setPrecioPedido(precioPedido);
-			
+
 			pedidoDao.save(pedido);
 			guardarProductosDelPedido(carrito, pedido);
 			String texto = "Para consultar el estado del pedido realizado, pulsa aqui: <br></br>"
-					+ "<a href=\"http://localhost:8080?ojr=pedido&idPedido=" + pedido.getIdPedido() + "\">Consultar mi pedido</a>";
+					+ "<a href=\"http://localhost:8080?ojr=pedido&idPedido=" + pedido.getIdPedido()
+					+ "\">Consultar mi pedido</a>";
 			smtp.send(email, "Carreful: Consulta el estado de tu pedido", texto);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
 		}
 	}
-	
+
 	public void guardarProductosDelPedido(Carrito carrito, Pedido pedido) {
-		for(OrderedProduct op : carrito.getProducts()) {
+		for (OrderedProduct op : carrito.getProducts()) {
 			op.setPedido(pedido);
 			orderedProductDao.save(op);
 		}
 	}
-	
+
+	@GetMapping("/checkCongelados")
+	public boolean checkCongelados(HttpServletRequest request) {
+		boolean hayCongelados = false;
+		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
+		try {
+			for (OrderedProduct op : carrito.getProducts()) {
+				if (op.isCongelado()) {
+					hayCongelados = true;
+					break;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return hayCongelados;
+	}
+
 	@GetMapping("/consultarPedido/{idPedido}")
-	public Pedido consultarPedido (HttpServletResponse response, @PathVariable String idPedido) {
+	public Pedido consultarPedido(HttpServletResponse response, @PathVariable String idPedido) {
 		Optional<Pedido> optPedido = pedidoDao.findById(idPedido);
 		if (optPedido.isPresent()) {
 			return optPedido.get();
@@ -111,10 +128,10 @@ public class PedidosController {
 			return null;
 		}
 	}
-	
+
 	@GetMapping("/precioGastosEnvio/{tipoPedido}")
 	public double precioGastosEnvio(@PathVariable String tipoPedido) {
-		switch(tipoPedido) {
+		switch (tipoPedido) {
 		case "domicilio":
 			return GastosDeEnvio.getGastosdomicilio();
 		case "express":
@@ -123,5 +140,5 @@ public class PedidosController {
 			return GastosDeEnvio.getGastosrecogida();
 		}
 	}
-	
+
 }
