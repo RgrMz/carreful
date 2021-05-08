@@ -1,5 +1,6 @@
 package edu.uclm.esi.carreful.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -9,7 +10,12 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Pedido {
+public class Pedido implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id @Column(length = 36)
 	private String idPedido;
 

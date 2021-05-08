@@ -1,7 +1,12 @@
 package edu.uclm.esi.carreful.model;
 
-public abstract class TipoPedido {
-	
+import java.io.Serializable;
+
+public abstract class TipoPedido implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Pedido pedido;
 	public Pedido getPedido() {
 		return pedido;

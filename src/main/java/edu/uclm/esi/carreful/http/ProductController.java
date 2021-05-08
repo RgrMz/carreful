@@ -137,7 +137,7 @@ public class ProductController extends CookiesController {
 		carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		try {
 			carrito.vaciarCarrito();
-			if(carrito.getProducts().size() != 0)
+			if(!carrito.getProducts().isEmpty())
 				throw new CarrefulException(HttpStatus.NOT_MODIFIED, "No se pudo vaciar el carrito");
 		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
