@@ -1,6 +1,7 @@
 package edu.uclm.esi.carreful.http;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -21,10 +22,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import edu.uclm.esi.carreful.dao.OrderedProductDao;
 import edu.uclm.esi.carreful.dao.PedidoDao;
+import edu.uclm.esi.carreful.exceptionhandling.CarrefulException;
 import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Pedido;
+import edu.uclm.esi.carreful.model.Product;
 import edu.uclm.esi.carreful.model.interfaces.GastosDeEnvio;
 import edu.uclm.esi.carreful.tokens.Email;
 
@@ -141,4 +144,20 @@ public class PedidosController {
 		}
 	}
 
+	@GetMapping("/obtenerProductosPedido/{idPedido}")
+	public List<OrderedProduct> obtenerProductosPedido(@PathVariable String idPedido) {
+		List<OrderedProduct> orderedProducts = null;
+		try {
+			if (idPedido.equals("")) {
+				throw new CarrefulException(HttpStatus.NOT_FOUND, "El id del pedido no existe.");
+			}
+			orderedProducts = orderedProductDao.findByPedidoIdPedido(idPedido);
+			if (orderedProducts == null) {
+				throw new CarrefulException(HttpStatus.NOT_FOUND, "El pedido está vacío.");
+			}
+		} catch (CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
+		}
+		return orderedProducts;
+	}
 }

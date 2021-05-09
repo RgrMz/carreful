@@ -23,13 +23,16 @@
 										<div class="col-50">
 											<h3>Detalles de Facturación</h3>
 											<hr>
-											<strong class="datos-contacto">Datos de Contacto</strong> <br> <br>
+											<strong class="datos-contacto">Datos de Contacto</strong> <br>
+											<br>
 											<div class="nombre-completo col-12 mb-2">
-												<label for="fname"><em class="fa fa-user"></em> Nombre
-													Completo</label>
+												<label for="fname"><em class="fa fa-user"></em>
+													Nombre Completo</label>
 												<table style="width: 100%">
 													<caption></caption>
-													<tr> <th id="header-detalles-faturacion"> </th> </tr>
+													<tr>
+														<th id="header-detalles-faturacion"></th>
+													</tr>
 													<tr>
 														<td>
 															<div class="col-12 col-sm-6">
@@ -70,14 +73,16 @@
 											</div>
 											<br>
 											<hr>
-											<br> <strong class="datos-contacto">Dirección de Entrega</strong>
-											<br> <br>
+											<br> <strong class="datos-contacto">Dirección
+												de Entrega</strong> <br> <br>
 											<div class="nombre-completo col-12 mb-2">
 												<label for="fname"><i class="fa fa-map-marker"
 													aria-hidden="true"></i> Dirección</label>
 												<table class="direccion-entrega" style="width: 100%">
 													<caption></caption>
-													<tr> <th id="header-direccion"> </th> </tr>
+													<tr>
+														<th id="header-direccion"></th>
+													</tr>
 													<tr>
 														<td>
 															<div class="col-12 col-sm-6">
@@ -122,8 +127,8 @@
 															<div class="telefono-movil col-12 mb-2">
 																<label for="fname">País</label>
 																<div class="col-12 col-sm-6">
-																	<input class="order-form-input" data-bind="textInput : pais"
-																	disabled>
+																	<input class="order-form-input"
+																		data-bind="textInput : pais" disabled>
 																</div>
 															</div>
 														</td>
@@ -133,11 +138,69 @@
 											<br>
 										</div>
 										<br>
-										<span data-bind="html: precioPedido"></span>
 								</form>
 							</div>
 						</div>
 					</section>
+
+					<div class="col-25-carrito">
+						<div class="carrito-wrapper">
+							<h4>
+								Pedido <span style="color: black"> <em
+									class="fa fa-truck"></em></span>
+							</h4>
+							<table>
+								<caption></caption>
+								<tr>
+									<th id="productos">Producto</th>
+									<th id="unidades">Uds.</th>
+									<th id="precio-unidad">€/ud.</th>
+								</tr>
+								<!-- ko foreach : orderedProducts -->
+								<tr>
+									<td data-bind="html : name"></td>
+									<td class="padding-entre-columnas" data-bind="html : amount"></td>
+									<td><span class="price"> €</span><span class="price"
+										data-bind="html : priceXAmount"></span></td>
+								</tr>
+								<tr>
+									<td><br></td>
+								</tr>
+								<!-- /ko -->
+							</table>
+							<br>
+							<hr>
+							<table class="tabla-precio-total-carrito" style="width: 100%">
+								<caption></caption>
+								<tr>
+									<th id="header-precio-total"></th>
+								</tr>
+								<tr>
+									<td><strong> Precio Total <span class="price"
+											style="color: black"></span>
+									</strong></td>
+									<td><strong class="importe-total"
+										data-bind="html: precioPedido"></strong></td>
+								</tr>
+							</table>
+						</div>
+						<br>
+						<div class="col-25-carrito">
+							<div class="carrito-wrapper">
+								<table>
+									<caption></caption>
+									<tr>
+										<td><th id="header-estado-pedido">Estado del pedido: </th>
+										</td>
+										<td>
+											<span style="color: black" data-bind="html : estadoPedido"></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>

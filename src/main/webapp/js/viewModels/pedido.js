@@ -1,7 +1,7 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery', "ojs/ojbootstrap", "ojs/ojknockout", "ojs/ojinputtext", "ojs/ojformlayout", "ojs/ojlabel", "ojs/ojbutton"], function(ko, app, moduleUtils, accUtils, $) {
 
-		class PedidoViewModel{
+		class PedidoViewModel {
 			constructor() {
 				var self = this;
 
@@ -20,6 +20,9 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 
 				self.gastosEnvio = ko.observable();
 				self.precioPedido = ko.observable();
+				
+				self.orderedProducts = ko.observableArray([]);
+				self.estadoPedido = ko.observable();
 
 				// Header Config
 				self.headerConfig = ko.observable({
@@ -55,6 +58,27 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						self.provincia(response.provincia);
 						self.codigoPostal(response.codigoPostal);
 						self.pais(response.pais);
+						self.precioPedido(response.precioPedido + ' €');
+						self.estadoPedido(response.estado);
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+
+			obtenerPedido() {
+				var self = this;
+				const queryString = window.location.search;
+				const urlParams = new URLSearchParams(queryString);
+				const idPedido = urlParams.get('idPedido')
+				var data = {
+					url: "pedido/obtenerProductosPedido/" + idPedido,
+					type: "get",
+					contentType: 'application/json',
+					success: function(response) {
+						self.orderedProducts(response);
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -67,6 +91,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				accUtils.announce('Información del pedido page loaded.');
 				document.title = "Información del pedido";
 				this.consultarPedido();
+				this.obtenerPedido();
 			}
 
 

@@ -225,7 +225,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					pais: this.pais(),
 					codigoPostal: this.codigoPostal(),
 					tipoPedido: this.tipoPedido(),
-					precioPedido: parseFloat(self.importe().substring(0, self.importe().length - 2)) + this.gastosEnvio()
+					precioPedido: parseFloat(self.importe().substring(0, self.importe().length - 2))
 				};
 				var data = {
 					data: JSON.stringify(info),
@@ -234,6 +234,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					contentType: 'application/json',
 					success: function(response) {
 						self.vaciarCarrito();
+						self.gastosEnvio("");
+						self.importe("");
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);

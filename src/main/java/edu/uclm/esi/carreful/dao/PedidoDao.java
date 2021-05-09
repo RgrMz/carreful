@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import edu.uclm.esi.carreful.model.Pedido;
 
 @Repository
-public interface PedidoDao extends JpaRepository <Pedido, String> {
-
+public interface PedidoDao extends JpaRepository<Pedido, String> {	
+	
 }

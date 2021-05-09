@@ -42,16 +42,20 @@
 									height="200px" alt="Imagen del nuevo producto"></td>
 							</tr>
 							<tr>
-								<td><br><label>Categoría</label><br><details class="combobox-categorias">
+								<td><br>
+								<label>Categoría</label><br>
+								<details class="combobox-categorias">
 										<summary class="radios">
 											<input type="radio" name="item" id="default"
-												title="Elegir categoría" checked> 
-											<input type="radio" name="item" id="item1" title="El Mercado"> 
-											<input type="radio" name="item" id="item2" title="La Despensa">
-											<input type="radio" name="item" id="item3" title="Mascotas">
-											<input type="radio" name="item" id="item4" title="Parafarmacia">
-											<input type="radio" name="item" id="item5" title="Bebidas">
-											<input type="radio" name="item" id="item6" title="Perfumería e Higiene">
+												title="Elegir categoría" checked> <input
+												type="radio" name="item" id="item1" title="El Mercado">
+											<input type="radio" name="item" id="item2"
+												title="La Despensa"> <input type="radio" name="item"
+												id="item3" title="Mascotas"> <input type="radio"
+												name="item" id="item4" title="Parafarmacia"> <input
+												type="radio" name="item" id="item5" title="Bebidas">
+											<input type="radio" name="item" id="item6"
+												title="Perfumería e Higiene">
 										</summary>
 										<ul class="list">
 											<li><label for="item1">El Mercado</label></li>
@@ -65,9 +69,10 @@
 								<td class="padding-entre-columnas"><br></td>
 							</tr>
 							<tr>
-								<td><br><label>Precio</label><br> <input
-									class="input-texto" type="text" data-bind="value : precio"
-									placeholder="1.5"> €</td>
+								<td><br>
+								<label>Precio</label><br> <input class="input-texto"
+									type="text" data-bind="value : precio" placeholder="1.5">
+									€</td>
 							</tr>
 							<tr>
 								<td><label class="checkbox-congelado"> <input
@@ -117,7 +122,35 @@
 					</tr>
 					<!-- /ko -->
 				</table>
+				<!-- Button to go up the page -->
+				<button class="btn-go-top" onclick="topFunction()" id="myBtn"
+					title="Go to top">
+					<i class="fa fa-arrow-up" aria-hidden="true"></i>
+				</button>
+				<script>
+					//Get the button
+					var mybutton = document.getElementById("myBtn");
 
+					// When the user scrolls down 20px from the top of the document, show the button
+					window.onscroll = function() {
+						scrollFunction()
+					};
+
+					function scrollFunction() {
+						if (document.body.scrollTop > 20
+								|| document.documentElement.scrollTop > 20) {
+							mybutton.style.display = "block";
+						} else {
+							mybutton.style.display = "none";
+						}
+					}
+
+					// When the user clicks on the button, scroll to the top of the document
+					function topFunction() {
+						document.body.scrollTop = 0;
+						document.documentElement.scrollTop = 0;
+					}
+				</script>
 			</div>
 		</div>
 	</div>

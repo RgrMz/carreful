@@ -28,6 +28,10 @@ public class OrderedProduct implements Serializable {
 	@ManyToOne
 	private Pedido pedido;
 	
+	public OrderedProduct() {
+		
+	}
+	
 	public Pedido getPedido() {
 		return pedido;
 	}
