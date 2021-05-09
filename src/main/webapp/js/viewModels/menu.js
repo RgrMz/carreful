@@ -11,10 +11,16 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.categoriaSeleccionada = ko.observable();
 
 				self.productos = ko.observableArray([]);
+				self.pedidos = ko.observableArray([]);
 				self.categorias = ko.observableArray([]);
 
 				self.message = ko.observable(null);
 				self.error = ko.observable(null);
+
+				self.listadoProductos = ko.observable(true);
+				self.listadoPedidos = ko.observable(false);
+				
+				self.categoria = ko.observable();
 
 				// Header Config
 				self.headerConfig = ko.observable({
@@ -36,12 +42,13 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				let info = {
 					nombre: this.nombre(),
 					precio: this.precio(),
+					categoria: this.categoria(),
 					congelado: document.getElementById('congelado').checked
 				};
 				let data = {
 					data: JSON.stringify(info),
 					url: "product/add",
-					typ: "post",
+					type: "post",
 					contentType: 'application/json',
 					success: function() {
 						self.message("Producto guardado");
@@ -52,6 +59,18 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					}
 				};
 				$.ajax(data);
+			}
+
+			listarProductos() {
+				var self = this;
+				self.listadoProductos(true);
+				self.listadoPedidos(false);
+			}
+
+			listarPedidos() {
+				var self = this;
+				self.listadoProductos(false);
+				self.listadoPedidos(true);
 			}
 
 			getProductos() {
@@ -69,6 +88,22 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
+			
+			getPedidos() {
+				let self = this;
+				let data = {
+					url: "pedido/getTodos",
+					type: "get",
+					contentType: 'application/json',
+					success: function(response) {
+						self.pedidos(response);
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
 
 			eliminarProducto(nombre) {
 				let self = this;
@@ -79,6 +114,22 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					success: function() {
 						self.message("Producto eliminado");
 						self.getProductos();
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
+			actualizarEstadoPedido(idPedido) {
+				let self = this;
+				let data = {
+					url: "pedido/actualizarEstado/" + idPedido,
+					type: "get",
+					contentTyp: 'application/json',
+					success: function() {
+						self.getPedidos();
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -119,7 +170,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
-			
+
 			checkLogin() {
 				let data = {
 					url: "user/isLoggedIn",
@@ -139,6 +190,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				document.title = "Menu";
 				this.checkLogin();
 				this.getProductos();
+				this.getPedidos();
 				this.getCategorias();
 			}
 

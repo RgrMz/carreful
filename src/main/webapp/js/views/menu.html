@@ -42,20 +42,24 @@
 									height="200px" alt="Imagen del nuevo producto"></td>
 							</tr>
 							<tr>
-								<td><br>
-								<label>Categoría</label><br>
-								<details class="combobox-categorias">
+								<td><br> <label>Categoría</label><br> <details
+										class="combobox-categorias">
 										<summary class="radios">
 											<input type="radio" name="item" id="default"
 												title="Elegir categoría" checked> <input
+												data-bind="checked: categoria" value="El Mercado"
 												type="radio" name="item" id="item1" title="El Mercado">
-											<input type="radio" name="item" id="item2"
-												title="La Despensa"> <input type="radio" name="item"
-												id="item3" title="Mascotas"> <input type="radio"
-												name="item" id="item4" title="Parafarmacia"> <input
+											<input data-bind="checked: categoria" value="La Despensa"
+												type="radio" name="item" id="item2" title="La Despensa">
+											<input data-bind="checked: categoria" value="Mascotas"
+												type="radio" name="item" id="item3" title="Mascotas">
+											<input data-bind="checked: categoria" value="Parafarmacia"
+												type="radio" name="item" id="item4" title="Parafarmacia">
+											<input data-bind="checked: categoria" value="Bebidas"
 												type="radio" name="item" id="item5" title="Bebidas">
-											<input type="radio" name="item" id="item6"
-												title="Perfumería e Higiene">
+											<input data-bind="checked: categoria"
+												value="Perfumería e Higiene" type="radio" name="item"
+												id="item6" title="Perfumería e Higiene">
 										</summary>
 										<ul class="list">
 											<li><label for="item1">El Mercado</label></li>
@@ -69,10 +73,9 @@
 								<td class="padding-entre-columnas"><br></td>
 							</tr>
 							<tr>
-								<td><br>
-								<label>Precio</label><br> <input class="input-texto"
-									type="text" data-bind="value : precio" placeholder="1.5">
-									€</td>
+								<td><br> <label>Precio</label><br> <input
+									class="input-texto" type="text" data-bind="value : precio"
+									placeholder="1.5"> €</td>
 							</tr>
 							<tr>
 								<td><label class="checkbox-congelado"> <input
@@ -107,21 +110,66 @@
 				<table>
 					<caption></caption>
 					<tr>
-						<th id="columna-nombre">Nombre</th>
-						<th id="columna-precio">Precio</th>
-						<th id="columna-boton-eliminar"></th>
+						<th></th>
 					</tr>
-					<!-- ko foreach : productos -->
 					<tr>
-						<td data-bind="html : nombre"></td>
-						<td data-bind="html : precio"></td>
-						<td>
-							<button
-								data-bind="click : function() { $parent.eliminarProducto(nombre); }">Eliminar</button>
-						</td>
+						<td><button class="boton-guardar-producto"
+								data-bind="click : listarProductos">Listado Productos</button></td>
+						<td><button class="boton-guardar-producto"
+								data-bind="click : listarPedidos">Listado Pedidos</button></td>
 					</tr>
-					<!-- /ko -->
 				</table>
+
+				<div data-bind="if : listadoProductos">
+					<table>
+						<caption></caption>
+						<tr>
+							<th id="columna-nombre">Nombre</th>
+							<th id="columna-precio">Precio</th>
+							<th id="columna-boton-eliminar"></th>
+						</tr>
+						<!-- ko foreach : productos -->
+						<tr>
+							<td data-bind="html : nombre"></td>
+							<td data-bind="html : precio"></td>
+							<td>
+								<button
+									data-bind="click : function() { $parent.eliminarProducto(nombre); }">Eliminar</button>
+							</td>
+						</tr>
+						<!-- /ko -->
+					</table>
+				</div>
+
+				<div data-bind="if : listadoPedidos">
+					<table>
+						<caption></caption>
+						<tr>
+							<th id="columna-nombre">Id Pedido</th>
+							<th id="columna-precio">Nombre</th>
+							<th id="columna-apellidos">Apellidos</th>
+							<th id="columna-email">Email</th>
+							<th id="columna-estado">Estado del Pedido</th>
+							<th id="columna-boton-actualizar"></th>
+						</tr>
+						<!-- ko foreach : pedidos -->
+						<tr>
+							<td data-bind="html : idPedido"></td>
+							<td data-bind="html : nombre"></td>
+							<td data-bind="html : apellidos"></td>
+							<td data-bind="html : email"></td>
+							<td data-bind="html : estado"></td>
+							<td>
+								<button
+									data-bind="click : function() { $parent.actualizarEstadoPedido(idPedido); }">
+									<em class="fa fa-share"></em> Actualizar estado
+								</button>
+							</td>
+						</tr>
+						<!-- /ko -->
+					</table>
+				</div>
+
 				<!-- Button to go up the page -->
 				<button class="btn-go-top" onclick="topFunction()" id="myBtn"
 					title="Go to top">

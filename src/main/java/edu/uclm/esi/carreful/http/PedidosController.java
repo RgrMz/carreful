@@ -28,6 +28,7 @@ import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Pedido;
 import edu.uclm.esi.carreful.model.Product;
+import edu.uclm.esi.carreful.model.TipoPedido;
 import edu.uclm.esi.carreful.model.interfaces.GastosDeEnvio;
 import edu.uclm.esi.carreful.tokens.Email;
 
@@ -159,5 +160,37 @@ public class PedidosController {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 		return orderedProducts;
+	}
+	
+	@GetMapping("/getTodos")
+	public List<Pedido> get() {
+		try {
+			return pedidoDao.findAll();
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@GetMapping("/actualizarEstado/{idPedido}")
+	public void actualizarEstado(HttpServletResponse response, @PathVariable String idPedido) {
+		Optional<Pedido> optPedido = pedidoDao.findById(idPedido);
+		if (optPedido.isPresent()) {
+			try {
+				// Hay que coger la full path: edu.uclm.esi...
+				@SuppressWarnings("unchecked")
+				Class<TipoPedido> clazz = (Class<TipoPedido>) Class.forName("edu.uclm.esi.carreful.model."+optPedido.get().getTipoPedido());
+				optPedido.get().setTipo(clazz.getDeclaredConstructor(Pedido.class).newInstance(optPedido.get()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			optPedido.get().getTipo().updateEstado();
+			pedidoDao.save(optPedido.get());
+		} else {
+			try {
+				response.sendError(404, "El pedido consultado no existe");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
