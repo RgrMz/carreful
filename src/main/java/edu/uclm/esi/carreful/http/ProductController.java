@@ -85,7 +85,7 @@ public class ProductController extends CookiesController {
 	}
 
 	@PostMapping("/eliminarUnidadDelCarrito/{nombre}")
-	public Carrito elminarUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
+	public Carrito eliminarUnidadDelCarrito(HttpServletRequest request, @PathVariable String nombre) {
 		carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		Product producto = new Product();
 		if (carrito == null) {
@@ -158,7 +158,7 @@ public class ProductController extends CookiesController {
 	}
 
 	@GetMapping("/getImporte")
-	public double getMapping(HttpServletRequest request) {
+	public double getImporte(HttpServletRequest request) {
 		carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		if (carrito == null) {
 			carrito = new Carrito();

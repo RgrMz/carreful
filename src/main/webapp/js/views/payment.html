@@ -23,24 +23,27 @@
 										<div class="col-50">
 											<h3>Detalles de Facturación</h3>
 											<hr>
-											<strong class="datos-contacto">Datos de Contacto</strong> <br> <br>
+											<strong class="datos-contacto">Datos de Contacto</strong> <br>
+											<br>
 											<div class="nombre-completo col-12 mb-2">
-												<label for="fname"><em class="fa fa-user"></em> Nombre
-													Completo</label>
+												<label for="fname"><em class="fa fa-user"></em>
+													Nombre Completo</label>
 												<table style="width: 100%">
 													<caption></caption>
-													<tr> <th id="header-detalles-facturacion"> </th> </tr>
+													<tr>
+														<th id="header-detalles-facturacion"></th>
+													</tr>
 													<tr>
 														<td>
 															<div class="col-12 col-sm-6">
 																<input class="order-form-input"
-																	data-bind="value : nombre" placeholder="Nombre">
+																	data-bind="value : nombre, enable : disableAll" placeholder="Nombre">
 															</div> <br>
 														</td>
 														<td class="padding-entre-columnas">
 															<div class="col-12 col-sm-6 mt-2 mt-sm-0">
 																<input class="order-form-input"
-																	data-bind="value : apellidos" placeholder="Apellidos">
+																	data-bind="value : apellidos, enable : disableAll" placeholder="Apellidos">
 															</div> <br>
 														</td>
 													</tr>
@@ -51,7 +54,8 @@
 																	Correo electrónico</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : email" placeholder="email@email.com">
+																		data-bind="value : email, enable : disableAll"
+																		placeholder="email@email.com">
 																</div>
 															</div>
 														</td>
@@ -61,7 +65,7 @@
 																	class="fa fa-mobile"></em> Teléfono Móvil</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : telefonoMovil"
+																		data-bind="value : telefonoMovil, enable : disableAll"
 																		placeholder="(777 777 777)">
 																</div>
 															</div>
@@ -71,19 +75,21 @@
 											</div>
 											<br>
 											<hr>
-											<br> <strong class="datos-contacto">Dirección de Entrega</strong>
-											<br> <br>
+											<br> <strong class="datos-contacto">Dirección
+												de Entrega</strong> <br> <br>
 											<div class="nombre-completo col-12 mb-2">
 												<label for="fname"><i class="fa fa-map-marker"
 													aria-hidden="true"></i> Dirección</label>
 												<table class="direccion-entrega" style="width: 100%">
 													<caption></caption>
-													<tr> <th id="header-direccion"> </th> </tr>
+													<tr>
+														<th id="header-direccion"></th>
+													</tr>
 													<tr>
 														<td>
 															<div class="col-12 col-sm-6">
 																<input class="order-form-input"
-																	data-bind="value : direccion"
+																	data-bind="value : direccion, enable : disableAll"
 																	placeholder="Calle, número, piso, puerta.">
 															</div> <br>
 														</td>
@@ -95,7 +101,7 @@
 																	Ciudad</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : ciudad" placeholder="Ciudad">
+																		data-bind="value : ciudad, enable : disableAll" placeholder="Ciudad">
 																</div>
 																<br>
 															</div>
@@ -105,7 +111,7 @@
 																<label for="fname">Provincia</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : provincia" placeholder="Provincia">
+																		data-bind="value : provincia, enable : disableAll" placeholder="Provincia">
 																</div>
 															</div> <br>
 														</td>
@@ -116,7 +122,7 @@
 																<label for="fname">Código Postal</label>
 																<div class="col-12 col-sm-6">
 																	<input class="order-form-input"
-																		data-bind="value : codigoPostal" placeholder="15005">
+																		data-bind="value : codigoPostal, enable : disableAll" placeholder="15005">
 																</div>
 															</div>
 														</td>
@@ -124,8 +130,8 @@
 															<div class="telefono-movil col-12 mb-2">
 																<label for="fname">País</label>
 																<div class="col-12 col-sm-6">
-																	<input class="order-form-input" data-bind="value : pais"
-																		placeholder="España">
+																	<input class="order-form-input"
+																		data-bind="value : pais, enable : disableAll" placeholder="España">
 																</div>
 															</div>
 														</td>
@@ -135,38 +141,48 @@
 											<br>
 											<hr>
 											<br>
-									<h4>Opciones de envío</h4>
-									<div class="radio-pedidos">
-										<label class="radio-pedidos">Envío a domicilio <input
-											type="radio" name="radio" value="domicilio"
-											id="pedidos-domicilio" 
-											data-bind="event: { change: $data.getGastosDeEnvio}, 
+											<h4>Opciones de envío</h4>
+											<div class="radio-pedidos">
+												<label class="radio-pedidos">Envío a domicilio <input
+													type="radio" name="radio" value="Domicilio"
+													id="pedidos-domicilio"
+													data-bind="event: { change: $data.getGastosDeEnvio}, 
 													   checked: tipoPedido ,
-													   enable: enableRadiosDomicilioRecogida"> 
-											<span class="checkmark"></span>
-										</label> <label class="radio-pedidos">Envío a domicilio
-											express <input type="radio" name="radio" value="express"
-											id="pedidos-domicilio-express" 
-											data-bind="event: { change: $data.getGastosDeEnvio}, 
+													   enable: enableRadiosDomicilioRecogida">
+													<span class="checkmark"></span>
+												</label> <label class="radio-pedidos">Envío a domicilio
+													express <input type="radio" name="radio" value="DomExpress"
+													id="pedidos-domicilio-express"
+													data-bind="event: { change: $data.getGastosDeEnvio}, 
 													   checked: tipoPedido,
-													   enable: hayCongelados"> 
-											<span class="checkmark"></span>
-										</label> <label class="radio-pedidos">Recogida en tienda <input
-											type="radio" name="radio" id="pedidos-recogida"  value="Recogida"
-											data-bind="event: { change: $data.getGastosDeEnvio}, 
+													   enable: hayCongelados">
+													<span class="checkmark"></span>
+												</label> <label class="radio-pedidos">Recogida en tienda <input
+													type="radio" name="radio" id="pedidos-recogida"
+													value="Recogida"
+													data-bind="event: { change: $data.getGastosDeEnvio}, 
 													   checked: tipoPedido,
 													   enable: enableRadiosDomicilioRecogida">
-											<span class="checkmark"></span>
-										</label>
-									</div>
-									<br>
-									<hr>
+													<span class="checkmark"></span>
+												</label>
+											</div>
+											<button class="btn-block btn-confirmar-pedido"
+												data-bind="click : confirmarPedido, enable : disableAll">
+												<span id="confirmar-pedido">Confirmar datos del
+													pedido</span>
+											</button>
+											<br>
+											<div class="mensaje-error" data-bind="html : errorTipoEnvio"
+												style="color: red" id="error"></div>
+											<hr>
 										</div>
 										<div class="col-50">
 											<h3>Pago</h3>
 											<table>
 												<caption></caption>
-												<tr> <th id="header-tarjetas"> </th> </tr>
+												<tr>
+													<th id="header-tarjetas"></th>
+												</tr>
 												<tr>
 													<td><label for="fname">Tarjetas aceptadas</label></td>
 													<td class="padding-entre-columnas">
@@ -179,7 +195,6 @@
 													</td>
 												</tr>
 											</table>
-
 										</div>
 									</div>
 									<br>
@@ -189,20 +204,19 @@
 									<div id="card-element">
 										<!--Stripe.js injects the Card Element-->
 									</div>
-									<br><hr>
 									<br>
-									<button class="btn-block btn-realizar-pedido" data-bind="click : confirmarPedido">
-										<span id="confirmar-pedido">Confirmar pedido</span>
-									</button>
-									<br> 
-									<label> <input type="checkbox"> La
-										dirección de envío es la misma que la de facturación
+									<hr>
+									<br> <br> <label> <input type="checkbox">
+										La dirección de envío es la misma que la de facturación
 									</label> <label> <input type="checkbox"> He leído y
 										estoy de acuerdo con los términos y condiciones de la web
 									</label><br>
-									<button class="btn-block btn-realizar-pedido" >
+									<button class="btn-block btn-realizar-pedido">
 										<span id="checkout">Realizar el pedido</span>
 									</button>
+									<div class="mensaje-error"
+										data-bind="html : errorRealizarPedido" style="color: red"
+										id="error"></div>
 									<p id="card-error" role="alert"></p>
 								</form>
 							</div>
@@ -225,10 +239,9 @@
 								<!-- ko foreach : carrito -->
 								<tr>
 									<td data-bind="html : name"></td>
-									<td class="padding-entre-columnas"
-										data-bind="html : amount"></td>
-									<td><span class="price"> €</span><span
-										class="price" data-bind="html : priceXAmount"></span></td>
+									<td class="padding-entre-columnas" data-bind="html : amount"></td>
+									<td><span class="price"> €</span><span class="price"
+										data-bind="html : priceXAmount"></span></td>
 								</tr>
 								<tr>
 									<td><br></td>
@@ -237,22 +250,26 @@
 							</table>
 							<br>
 							<hr>
-							<table class="tabla-envios" style="width: 400px">
+							<table class="tabla-envios" style="width: 100%">
 								<caption></caption>
-								<tr> <th id="header-envio"> </th> </tr>
+								<tr>
+									<th id="header-envio"></th>
+								</tr>
 								<tr>
 									<td><strong> Gastos de envío <span class="price"
 											style="color: black"></span>
 									</strong></td>
-									<td><strong class="importe-envio"
-										data-bind="html : gastosEnvio"></strong></td>
+									<td class="importe-envio"><strong
+										data-bind="html : gastosEnvio"></strong><strong> €</strong></td>
 								</tr>
 							</table>
 							<br>
 							<hr>
-							<table class="tabla-precio-total-carrito" style="width: 400px">
+							<table class="tabla-precio-total-carrito" style="width: 100%">
 								<caption></caption>
-								<tr> <th id="header-precio-total"> </th> </tr>
+								<tr>
+									<th id="header-precio-total"></th>
+								</tr>
 								<tr>
 									<td><strong> Precio Total <span class="price"
 											style="color: black"></span>

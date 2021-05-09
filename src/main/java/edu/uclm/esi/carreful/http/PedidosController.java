@@ -132,9 +132,9 @@ public class PedidosController {
 	@GetMapping("/precioGastosEnvio/{tipoPedido}")
 	public double precioGastosEnvio(@PathVariable String tipoPedido) {
 		switch (tipoPedido) {
-		case "domicilio":
+		case "Domicilio":
 			return GastosDeEnvio.getGastosdomicilio();
-		case "express":
+		case "DomExpress":
 			return GastosDeEnvio.getGastosexpress();
 		default:
 			return GastosDeEnvio.getGastosrecogida();

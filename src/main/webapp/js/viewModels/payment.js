@@ -24,8 +24,12 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.tipoPedido = ko.observable();
 				self.hayCongelados = ko.observable(true);
 				self.enableRadiosDomicilioRecogida = ko.observable(true);
+				self.disableAll = ko.observable(true);
 
 				self.gastosEnvio = ko.observable(0);
+
+				self.errorTipoEnvio = ko.observable("");
+				self.errorRealizarPedido = ko.observable("");
 
 				// Header Config
 				self.headerConfig = ko.observable({
@@ -59,7 +63,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					}
 				};
 				$.ajax(data);
-			};
+			}
 
 			connected() {
 				accUtils.announce('Payment page loaded.');
@@ -96,7 +100,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					type: "get",
 					contentTyp: 'application/json',
 					success: function(response) {
-						self.importe(response + self.gastosEnvio() + ' €');
+						self.importe((response + self.gastosEnvio()).toFixed(2) + ' €');
 					},
 					error: function(response) {
 						self.error(response.responseJSON.errorMessage);
@@ -104,20 +108,35 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
-			
+
 			confirmarPedido() {
-				/* TODO */
+				let self = this;
+				if (self.carrito().length != 0) {
+					if (self.nombre() == "" || self.apellidos() == "" || self.email() == "" || self.telefonoMovil() == "" || self.direccion() == "" || self.ciudad() == "" || self.provincia() == "" || self.codigoPostal() == "" || self.pais() == "") {
+						self.errorTipoEnvio("Por favor, rellene todos los datos de facturación para poder realizar el pedido.");
+					} else {
+						if (self.tipoPedido() != null) {
+							self.errorTipoEnvio("");
+							self.enableRadiosDomicilioRecogida(false);
+							self.hayCongelados(false);
+							self.disableAll(false);
+							self.solicitarPreautorizacion();
+						} else {
+							self.errorTipoEnvio("Para poder confirmar los datos del pedido, por favor, seleccione un tipo de envío.")
+						}
+					}
+				} else {
+					self.errorTipoEnvio("El carrito está vacío. Para poder realizar un pedido primero seleccione los productos que desea comprar.");
+				}
+
 			}
 
 			solicitarPreautorizacion() {
-
 				var self = this;
-
 				// The items the customer wants to buy
 				let info = {
 					gastosEnvio: this.gastosEnvio()
 				};
-
 				let data = {
 					data: JSON.stringify(info),
 					url: "payments/solicitarPreautorizacion",
@@ -137,9 +156,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			}
 
 			rellenaFormulario() {
-
 				let self = this;
-
 				var elements = self.stripe.elements();
 				var style = {
 					base: {
@@ -225,24 +242,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				$.ajax(data);
 			}
 
-			vaciarCarrito() {
-				var info = {
-					accion: "Vaciar"
-				};
-				var data = {
-					data: JSON.stringify(info),
-					url: "product/vaciarCarrito",
-					type: "put",
-					contentType: 'application/json',
-					success: function() {
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
-			}
-
 			disconnected() {
 				// Implement if needed
 			}
@@ -250,9 +249,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			transitionCompleted() {
 				// Implement if needed
 			}
-
-
 		}
-
 		return PaymentViewModel;
 	});

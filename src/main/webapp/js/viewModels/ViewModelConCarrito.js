@@ -25,6 +25,22 @@ class ViewModelConCarrito {
 		$.ajax(data);
 	}
 	
+	vaciarCarrito() {
+		let self = this;
+		let data = {
+			url: "product/vaciarCarrito",
+			type: "put",
+			contentTyp: 'application/json',
+			success: function(response) {
+				self.carrito(response.products);
+			},
+			error: function(response) {
+				self.error(response.responseJSON.errorMessage);
+			}
+		};
+		$.ajax(data);
+	}
+	
 	getImporte() {
 		let self = this;
 		let data = {
