@@ -3,10 +3,12 @@ package edu.uclm.esi.carreful.http;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,11 +43,28 @@ public class ProductController extends CookiesController {
 	private Carrito carrito = new Carrito();
 
 	@PostMapping("/add")
-	public void add(@RequestBody Product product) {
+	public void add(@RequestBody Map<String, Object> info) {
 		try {
-			productDao.save(product);
-		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+			JSONObject jso = new JSONObject(info);
+			String nombre = jso.optString("nombre");
+			double precio= jso.optDouble("precio");
+			boolean congelado = jso.optBoolean("congelado");
+			String strCategoria = jso.optString("categoria");
+			String imagen = jso.optString("imagen");
+			Optional<Categoria> optCategoria = categoriesDao.findByNombre(strCategoria);
+			if(optCategoria.isPresent()) {
+				Product product = new Product();
+				product.setNombre(nombre);
+				product.setPrecio(precio);
+				product.setCongelado(congelado);
+				product.setIdCategoria(optCategoria.get());
+				product.setPicture(imagen);
+				productDao.save(product);
+			}
+			else
+				throw new CarrefulException(HttpStatus.CONFLICT, "Categoria inválida");
+		} catch (CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
 

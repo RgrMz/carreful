@@ -9,10 +9,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.precio = ko.observable("");
 				self.imagenBuscada = ko.observable("https://image.flaticon.com/icons/png/512/18/18436.png");
 				self.categoriaSeleccionada = ko.observable();
+				self.congelado = ko.observable(false);
 
 				self.productos = ko.observableArray([]);
 				self.pedidos = ko.observableArray([]);
-				self.categorias = ko.observableArray([]);
 
 				self.message = ko.observable(null);
 				self.error = ko.observable(null);
@@ -20,7 +20,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.listadoProductos = ko.observable(true);
 				self.listadoPedidos = ko.observable(false);
 				
-				self.categoria = ko.observable();
+				self.categoria = ko.observable("");
 
 				// Header Config
 				self.headerConfig = ko.observable({
@@ -41,9 +41,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				var self = this;
 				let info = {
 					nombre: this.nombre(),
-					precio: this.precio(),
+					precio: parseFloat(this.precio()),
 					categoria: this.categoria(),
-					congelado: document.getElementById('congelado').checked
+					imagen: this.imagenBuscada(),
+					congelado: this.congelado()
 				};
 				let data = {
 					data: JSON.stringify(info),
@@ -155,22 +156,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					});
 			}
 
-			getCategorias() {
-				let self = this;
-				let data = {
-					url: "product/getCategorias",
-					type: "get",
-					contentType: 'application/json',
-					success: function(response) {
-						self.categorias(response);
-					},
-					error: function(response) {
-						self.error(response.responseJSON.errorMessage);
-					}
-				};
-				$.ajax(data);
-			}
-
 			checkLogin() {
 				let data = {
 					url: "user/isLoggedIn",
@@ -191,7 +176,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				this.checkLogin();
 				this.getProductos();
 				this.getPedidos();
-				this.getCategorias();
 			}
 
 			disconnected() {
