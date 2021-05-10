@@ -33,7 +33,7 @@
 								<th id="espacio-foto"></th>
 							</tr>
 							<tr>
-								<td><label>Nombre del Producto</label><br> <input
+								<td><label>Nombre del Producto</label><input
 									class="input-texto" type="text" data-bind="value : nombre"
 									placeholder="&quot Saco de patatas, 1kg &quot"></td>
 								<td></td>
@@ -42,7 +42,7 @@
 									height="200px" alt="Imagen del nuevo producto"></td>
 							</tr>
 							<tr>
-								<td><br> <label>Categoría</label><br> <details
+								<td><br> <label>Categoría</label> <details
 										class="combobox-categorias">
 										<summary class="radios">
 											<input type="radio" name="item" id="default"
@@ -73,15 +73,15 @@
 								<td class="padding-entre-columnas"><br></td>
 							</tr>
 							<tr>
-								<td><br> <label>Precio</label><br> <input
+								<td><br> <label>Precio</label><input
 									class="input-texto" type="text" data-bind="value : precio"
 									placeholder="1.5"> €</td>
 							</tr>
 							<tr>
-								<td><label class="checkbox-congelado"> <input
+								<td><br> <label class="checkbox-congelado"> <input
 										type="checkbox" value="congelado" id="congelado"
-										name="congelado" data-bind="checked: congelado"> Congelado <i
-										class="fa fa-snowflake-o" aria-hidden="true"></i>
+										name="congelado" data-bind="checked: congelado">
+										Congelado <i class="fa fa-snowflake-o" aria-hidden="true"></i>
 								</label></td>
 							</tr>
 							<tr>
@@ -106,75 +106,89 @@
 						<div data-bind="html : error" style="color: red"></div>
 					</div>
 				</div>
+
 				<br>
-				<table>
-					<caption></caption>
-					<tr>
-						<th></th>
-					</tr>
-					<tr>
-						<td><button class="boton-guardar-producto"
-								data-bind="click : listarProductos">Listado Productos</button></td>
-						<td><button class="boton-guardar-producto"
-								data-bind="click : listarPedidos">Listado Pedidos</button></td>
-					</tr>
-				</table>
+				<hr>
+				<br>
 
-				<div data-bind="if : listadoProductos">
-					<table>
+				<div class="add-producto-wrapper">
+					<br>
+					<table class="recurso-centrado">
 						<caption></caption>
 						<tr>
-							<th id="columna-nombre">Nombre</th>
-							<th id="columna-precio">Precio</th>
-							<th id="columna-boton-eliminar"></th>
+							<th id="header-boton-productos">
+								<button class="boton-buscar-imagen"
+									data-bind="click : listarProductos">Listado Productos</button>
+							</th>
+							<th id="header-boton-pedidos"><button
+									class="boton-buscar-imagen" data-bind="click : listarPedidos">Listado
+									Pedidos</button></th>
 						</tr>
-						<!-- ko foreach : productos -->
-						<tr>
-							<td data-bind="html : nombre"></td>
-							<td data-bind="html : precio"></td>
-							<td>
-								<button
-									data-bind="click : function() { $parent.eliminarProducto(nombre); }">Eliminar</button>
-							</td>
-						</tr>
-						<!-- /ko -->
 					</table>
-				</div>
+					<br>
+					<hr>
+					<br>
 
-				<div data-bind="if : listadoPedidos">
-					<table>
-						<caption></caption>
-						<tr>
-							<th id="columna-nombre">Id Pedido</th>
-							<th id="columna-precio">Nombre</th>
-							<th id="columna-apellidos">Apellidos</th>
-							<th id="columna-email">Email</th>
-							<th id="columna-estado">Estado del Pedido</th>
-							<th id="columna-boton-actualizar"></th>
-						</tr>
-						<!-- ko foreach : pedidos -->
-						<tr>
-							<td data-bind="html : idPedido"></td>
-							<td data-bind="html : nombre"></td>
-							<td data-bind="html : apellidos"></td>
-							<td data-bind="html : email"></td>
-							<td data-bind="html : estado"></td>
-							<td>
-								<button
-									data-bind="click : function() { $parent.actualizarEstadoPedido(idPedido); }">
-									<em class="fa fa-share"></em> Actualizar estado
-								</button>
-							</td>
-						</tr>
-						<!-- /ko -->
-					</table>
-				</div>
+					<div data-bind="if : listadoProductos">
+						<table class="tabla-producto-pedido">
+							<caption></caption>
+							<tr class="tr-producto-pedido">
+								<th class="td-th-producto-pedido" id="columna-nombre">Nombre</th>
+								<th class="td-th-producto-pedido" id="columna-precio">Precio</th>
+								<th class="td-th-producto-pedido" id="columna-boton-eliminar"></th>
+							</tr>
+							<!-- ko foreach : productos -->
+							<tr class="tr-producto-pedido">
+								<td class="td-th-producto-pedido" data-bind="html : nombre"></td>
+								<td class="td-th-producto-pedido" data-bind="html : precio"></td>
+								<td class="td-th-producto-pedido">
+									<button class="boton-borrar-del-carrito"
+										data-bind="click : function() { $parent.eliminarProducto(nombre); }">
+										<em class="fa fa-trash-o fa-lg"></em>
+									</button>
+								</td>
+							</tr>
+							<!-- /ko -->
+						</table>
+					</div>
 
-				<!-- Button to go up the page -->
-				<button class="btn-go-top" onclick="topFunction()" id="myBtn"
-					title="Go to top">
-					<i class="fa fa-arrow-up" aria-hidden="true"></i>
-				</button>
+					<div data-bind="if : listadoPedidos">
+						<table class="tabla-producto-pedido">
+							<caption></caption>
+							<tr class="tr-producto-pedido">
+								<th class="td-th-producto-pedido" id="columna-nombre">Id
+									Pedido</th>
+								<th class="td-th-producto-pedido" id="columna-precio">Nombre</th>
+								<th class="td-th-producto-pedido" id="columna-apellidos">Apellidos</th>
+								<th class="td-th-producto-pedido" id="columna-email">Email</th>
+								<th class="td-th-producto-pedido" id="columna-estado">Estado
+									del Pedido</th>
+								<th class="td-th-producto-pedido" id="columna-boton-actualizar"></th>
+							</tr>
+							<!-- ko foreach : pedidos -->
+							<tr class="tr-producto-pedido">
+								<td class="td-th-producto-pedido" data-bind="html : idPedido"></td>
+								<td class="td-th-producto-pedido" data-bind="html : nombre"></td>
+								<td class="td-th-producto-pedido" data-bind="html : apellidos"></td>
+								<td class="td-th-producto-pedido" data-bind="html : email"></td>
+								<td class="td-th-producto-pedido" data-bind="html : estado"></td>
+								<td class="td-th-producto-pedido">
+									<button class="boton-actualizar-estado"
+										data-bind="click : function() { $parent.actualizarEstadoPedido(idPedido); }">
+										<em class="fa fa-share"></em> Actualizar estado
+									</button>
+								</td>
+							</tr>
+							<!-- /ko -->
+						</table>
+					</div>
+
+					<!-- Button to go up the page -->
+					<button class="btn-go-top" onclick="topFunction()" id="myBtn"
+						title="Go to top">
+						<i class="fa fa-arrow-up" aria-hidden="true"></i>
+					</button>
+				</div>
 				<script>
 					//Get the button
 					var mybutton = document.getElementById("myBtn");
