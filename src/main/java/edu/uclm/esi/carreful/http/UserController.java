@@ -40,6 +40,7 @@ public class UserController extends CookiesController {
 	TokenDao tokenDao;
 
 	Email smtp = new Email();
+	static final String EMAIL = "email";
 
 	@GetMapping("usarToken/{tokenId}")
 	public void usarToken(HttpServletResponse response, @PathVariable String tokenId) throws IOException {
@@ -49,11 +50,37 @@ public class UserController extends CookiesController {
 			if (token.isUsed())
 				response.sendError(409, "El token ya se utilizó");
 			else {
+				/*
+				 * token.setUsed(true); tokenDao.save(token);
+				 */
 				response.sendRedirect(
 						"http://localhost:8080?ojr=setNewPassword&token=" + tokenId + "&email=" + token.getEmail());
 			}
 		} else {
 			response.sendError(404, "El token no existe");
+		}
+	}
+
+	@PutMapping("setNewPassword")
+	public void setNewPassword(@RequestBody Map<String, Object> info) {
+		try {
+
+			JSONObject jso = new JSONObject(info);
+			String strEmail = jso.optString(EMAIL);
+			String newPwd1 = jso.optString("newPwd1");
+			String newPwd2 = jso.optString("newPwd2");
+			User user = userDao.findByEmail(strEmail);
+			if (user == null)
+				throw new CarrefulException(HttpStatus.UNAUTHORIZED, "El usuario no existe");
+			if (!newPwd1.equals(newPwd2))
+				throw new CarrefulException(HttpStatus.FORBIDDEN, "La contraseña no coincide con su confirmación");
+			if (newPwd1.length() < 8)
+				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE,
+						"La contraseña tiene que tener al menos 8 caracteres");
+			user.setPwd(newPwd1);
+			userDao.save(user);
+		} catch (CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
 
@@ -104,7 +131,7 @@ public class UserController extends CookiesController {
 	public void login(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		try {
 			JSONObject jso = new JSONObject(info);
-			String email = jso.optString("email");
+			String email = jso.optString(EMAIL);
 			if (email.length() == 0)
 				throw new CarrefulException(HttpStatus.FORBIDDEN, "Por favor, escribe tu correo");
 			String pwd = jso.optString("pwd");
@@ -148,7 +175,7 @@ public class UserController extends CookiesController {
 			String userName = jso.optString("userName");
 			if (userName.length() == 0)
 				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE, "Debes indicar tu nombre de usuario");
-			String email = jso.optString("email");
+			String email = jso.optString(EMAIL);
 			if (email.length() == 0)
 				throw new CarrefulException(HttpStatus.NOT_ACCEPTABLE, "Debes indicar un email válido");
 			String pwd1 = jso.optString("pwd");
@@ -176,12 +203,9 @@ public class UserController extends CookiesController {
 	}
 
 	@GetMapping("/isLoggedIn")
-	public void isLoggedIn(HttpServletRequest request, HttpServletResponse response) {
+	public void isLoggedIn(HttpServletRequest request) {
 		try {
-			if (request.getSession().getAttribute("userEmail") != null) {
-				
-			}
-			else
+			if (request.getSession().getAttribute("userEmail") == null)
 				throw new CarrefulException(HttpStatus.FORBIDDEN, "Forbidden");
 		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());

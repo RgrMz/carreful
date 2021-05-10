@@ -161,9 +161,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					url: "user/isLoggedIn",
 					type: "get",
 					contentType: 'application/json',
-					success: function(response) {
-					},
-					error: function(response) {
+					error: function() {
 						app.router.go({ path: "error403" });
 					}
 				};

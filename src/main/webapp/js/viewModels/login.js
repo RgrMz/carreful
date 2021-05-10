@@ -44,14 +44,14 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				// Header Config
 				self.headerConfig = ko.observable({
 					'view': [],
-					'viewModel' : null
+					'viewModel': null
 				});
 				moduleUtils.createView({
 					'viewPath': 'views/header.html'
 				}).then(function(view) {
 					self.headerConfig({
 						'view': view,
-						'viewModel' : app.getHeaderModel()
+						'viewModel': app.getHeaderModel()
 					})
 				})
 			}
@@ -72,6 +72,9 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						app.router.go({ path: "menu" });
 					},
 					error: function(response) {
+						document.getElementById("alerta-error").style.display = "block";
+						document.getElementById("alerta-pwd").style.display = "none";
+						document.getElementById("alerta-error").style.background = "rgb(255, 0, 0)";
 						self.error(response.responseJSON.errorMessage);
 					}
 				};
@@ -98,7 +101,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				};
 				$.ajax(data);
 			}
-			
+
 			recordarUsuario() {
 				var self = this;
 				var data = {
@@ -106,7 +109,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					type: "get",
 					contentType: 'application/json',
 					success: function(response) {
-						if(response) {
+						if (response) {
 							self.email(response[0]);
 							self.pwd(response[1]);
 							document.getElementById("recuerdame").checked = true;
