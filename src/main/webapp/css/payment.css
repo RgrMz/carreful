@@ -29,6 +29,7 @@
 	line-height: 1.2em;
 	background-color: transparent;
 	border-color: #cccccc;
+	height: 23px;
 }
 
 .padding-entre-columnas {
@@ -138,7 +139,8 @@ label {
 }
 
 .btn-confirmar-pedido:disabled{
-	background: #dddddd;
+	cursor: default;
+	background-color: lightgrey;
 }
 
 .btn-realizar-pedido {

@@ -148,7 +148,7 @@
 													id="pedidos-domicilio"
 													data-bind="event: { change: $data.getGastosDeEnvio}, 
 													   checked: tipoPedido ,
-													   enable: enableRadiosDomicilioRecogida">
+													   enable: enableRadiosDomicilio">
 													<span class="checkmark"></span>
 												</label> <label class="radio-pedidos">Envío a domicilio
 													express <input type="radio" name="radio" value="DomExpress"
@@ -162,7 +162,7 @@
 													value="Recogida"
 													data-bind="event: { change: $data.getGastosDeEnvio}, 
 													   checked: tipoPedido,
-													   enable: enableRadiosDomicilioRecogida">
+													   enable: disableAll">
 													<span class="checkmark"></span>
 												</label>
 											</div>

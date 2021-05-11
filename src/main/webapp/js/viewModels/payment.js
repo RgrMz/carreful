@@ -21,9 +21,10 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.codigoPostal = ko.observable("");
 				self.pais = ko.observable("");
 
-				self.tipoPedido = ko.observable();
+				self.tipoPedido = ko.observable("");
+				
 				self.hayCongelados = ko.observable(true);
-				self.enableRadiosDomicilioRecogida = ko.observable(true);
+				self.enableRadiosDomicilio = ko.observable(true);
 				self.disableAll = ko.observable(true);
 
 				self.gastosEnvio = ko.observable(0);
@@ -80,9 +81,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					contentType: 'application/json',
 					success: function(response) {
 						if (response) {
-							alert("Usted añadió al carrito uno o más productos congelados. El tipo de pedido obligatoriamente será \"Domicilio Express\"");
-							self.enableRadiosDomicilioRecogida(false);
-							self.tipoPedido("express");
+							alert("Usted añadió al carrito uno o más productos congelados. El tipo de pedido obligatoriamente será \"Domicilio Express\" o \"Recogida\"");
+							self.enableRadiosDomicilio(false);
 							self.getGastosDeEnvio();
 						}
 					},
@@ -115,9 +115,9 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					if (self.nombre() == "" || self.apellidos() == "" || self.email() == "" || self.telefonoMovil() == "" || self.direccion() == "" || self.ciudad() == "" || self.provincia() == "" || self.codigoPostal() == "" || self.pais() == "") {
 						self.errorTipoEnvio("Por favor, rellene todos los datos de facturación para poder realizar el pedido.");
 					} else {
-						if (self.tipoPedido() != null) {
+						if (self.tipoPedido() != "") {
 							self.errorTipoEnvio("");
-							self.enableRadiosDomicilioRecogida(false);
+							self.enableRadiosDomicilio(false);
 							self.hayCongelados(false);
 							self.disableAll(false);
 							self.solicitarPreautorizacion();
@@ -180,7 +180,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				card.mount("#card-element");
 				card.on("change", function(event) {
 					// Disable the Pay button if there are no card details in the Element
-					document.querySelector("button").disabled = event.empty;
 					document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
 				});
 
