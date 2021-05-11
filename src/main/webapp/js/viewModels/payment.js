@@ -22,7 +22,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.pais = ko.observable("");
 
 				self.tipoPedido = ko.observable("");
-				
+
 				self.hayCongelados = ko.observable(true);
 				self.enableRadiosDomicilio = ko.observable(true);
 				self.disableAll = ko.observable(true);

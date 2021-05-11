@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import edu.uclm.esi.carreful.model.Product;
 
 @Repository
-public interface ProductDao extends JpaRepository <Product, String> {
+public interface ProductDao extends JpaRepository <Product, Long> {
 
 	Optional<Product> findByNombre(String nombre);
 	
@@ -18,4 +18,5 @@ public interface ProductDao extends JpaRepository <Product, String> {
 			+ " FROM product p INNER JOIN categoria c ON "
 			+ " p.id_categoria = c.id WHERE p.id_categoria = ?1", nativeQuery = true)
 	List<Product> productosPorCategoria(int categoria);
+
 }

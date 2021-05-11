@@ -80,7 +80,7 @@ public class ProductController extends CookiesController {
 	@GetMapping("/getPrecio/{nombre}")
 	public double getPrecio(@PathVariable String nombre) {
 		try {
-			Optional<Product> optProduct = productDao.findById(nombre);
+			Optional<Product> optProduct = productDao.findByNombre(nombre);
 			if (optProduct.isPresent())
 				return optProduct.get().getPrecio();
 			throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto no existe");
@@ -166,9 +166,9 @@ public class ProductController extends CookiesController {
 	@DeleteMapping("/borrarProducto/{nombre}")
 	public void borrarProducto(@PathVariable String nombre) {
 		try {
-			Optional<Product> optProduct = productDao.findById(nombre);
+			Optional<Product> optProduct = productDao.findByNombre(nombre);
 			if (optProduct.isPresent())
-				productDao.deleteById(nombre);
+				productDao.deleteById(optProduct.get().getCodigo());
 			else
 				throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto no existe");
 		} catch (CarrefulException e) {

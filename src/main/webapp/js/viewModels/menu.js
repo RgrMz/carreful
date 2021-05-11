@@ -113,7 +113,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					type: "delete",
 					contentTyp: 'application/json',
 					success: function() {
-						self.message("Producto eliminado");
+						alert("Producto eliminado");
 						self.getProductos();
 					},
 					error: function(response) {
