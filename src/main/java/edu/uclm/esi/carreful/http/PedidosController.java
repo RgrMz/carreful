@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +26,6 @@ import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Pedido;
-import edu.uclm.esi.carreful.model.Product;
 import edu.uclm.esi.carreful.model.TipoPedido;
 import edu.uclm.esi.carreful.model.interfaces.GastosDeEnvio;
 import edu.uclm.esi.carreful.tokens.Email;
@@ -47,20 +45,11 @@ public class PedidosController {
 	@PostMapping("/guardarPedido")
 	public void add(HttpServletRequest request, @RequestBody Map<String, Object> info) {
 		Carrito carrito = (Carrito) request.getSession().getAttribute("carrito");
-		// String validacionEmail =
-		// "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
-		// Pattern patron = Pattern.compile(validacionEmail);
 		try {
 			JSONObject jso = new JSONObject(info);
 			String nombre = jso.optString("nombre");
 			String apellidos = jso.optString("apellidos");
 			String email = jso.optString("email");
-			/* Matcher matcher = patron.matcher(email); */
-			// Hacer antes del pago en todo caso
-			// Checkear validez de campos: opcional
-			// Checkear congelados para dom express obligatorio
-			// Checkear formulario
-			// Checkear el envio de email para ver estado pedido
 			String telefonoMovil = jso.optString("telefonoMovil");
 			String ciudad = jso.optString("ciudad");
 			String provincia = jso.optString("provincia");
@@ -161,7 +150,7 @@ public class PedidosController {
 		}
 		return orderedProducts;
 	}
-	
+
 	@GetMapping("/getTodos")
 	public List<Pedido> get() {
 		try {
@@ -170,7 +159,7 @@ public class PedidosController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
-	
+
 	@GetMapping("/actualizarEstado/{idPedido}")
 	public void actualizarEstado(HttpServletResponse response, @PathVariable String idPedido) {
 		Optional<Pedido> optPedido = pedidoDao.findById(idPedido);
@@ -178,7 +167,8 @@ public class PedidosController {
 			try {
 				// Hay que coger la full path: edu.uclm.esi...
 				@SuppressWarnings("unchecked")
-				Class<TipoPedido> clazz = (Class<TipoPedido>) Class.forName("edu.uclm.esi.carreful.model."+optPedido.get().getTipoPedido());
+				Class<TipoPedido> clazz = (Class<TipoPedido>) Class
+						.forName("edu.uclm.esi.carreful.model." + optPedido.get().getTipoPedido());
 				optPedido.get().setTipo(clazz.getDeclaredConstructor(Pedido.class).newInstance(optPedido.get()));
 			} catch (Exception e) {
 				e.printStackTrace();

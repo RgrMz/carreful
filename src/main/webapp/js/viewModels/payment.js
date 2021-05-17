@@ -198,15 +198,21 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						card: card
 					}
 				}).then(function(result) {
-					if (result.error) {
-						// Show error to your customer (e.g., insufficient funds)
-						self.error(result.error.message);
-					} else {
-						// The payment has been processed!
-						if (result.paymentIntent.status === 'succeeded') {
-							alert("Pago exitoso");
-							self.generarPedido();
+					var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+					if (re.test(self.email())) {
+
+						if (result.error) {
+							// Show error to your customer (e.g., insufficient funds)
+							self.error(result.error.message);
+						} else {
+							// The payment has been processed!
+							if (result.paymentIntent.status === 'succeeded') {
+								alert("Pago exitoso");
+								self.generarPedido();
+							}
 						}
+					} else {
+						alert("Por favor, introduzca un correo electrónico válido. Refresque la página (F5) para volver a introducirlo.");
 					}
 				});
 			}

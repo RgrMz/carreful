@@ -50,9 +50,7 @@ public class UserController extends CookiesController {
 			if (token.isUsed())
 				response.sendError(409, "El token ya se utilizó");
 			else {
-				/*
-				 * token.setUsed(true); tokenDao.save(token);
-				 */
+				token.setUsed(true); tokenDao.save(token);
 				response.sendRedirect(
 						"http://localhost:8080?ojr=setNewPassword&token=" + tokenId + "&email=" + token.getEmail());
 			}

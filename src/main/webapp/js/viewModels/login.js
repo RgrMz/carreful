@@ -94,8 +94,8 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					},
 					error: function(response) {
 						document.getElementById("alerta-error").style.display = "block";
-						document.getElementById("alerta-pwd").style.display = "none";
 						document.getElementById("alerta-error").style.background = "rgb(255, 0, 0)";
+						document.getElementById("alerta-pwd").style.display = "none";
 						self.error(response.responseJSON.errorMessage);
 					}
 				};

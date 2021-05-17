@@ -22,6 +22,4 @@ public abstract class TipoPedido implements Serializable {
 
 	public abstract double getGastosDeEnvio();
 	public abstract void updateEstado();
-	//public abstract Estado getEstado();
-
 }
