@@ -60,6 +60,11 @@
 	height: 30px;
 }
 
+.input-stock{
+	width: 50px;
+	height: 25px;
+}
+
 details {
 	position: relative;
 	width: 305px;
@@ -214,6 +219,16 @@ label {
 
 .tr-producto-pedido:nth-child(even) {
 	background-color: #dddddd;
+}
+
+.boton-editar-stock-producto {
+	border: none;
+	border-radius: 5px;
+	background-color: black;
+	color: white;
+	height: 25px;
+	opacity: 0.95;
+	cursor: pointer;
 }
 
 .boton-borrar-del-carrito {

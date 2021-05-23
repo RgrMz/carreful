@@ -135,12 +135,23 @@
 							<tr class="tr-producto-pedido">
 								<th class="td-th-producto-pedido" id="columna-nombre">Nombre</th>
 								<th class="td-th-producto-pedido" id="columna-precio">Precio</th>
+								<th class="td-th-producto-pedido" id="columna-stock">Stock</th>
+								<th class="td-th-producto-pedido" id="columna-boton-editar">Editar
+									stock</th>
 								<th class="td-th-producto-pedido" id="columna-boton-eliminar"></th>
 							</tr>
 							<!-- ko foreach : productos -->
 							<tr class="tr-producto-pedido">
 								<td class="td-th-producto-pedido" data-bind="html : nombre"></td>
 								<td class="td-th-producto-pedido" data-bind="html : precio"></td>
+								<td class="td-th-producto-pedido"><input
+									class="input-stock" id="input-stock" type="text" data-bind="textInput : stock"></td>
+								<td class="td-th-producto-pedido">
+									<button class="boton-editar-stock-producto"
+										data-bind="click : function() { $parent.editarStockProducto(nombre); }">
+										<em class="fa fa-pencil fa-lg"></em>
+									</button>
+								</td>
 								<td class="td-th-producto-pedido">
 									<button class="boton-borrar-del-carrito"
 										data-bind="click : function() { $parent.eliminarProducto(nombre); }">

@@ -123,6 +123,23 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				$.ajax(data);
 			}
 			
+			editarStockProducto(nombre) {
+				let self = this;
+				let data = {
+					url: "product/editarStockProducto/" + nombre + "/" + stock,
+					type: "get",
+					contentTyp: 'application/json',
+					success: function() {
+						alert("Stock modificado correctamente");
+						self.getProductos();
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
 			actualizarEstadoPedido(idPedido) {
 				let self = this;
 				let data = {

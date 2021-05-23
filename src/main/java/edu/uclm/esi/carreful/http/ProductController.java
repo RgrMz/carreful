@@ -39,7 +39,7 @@ public class ProductController extends CookiesController {
 	private CategoriesDao categoriesDao;
 
 	private static final String CARRITO_STRING = "carrito";
-	
+
 	private Carrito carrito = new Carrito();
 
 	@PostMapping("/add")
@@ -47,12 +47,12 @@ public class ProductController extends CookiesController {
 		try {
 			JSONObject jso = new JSONObject(info);
 			String nombre = jso.optString("nombre");
-			double precio= jso.optDouble("precio");
+			double precio = jso.optDouble("precio");
 			boolean congelado = jso.optBoolean("congelado");
 			String strCategoria = jso.optString("categoria");
 			String imagen = jso.optString("imagen");
 			Optional<Categoria> optCategoria = categoriesDao.findByNombre(strCategoria);
-			if(optCategoria.isPresent()) {
+			if (optCategoria.isPresent()) {
 				Product product = new Product();
 				product.setNombre(nombre);
 				product.setPrecio(precio);
@@ -60,8 +60,7 @@ public class ProductController extends CookiesController {
 				product.setIdCategoria(optCategoria.get());
 				product.setPicture(imagen);
 				productDao.save(product);
-			}
-			else
+			} else
 				throw new CarrefulException(HttpStatus.CONFLICT, "Categoria inválida");
 		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
@@ -88,7 +87,7 @@ public class ProductController extends CookiesController {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
-	
+
 	@GetMapping("/buscarProducto/{nombre}")
 	public List<Product> getProducto(@PathVariable String nombre) {
 		try {
@@ -163,13 +162,13 @@ public class ProductController extends CookiesController {
 		carrito.eliminarProducto(producto);
 		return carrito;
 	}
-	
+
 	@PutMapping("/vaciarCarrito")
 	public void vaciarCarrito(HttpServletRequest request) {
 		carrito = (Carrito) request.getSession().getAttribute(CARRITO_STRING);
 		try {
 			carrito.vaciarCarrito();
-			if(!carrito.getProducts().isEmpty())
+			if (!carrito.getProducts().isEmpty())
 				throw new CarrefulException(HttpStatus.NOT_MODIFIED, "No se pudo vaciar el carrito");
 		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
@@ -184,6 +183,22 @@ public class ProductController extends CookiesController {
 				productDao.deleteById(optProduct.get().getCodigo());
 			else
 				throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto que intentó borrar no existe");
+		} catch (CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
+		}
+	}
+
+	@GetMapping("/editarStockProducto/{nombre}/{stock}")
+	public void editarStockProducto(@PathVariable String nombre, @PathVariable String stock) {
+		try {
+			int numStock = Integer.parseInt(stock);
+			Optional<Product> optProduct = productDao.findByNombre(nombre);
+			if (optProduct.isPresent()) {
+				optProduct.get().setStock(numStock);
+				productDao.update(optProduct.get().getCodigo());
+			} else
+				throw new CarrefulException(HttpStatus.NOT_FOUND,
+						"El producto del cual intentó modificar su stock no existe");
 		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
