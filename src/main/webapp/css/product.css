@@ -11,6 +11,7 @@
 
 .titulo-productos {
 	margin-left: 100px;
+	display: inline-block;
 }
 
 .oj-hybrid-applayout-content {
@@ -161,4 +162,28 @@
 
 #myBtn:hover {
   background-color: #555;
+}
+
+#barra-busqueda{
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+#btn-busqueda{
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+#barra-busqueda-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -26,7 +26,14 @@
 	<div class="oj-applayout-content">
 		<div role="main" class="oj-hybrid-applayout-content">
 			<br>
-			<h1 class="titulo-productos">Productos del Carreful</h1>
+			<div id="barra-busqueda-container">
+				<h1 class="titulo-productos">Productos del Carreful</h1>
+				<div>
+					<input type="text" placeholder="Busca un producto..." id="barra-busqueda"
+					 data-bind="value: productoBuscado">
+					<span data-bind="click: function() { $data.buscarProducto(); }"><em class="fa fa-search" id="btn-busqueda"></em></span>
+				</div>
+			</div>
 			<div class="oj-hybrid-padding" id="content-wrapper">
 				<div id="products-wrapper">
 					<ul id="products-list">

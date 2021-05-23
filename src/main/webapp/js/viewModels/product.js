@@ -6,9 +6,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				super(ko);
 				var self = this;
 
-				self.nombre = ko.observable("Detergente");
-				self.precio = ko.observable("8,50 €");
-				self.picture = ko.observable("");
+				self.productoBuscado = ko.observable("");
 
 				self.productos = ko.observableArray([]);
 				self.categorias = ko.observableArray([]);
@@ -37,6 +35,22 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				let self = this;
 				let data = {
 					url: "product/getTodos",
+					type: "get",
+					contentType: 'application/json',
+					success: function(response) {
+						self.productos(response);
+					},
+					error: function(response) {
+						self.error(response.responseJSON.errorMessage);
+					}
+				};
+				$.ajax(data);
+			}
+			
+			buscarProducto() {
+				let self = this;
+				let data = {
+					url: "product/buscarProducto/" + this.productoBuscado(),
 					type: "get",
 					contentType: 'application/json',
 					success: function(response) {

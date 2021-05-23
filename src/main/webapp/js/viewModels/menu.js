@@ -1,7 +1,7 @@
 define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 	'jquery'], function(ko, app, moduleUtils, accUtils, $) {
 
-		class ProductViewModel {
+		class MenuViewModel {
 			constructor() {
 				var self = this;
 
@@ -185,6 +185,6 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 			}
 		}
 
-		return ProductViewModel;
+		return MenuViewModel;
 	});
 

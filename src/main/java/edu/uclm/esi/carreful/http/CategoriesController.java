@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import edu.uclm.esi.carreful.dao.CategoriesDao;
 import edu.uclm.esi.carreful.dao.ProductDao;
+import edu.uclm.esi.carreful.exceptionhandling.CarrefulException;
 import edu.uclm.esi.carreful.model.Categoria;
 import edu.uclm.esi.carreful.model.Product;
 
@@ -35,11 +36,15 @@ public class CategoriesController extends CookiesController {
 	
 	@GetMapping("/{categoria}")
 	public List<Product> getProductosPorCategoria(@PathVariable String categoria) {
+		List<Product> productosPorCategoria = null;
 		try {
 			int idCategoria = categoriesDao.codigoCategoria(categoria);
-			return productDao.productosPorCategoria(idCategoria);
-		} catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+			productosPorCategoria = productDao.productosPorCategoria(idCategoria);
+			if(productosPorCategoria == null)
+				throw new CarrefulException(HttpStatus.NOT_FOUND, "No existe la categoria " + categoria);
+		} catch(CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
+		return productosPorCategoria;
 	}
 }

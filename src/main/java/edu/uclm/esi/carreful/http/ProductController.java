@@ -88,6 +88,19 @@ public class ProductController extends CookiesController {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
 	}
+	
+	@GetMapping("/buscarProducto/{nombre}")
+	public List<Product> getProducto(@PathVariable String nombre) {
+		try {
+			List<Product> productos = productDao.findByNombreContaining(nombre);
+			if (productos != null)
+				return productos;
+			else
+				throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto buscado no existe");
+		} catch (CarrefulException e) {
+			throw new ResponseStatusException(e.getStatus(), e.getMessage());
+		}
+	}
 
 	@GetMapping("/getCarrito")
 	public Carrito getCarrito(HttpServletRequest request) {
@@ -170,7 +183,7 @@ public class ProductController extends CookiesController {
 			if (optProduct.isPresent())
 				productDao.deleteById(optProduct.get().getCodigo());
 			else
-				throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto no existe");
+				throw new CarrefulException(HttpStatus.NOT_FOUND, "El producto que intentó borrar no existe");
 		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
 		}
