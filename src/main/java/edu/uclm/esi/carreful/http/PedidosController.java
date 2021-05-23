@@ -21,11 +21,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import edu.uclm.esi.carreful.dao.OrderedProductDao;
 import edu.uclm.esi.carreful.dao.PedidoDao;
+import edu.uclm.esi.carreful.dao.ProductDao;
 import edu.uclm.esi.carreful.exceptionhandling.CarrefulException;
 import edu.uclm.esi.carreful.model.Carrito;
 import edu.uclm.esi.carreful.model.Estado;
 import edu.uclm.esi.carreful.model.OrderedProduct;
 import edu.uclm.esi.carreful.model.Pedido;
+import edu.uclm.esi.carreful.model.Product;
 import edu.uclm.esi.carreful.model.TipoPedido;
 import edu.uclm.esi.carreful.model.interfaces.GastosDeEnvio;
 import edu.uclm.esi.carreful.tokens.Email;
@@ -36,6 +38,9 @@ public class PedidosController {
 
 	@Autowired
 	private PedidoDao pedidoDao;
+	
+	@Autowired
+	private ProductDao productDao;
 
 	@Autowired
 	private OrderedProductDao orderedProductDao;
@@ -84,9 +89,14 @@ public class PedidosController {
 	}
 
 	public void guardarProductosDelPedido(Carrito carrito, Pedido pedido) {
+		Product productoPedido = null;
 		for (OrderedProduct op : carrito.getProducts()) {
 			op.setPedido(pedido);
 			orderedProductDao.save(op);
+			// Actualizar el stock del producto asociado
+			productoPedido = op.getProduct();
+			productoPedido.setStock(productoPedido.getStock() - (int)op.getAmount());
+			productDao.save(productoPedido);
 		}
 	}
 

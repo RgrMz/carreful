@@ -21,6 +21,4 @@ public interface ProductDao extends JpaRepository <Product, Long> {
 
 	List<Product> findByNombreContainingIgnoreCase(String nombre);
 
-	void update(Long codigo);
-
 }

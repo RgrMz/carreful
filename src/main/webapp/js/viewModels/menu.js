@@ -123,7 +123,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				$.ajax(data);
 			}
 			
-			editarStockProducto(nombre) {
+			editarStockProducto(nombre, stock) {
 				let self = this;
 				let data = {
 					url: "product/editarStockProducto/" + nombre + "/" + stock,

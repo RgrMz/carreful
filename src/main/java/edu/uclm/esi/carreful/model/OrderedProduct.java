@@ -29,7 +29,7 @@ public class OrderedProduct implements Serializable {
 	private Pedido pedido;
 	
 	public OrderedProduct() {
-		
+
 	}
 	
 	public Pedido getPedido() {
@@ -79,4 +79,13 @@ public class OrderedProduct implements Serializable {
 	public boolean isCongelado() {
 		return this.product.isCongelado();
 	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 }

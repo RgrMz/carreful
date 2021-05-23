@@ -195,12 +195,14 @@ public class ProductController extends CookiesController {
 			Optional<Product> optProduct = productDao.findByNombre(nombre);
 			if (optProduct.isPresent()) {
 				optProduct.get().setStock(numStock);
-				productDao.update(optProduct.get().getCodigo());
+				productDao.save(optProduct.get());
 			} else
 				throw new CarrefulException(HttpStatus.NOT_FOUND,
 						"El producto del cual intentó modificar su stock no existe");
 		} catch (CarrefulException e) {
 			throw new ResponseStatusException(e.getStatus(), e.getMessage());
+		} catch(NumberFormatException ne) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Por favor, introduzca un número válido para actualizar el stock");
 		}
 	}
 
