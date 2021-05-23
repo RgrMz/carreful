@@ -19,6 +19,6 @@ public interface ProductDao extends JpaRepository <Product, Long> {
 			+ " p.id_categoria = c.id WHERE p.id_categoria = ?1", nativeQuery = true)
 	List<Product> productosPorCategoria(int categoria);
 
-	List<Product> findByNombreContaining(String nombre);
+	List<Product> findByNombreContainingIgnoreCase(String nombre);
 
 }

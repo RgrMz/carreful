@@ -92,7 +92,7 @@ public class ProductController extends CookiesController {
 	@GetMapping("/buscarProducto/{nombre}")
 	public List<Product> getProducto(@PathVariable String nombre) {
 		try {
-			List<Product> productos = productDao.findByNombreContaining(nombre);
+			List<Product> productos = productDao.findByNombreContainingIgnoreCase(nombre);
 			if (productos != null)
 				return productos;
 			else
