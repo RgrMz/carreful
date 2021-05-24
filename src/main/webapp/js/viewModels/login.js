@@ -40,6 +40,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				self.pwd = ko.observable("");
 				self.message = ko.observable();
 				self.error = ko.observable();
+				self.recuerdame = ko.observable(true);
 
 				// Header Config
 				self.headerConfig = ko.observable({
@@ -61,7 +62,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 				var info = {
 					email: this.email(),
 					pwd: this.pwd(),
-					recuerdame: document.getElementById("recuerdame").checked
+					recuerdame: this.recuerdame()
 				};
 				var data = {
 					data: JSON.stringify(info),
@@ -89,6 +90,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 					contentType: 'application/json',
 					success: function() {
 						document.getElementById("alerta-pwd").style.display = "block";
+						document.getElementById("alerta-pwd").style.background = "rgb(75, 220, 65)";
 						document.getElementById("alerta-error").style.display = "none";
 						self.message("Si estás dado de alta, te habrá llegado un correo electrónico");
 					},
@@ -112,7 +114,7 @@ define(['knockout', 'appController', 'ojs/ojmodule-element-utils', 'accUtils',
 						if (response) {
 							self.email(response[0]);
 							self.pwd(response[1]);
-							document.getElementById("recuerdame").checked = true;
+							self.recuerdame(true)
 						}
 					},
 					error: function(response) {
