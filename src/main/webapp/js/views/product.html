@@ -51,7 +51,8 @@
 									data-bind="html : precio"></span> <span class="price"> €</span>
 								<br> <br>
 								<button
-									data-bind="click : function() { $parent.addUnidadDelCarrito(nombre); }">
+									data-bind="click : function() { $parent.addUnidadDelCarrito(nombre); },
+											   enable: stock > 0">
 									Añadir al carrito</button>
 							</div>
 						</li>
