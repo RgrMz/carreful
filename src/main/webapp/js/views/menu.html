@@ -134,22 +134,23 @@
 							<caption></caption>
 							<tr class="tr-producto-pedido">
 								<th class="td-th-producto-pedido" id="columna-nombre">Nombre</th>
-								<th class="td-th-producto-pedido" id="columna-precio">Precio</th>
+								<th class="td-th-producto-pedido" id="columna-precio">Precio (€)</th>
 								<th class="td-th-producto-pedido" id="columna-stock">Stock</th>
-								<th class="td-th-producto-pedido" id="columna-boton-editar">Editar
+								<th class="td-th-producto-pedido" id="columna-boton-editar">Guardar
 									stock</th>
-								<th class="td-th-producto-pedido" id="columna-boton-eliminar"></th>
+								<th class="td-th-producto-pedido" id="columna-boton-eliminar">Eliminar</th>
 							</tr>
 							<!-- ko foreach : productos -->
 							<tr class="tr-producto-pedido">
 								<td class="td-th-producto-pedido" data-bind="html : nombre"></td>
 								<td class="td-th-producto-pedido" data-bind="html : precio"></td>
 								<td class="td-th-producto-pedido"><input
-									class="input-stock" id="input-stock" type="text" data-bind="textInput : stock"></td>
+									class="input-stock" id="input-stock" type="text"
+									data-bind="textInput : stock"></td>
 								<td class="td-th-producto-pedido">
 									<button class="boton-editar-stock-producto"
 										data-bind="click : function() { $parent.editarStockProducto(nombre, stock); }">
-										<em class="fa fa-pencil fa-lg"></em>
+										<em class="fa fa-floppy-o fa-lg"></em>
 									</button>
 								</td>
 								<td class="td-th-producto-pedido">
